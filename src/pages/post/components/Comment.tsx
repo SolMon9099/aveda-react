@@ -20,7 +20,7 @@ type Props = {
 
 export default function Comment({comment, isChild}: Props){
     const { user } = useAuth()
-    const { commentHook } = useComment(comment)
+    const commentHook = useComment(comment);
     const { selectedPost } = useSelector((state) => state.post)
 
     return(
@@ -46,9 +46,10 @@ export default function Comment({comment, isChild}: Props){
                     }
                 />
                 {(selectedPost?.author._id === user?._id || comment.author._id === user?._id) && 
-                    <IconButton
-                        onClick={(e) => {e.stopPropagation(); commentHook.setOpenPopover(e.currentTarget)}}
-                    >
+                    <IconButton onClick={(e) => {
+                        e.stopPropagation(); 
+                        commentHook.setOpenPopover(e.currentTarget);
+                    }}>
                         <Iconify icon='ic:outline-more-vert'/>
                     </IconButton>
                 }

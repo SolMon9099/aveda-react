@@ -11,63 +11,67 @@ import { setIsOpen } from 'src/redux/slices/auth';
 
 // ----------------------------------------------------------------------
 
-export default function usePost(post : feedPostType) {
+export default function usePost(post: feedPostType) {
     const { pathname } = useLocation();
     const { user, isAuthenticated } = useAuth()
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const [ liked, setLiked ] = useState(post.liked);
-    const [ likeCount, setLikeCount ] = useState(post.likeCount);
-    const [ saved, setSaved ] = useState(post.saved);
-    const [ openPopover, setOpenPopover ] = useState(null)
+    const [liked, setLiked] = useState(post.liked);
+    const [likeCount, setLikeCount] = useState(post.likeCount);
+    const [saved, setSaved] = useState(post.saved);
+    const [openPopover, setOpenPopover] = useState(null)
 
-    useEffect(() =>{
+    useEffect(() => {
         setLiked(post.liked)
         setLikeCount(post.likeCount)
         setSaved(post.saved)
-    },[post])
+    }, [post])
 
-    const handleLike = () =>{
-        if(isAuthenticated){
+    const handleLike = () => {
+        if (isAuthenticated) {
             dispatch(likePost(user?.id, post._id))
-            if(!liked){
-                setLikeCount(likeCount+1)
-            }else{
-                setLikeCount(likeCount-1)
+            if (!liked) {
+                setLikeCount(likeCount + 1)
+            } else {
+                setLikeCount(likeCount - 1)
             }
             setLiked(!liked)
-        }else{
+        } else {
             dispatch(setIsOpen(true))
         }
     }
 
-    const handleSave = () =>{
-        if(isAuthenticated){
+    const handleSave = () => {
+        if (isAuthenticated) {
             dispatch(savePost(user?.id, post._id))
             setSaved(!saved)
-            if(pathname.includes('salvos')){
+            if (pathname.includes('salvos')) {
                 dispatch(removePost(post._id))
             }
-        }else{
+        } else {
             dispatch(setIsOpen(true))
         }
     }
 
-    const handleDelete = async () =>{
+    const handleDelete = async () => {
         await dispatch(deletePost(post._id))
         window.location.reload()
     }
 
-    const handleGoToPost = () =>{
+    const handleGoToPost = () => {
         navigate(PATH_FORUM.post + post._id)
     }
 
-    const handleGoToLive = () =>{
-        navigate(PATH_FORUM.live + post._id)
+    const handleGoToLive = () => {
+        if (isAuthenticated) {
+            navigate(PATH_FORUM.live + post._id)
+        } else {
+            dispatch(setIsOpen(true))
+        }
     }
 
-    const handleCopy = () =>{
+    const handleCopy = () => {
         enqueueSnackbar('Copiado')
     }
 

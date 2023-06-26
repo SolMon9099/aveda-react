@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, IconButton, MenuItem, Stack, Typography } from "@mui/material";
+import { Box, Card, CardContent, Grid, IconButton, MenuItem, Stack, Typography } from "@mui/material";
 import moment from "moment";
 import Iconify from "src/components/Iconify";
 import Image from "src/components/Image";
@@ -32,9 +32,10 @@ export default function CardPost({postHook}: any){
                             description={selectedPost.author.description} 
                         />
                         {(selectedPost.author._id === user?._id) && 
-                            <IconButton
-                                onClick={(e) => {e.stopPropagation(); postHook.setOpenPopover(e.currentTarget)}}
-                            >
+                            <IconButton onClick={(event) => {
+                                event.stopPropagation(); 
+                                postHook.setOpenPopover(event.currentTarget);
+                            }}>
                                 <Iconify icon='ic:outline-more-vert'/>
                             </IconButton>
                         }
@@ -46,13 +47,15 @@ export default function CardPost({postHook}: any){
                         {selectedPost.communityPhoto &&
                             <Image src={selectedPost.communityPhoto} sx={{width: 24, height: 24, borderRadius: 0.5}} />
                         }
-                        {selectedPost.topics.map((topic, idx)=>
-                            <Label key={topic.name + selectedPost._id + idx} sx={{ borderRadius: 0.5 }} color={topic.isFromCommunity ? 'secondary' : 'default'}>
-                                <Typography variant='caption'>
-                                    {topic.name}
-                                </Typography>
-                            </Label>
-                        )}
+                        <Grid container spacing={1}> 
+                            {selectedPost.topics.map((topic, idx)=> <Grid item>
+                                <Label key={topic.name + selectedPost._id + idx} sx={{ borderRadius: 0.5 }} color={topic.isFromCommunity ? 'secondary' : 'default'}>
+                                    <Typography variant='caption'>
+                                        {topic.name}
+                                    </Typography>
+                                </Label>
+                                </Grid>)}
+                        </Grid>
                     </Stack>
                     <Markdown children={selectedPost.body}/>
                     {selectedPost.attachments &&

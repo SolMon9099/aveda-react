@@ -10,21 +10,21 @@ import { setIsOpen } from 'src/redux/slices/auth';
 
 const useComment = (comment: commentType | commentChildrenType | null) => {
     const { selectedPost } = useSelector((state) => state.post)
-    const [ show, setShow ] = useState(false)
+    const [show, setShow] = useState(false)
     const { user, isAuthenticated } = useAuth()
     const dispatch = useDispatch()
     const [images, setImages] = useState([])
     const [links, setLinks] = useState([])
     const [liked, setLiked] = useState(comment?.liked)
     const [likeCount, setLikeCount] = useState(comment?.likeCount || 0)
-    const [ openPopover, setOpenPopover ] = useState(null)
+    const [openPopover, setOpenPopover] = useState<EventTarget & HTMLButtonElement | null>(null);
 
-    useEffect(() =>{
-        if(comment){
+    useEffect(() => {
+        if (comment) {
             setLiked(comment.liked)
             setLikeCount(comment.likeCount)
         }
-    },[comment])
+    }, [comment])
 
     var defaultValues = {
         // @ts-ignore
@@ -32,81 +32,84 @@ const useComment = (comment: commentType | commentChildrenType | null) => {
     };
 
     const NewCommentSchema = Yup.object().shape({
-        body:  Yup.string().required('Escreva algo no comentário!!'),
+        body: Yup.string().required('Escreva algo no comentário!!'),
     });
 
-    const methods = useForm<{body: string}>({
+    const methods = useForm<{ body: string }>({
         resolver: yupResolver(NewCommentSchema),
         defaultValues,
     });
-    
+
     const {
         handleSubmit,
         reset,
         formState: { isSubmitting }
     } = methods;
 
-    const onSubmit = async (data: {body: string}) => {
-        try{
-            if(comment && selectedPost){
+    const onSubmit = async (data: { body: string }) => {
+        try {
+            if (comment && selectedPost) {
                 await dispatch(commentPost(user?.id, selectedPost?._id, data.body, images, links, comment._id))
-            }else if(selectedPost){
+            } else if (selectedPost) {
                 await dispatch(commentPost(user?.id, selectedPost?._id, data.body, images, links,))
             }
             setImages([])
             setLinks([])
             reset()
             setShow(false)
-            if(selectedPost){
+            if (selectedPost) {
                 dispatch(getPostById(user?.id, selectedPost?._id, false, true))
             }
-        }catch(e){
+        } catch (e) {
             console.log(e)
         }
     };
 
-    const onCancel = () =>{
+    const onCancel = () => {
+        console.log('ON CANCEL');
         setImages([])
         setLinks([])
         setShow(false)
         reset()
     }
 
-    const handleLike = (commentId: string) =>{
-        if(isAuthenticated){
+    const handleLike = (commentId: string) => {
+        if (isAuthenticated) {
             dispatch(likeComment(user?.id, commentId))
-            if(!liked){
-                setLikeCount(likeCount+1)
-            }else{
-                setLikeCount(likeCount-1)
+            if (!liked) {
+                setLikeCount(likeCount + 1)
+            } else {
+                setLikeCount(likeCount - 1)
             }
             setLiked(!liked)
-        }else{
+        } else {
             dispatch(setIsOpen(true))
         }
     }
 
-    const handleDelete =  async (commentId: string) =>{
+    const handleDelete = async (commentId: string) => {
         await dispatch(deleteComment(commentId))
         window.location.reload()
     }
 
-    const handleShow = () =>{
-        if(!show && !isAuthenticated){
+    const handleShow = () => {
+        console.log('HANDLE SHOW');
+        if (!show && !isAuthenticated) {
             dispatch(setIsOpen(true))
-        }else{
-            if(show){
-                setImages([])
-                setLinks([])
-                setShow(false)
-                reset()
-            }else{
-                setShow(true)
-            }
+        } else {
+            // if (show) {
+            //     setImages([])
+            //     setLinks([])
+            //     setShow(false)
+            //     reset()
+            // } else {
+            //     setShow(true)
+            // }
+            setShow(true);
         }
     }
 
-    const commentHook: any = {
+    return {
         images,
         links,
         methods,
@@ -125,11 +128,7 @@ const useComment = (comment: commentType | commentChildrenType | null) => {
         handleLike,
         handleDelete,
         handleShow
-    }
-
-    return{
-        commentHook
-    }
+    };
 }
 
 export default useComment;

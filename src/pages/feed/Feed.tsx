@@ -12,7 +12,6 @@ import useResponsive from "src/hooks/useResponsive";
 import { useSelector } from "src/redux/store";
 import AdevaLoading from "src/components/AdevaLoading";
 
-
 export default function Feed(){
     const { isLoading } = useSelector((state) => state.feed)
     const { feedHook } = useFeed()

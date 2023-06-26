@@ -4,15 +4,14 @@ import { FormProvider, RHFEditor } from "src/components/hook-form";
 import MyAvatar from "src/components/MyAvatar";
 import useComment from "../hooks/Comment.hook";
 
+export default function CardNewComment() {
+    const commentHook = useComment(null);
 
-export default function CardNewComment(){
-    const { commentHook } = useComment(null)
-
-    return(
-        <Card sx={{backgroundColor: (theme) => theme.palette.background.neutral, boxShadow: 'none'}}>
+    return (
+        <Card sx={{ backgroundColor: (theme) => theme.palette.background.neutral, boxShadow: 'none' }} onClick={() => commentHook.handleShow()}>
             <FormProvider methods={commentHook.methods} onSubmit={commentHook.handleSubmit(commentHook.onSubmit)}>
-                <Stack spacing={2} direction='row' sx={{padding: 2, width: '100%'}} alignItems={commentHook.show ? undefined : 'center'}>
-                    <MyAvatar sx={{width: 36, height: 36}}/>
+                <Stack spacing={2} direction='row' sx={{ padding: 2, width: '100%' }} alignItems={commentHook.show ? undefined : 'center'}>
+                    <MyAvatar sx={{ width: 36, height: 36 }} />
                     {commentHook.show ?
                         <Box flexGrow={1}>
                             <RHFEditor
@@ -22,14 +21,10 @@ export default function CardNewComment(){
                                 setImages={commentHook.setImages}
                                 links={commentHook.links}
                                 setLinks={commentHook.setLinks}
-                                sx={{
-                                    // @ts-ignore
-                                    backgroundColor: (theme: any) => theme.palette.background.default,
-                                    width: '100%',
-                                }}
+                                sx={{ bgcolor: (theme) => theme.palette.background.default, width: '100%' }}
                             />
                             <Stack direction='row' spacing={2}>
-                                <Box flexGrow={1}/>
+                                <Box flexGrow={1} />
                                 <Button color='inherit' onClick={() => commentHook.onCancel()}>
                                     Descartar
                                 </Button>
@@ -47,7 +42,7 @@ export default function CardNewComment(){
                             sx={{
                                 backgroundColor: (theme) => theme.palette.background.default,
                                 borderRadius: 1,
-                                '.MuiOutlinedInput-input':{
+                                '.MuiOutlinedInput-input': {
                                     cursor: 'text'
                                 }
                             }}

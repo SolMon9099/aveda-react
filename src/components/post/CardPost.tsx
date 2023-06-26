@@ -1,4 +1,4 @@
-import { Card, CardContent, Stack, Typography, Box, IconButton, MenuItem } from "@mui/material"
+import { Card, CardContent, Stack, Typography, Box, IconButton, MenuItem, Grid } from "@mui/material"
 import UserAvatar from "src/components/UserAvatar"
 import moment from 'moment'
 import Label from "src/components/Label"
@@ -29,13 +29,7 @@ export default function CardPost({post}: Props){
     }else{
         return(
             <Card 
-                sx={{ 
-                    borderRadius: 1,
-                    '&:hover':{
-                        cursor:'pointer',
-                        boxShadow: 'none'
-                    } 
-                }}
+                sx={{  borderRadius: 1, '&:hover':{ cursor:'pointer', boxShadow: 'none' }}}
                 onClick={() => postHook.handleGoToPost()}
             >
                 <CardContent>
@@ -43,9 +37,7 @@ export default function CardPost({post}: Props){
                         <Stack direction='row' alignItems='center' justifyContent='space-between'>
                             <UserAvatar email={post.author.email} description={post.author.description} photo={post.author.photo} name={post.author.name} sub={moment(post.createdAt).format('DD [de] MMMM')}/>
                             {post.author._id === user?._id && 
-                                <IconButton
-                                    onClick={(e) => {e.stopPropagation(); postHook.setOpenPopover(e.currentTarget)}}
-                                >
+                                <IconButton onClick={(e) => {e.stopPropagation(); postHook.setOpenPopover(e.currentTarget)}}>
                                     <Iconify icon='ic:outline-more-vert'/>
                                 </IconButton>
                             }
@@ -53,18 +45,17 @@ export default function CardPost({post}: Props){
                         <TextMaxLine line={1} variant='h6'>
                             {post.title}
                         </TextMaxLine>
-
                         <Stack direction='row' spacing={1} alignItems='center'>
                             {post.communityPhoto &&
                                 <Image src={post.communityPhoto} sx={{width: 24, height: 24, borderRadius: 0.5}} />
                             }
-                            {post.topics.map((topic, idx)=>
-                                <Label key={topic.name + post._id + idx} sx={{ borderRadius: 0.5 }} color={topic.isFromCommunity ? 'secondary' : 'default'}>
-                                    <Typography variant='caption'>
-                                        {topic.name}
-                                    </Typography>
-                                </Label>
-                            )}
+                            <Grid container spacing={1}>
+                                {post.topics.map((topic, idx) => <Grid item>
+                                    <Label key={topic.name + post._id + idx} sx={{ borderRadius: 0.5 }} color={topic.isFromCommunity ? 'secondary' : 'default'}>
+                                        <Typography variant='caption'>{topic.name}</Typography>
+                                    </Label>
+                                </Grid>)}
+                            </Grid>
                         </Stack>
                         <Markdown maxline={5} children={post.body}/>
                         {post.attachments &&
@@ -93,9 +84,7 @@ export default function CardPost({post}: Props){
                         },
                     }}
                 >
-                    <MenuItem
-                        onClick={(e) => {e.stopPropagation(); postHook.handleDelete()}}
-                    >
+                    <MenuItem onClick={(e) => {e.stopPropagation(); postHook.handleDelete()}}>
                         Excluir
                     </MenuItem>
                 </MenuPopover>

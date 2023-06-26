@@ -79,10 +79,10 @@ export default function PostAttatchment({ attatchments }: Props) {
                 </Container>
             }
             {videos.length > 0 &&
-                videos.map((video) => {
+                videos.map((video: feedPostAttachmentType, index: number) => {
                     let videoId = getYoutubeId(video.url);
                     const url = `https://youtube.com/embed/${videoId}`;
-                    return <Box flexGrow={1} display='flex' width='100%' sx={{ borderRadius: '10px', overflow: 'hidden' }}>
+                    return <Box key={index} flexGrow={1} display='flex' width='100%' sx={{ borderRadius: '10px', overflow: 'hidden' }}>
                         <iframe
                             src={url}
                             frameBorder='0'
