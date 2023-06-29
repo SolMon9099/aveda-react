@@ -106,7 +106,7 @@ export default function MenuPopover({
       PaperProps={{
         sx: {
           p: 1,
-          width: 200,
+          width: 'auto',
           overflow: 'inherit',
           ...sx,
         },

@@ -5,6 +5,7 @@ import { feedPostAttachmentType } from "src/@types/feed"
 import { CarouselArrowIndex } from "../carousel";
 import Image from "../Image";
 import LightboxModal from "../LightboxModal";
+import { getYoutubeId } from "src/redux/slices/new-post";
 
 type Props = {
     attatchments: feedPostAttachmentType[]
@@ -42,13 +43,6 @@ export default function PostAttatchment({ attatchments }: Props) {
         carouselRef.current?.slickNext();
     };
 
-    const getYoutubeId = (url: string) => {
-        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-        const match = url.match(regExp);
-
-        return (match && match[2].length === 11) ? match[2] : false;
-    }
-
     return (
         <Stack spacing={0} alignItems='stretch' >
             {images.length > 0 &&
@@ -80,7 +74,7 @@ export default function PostAttatchment({ attatchments }: Props) {
             }
             {videos.length > 0 &&
                 videos.map((video: feedPostAttachmentType, index: number) => {
-                    let videoId = getYoutubeId(video.url);
+                    const videoId = getYoutubeId(video.url);
                     const url = `https://youtube.com/embed/${videoId}`;
                     return <Box key={index} flexGrow={1} display='flex' width='100%' sx={{ borderRadius: '10px', overflow: 'hidden' }}>
                         <iframe

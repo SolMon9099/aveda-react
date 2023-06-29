@@ -14,63 +14,59 @@ type PostState = {
     isLoading: boolean,
     isLoadingOptions: boolean,
     error: any | null,
-    localOptions: {value: string, label: string}[],
-    topicOptions: {value: string, label: string, fromCommunity: boolean}[],
-    user:any
+    localOptions: { value: string, label: string }[],
+    topicOptions: { value: string, label: string, fromCommunity: boolean }[],
+    user: any
 }
 
 const initialState: PostState = {
-  isLoading: false,
-  isLoadingOptions: false,
-  error: null,
-  localOptions: [],
-  topicOptions: [],
-  user: null,
+    isLoading: false,
+    isLoadingOptions: false,
+    error: null,
+    localOptions: [],
+    topicOptions: [],
+    user: null,
 };
 
 const slice = createSlice({
-  name: 'new-post',
-  initialState,
-  reducers: {
-    // START LOADING
-    startLoading(state) {
-        state.isLoading = true;
+    name: 'new-post',
+    initialState,
+    reducers: {
+        // START LOADING
+        startLoading(state) {
+            state.isLoading = true;
+        },
+
+        startLoadingOptions(state) {
+            state.isLoadingOptions = true;
+        },
+
+        // HAS ERROR
+        hasError(state, action) {
+            state.isLoading = false;
+            state.error = action.payload;
+        },
+
+        getOptionsSuccess(state, action) {
+            state.localOptions = action.payload.local;
+            state.topicOptions = action.payload.topic;
+            state.isLoadingOptions = false;
+        },
+
+        getUserSuccess(state, action) {
+            state.user = action.payload;
+            state.isLoadingOptions = false;
+        }
     },
-
-    startLoadingOptions(state) {
-        state.isLoadingOptions = true;
-    },
-
-    // HAS ERROR
-    hasError(state, action) {
-        state.isLoading = false;
-        state.error = action.payload;
-    },
-
-    getOptionsSuccess(state, action){
-        state.localOptions = action.payload.local;
-        state.topicOptions = action.payload.topic;
-        state.isLoadingOptions = false;
-    },
-
-    getUserSuccess(state, action){
-        state.user = action.payload;
-        state.isLoadingOptions = false;
-    }
-
-  },
 });
 
 // Reducer
 export default slice.reducer;
 
-function getYoutubeId(url: string) {
+export function getYoutubeId(url: string) : string {
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
     const match = url.match(regExp);
-
-    return (match && match[2].length === 11)
-      ? match[2]
-      : false;
+    return (match && match[2].length === 11) ? match[2] : '';
 }
 
 export function getOptions(userId: string) {
@@ -80,17 +76,17 @@ export function getOptions(userId: string) {
             var resCommunity = await api.get(`/community/all?userId=${userId}`);
             var resTopic = await api.get(`/topic/many?userId=${userId}&limit=1000`);
             var resTopicFixed = await api.get(`/topic/fixed?userId=${userId}`);
-            var auxCommunities: {value: string, label: string}[] = [{value: 'forum', label: 'Fórum Adeva'}];
-            var auxTopics: {value: string, label: string, fromCommunity: boolean}[] = [];
-            resCommunity.data.forEach((c: any) =>{
-                if(c.isMember){
+            var auxCommunities: { value: string, label: string }[] = [{ value: 'forum', label: 'Fórum Adeva' }];
+            var auxTopics: { value: string, label: string, fromCommunity: boolean }[] = [];
+            resCommunity.data.forEach((c: any) => {
+                if (c.isMember) {
                     auxCommunities.push({ value: c._id, label: c.name })
                 }
             })
-            resTopic.data.data.forEach((t: any) =>{
+            resTopic.data.data.forEach((t: any) => {
                 auxTopics.push({ value: t._id, label: t.name, fromCommunity: t.fromCommunity })
             })
-            resTopicFixed.data.forEach((t: any) =>{
+            resTopicFixed.data.forEach((t: any) => {
                 auxTopics.push({ value: t._id, label: t.name, fromCommunity: t.fromCommunity })
             })
             auxTopics.sort(function (a, b) {
@@ -111,19 +107,19 @@ export function getOptions(userId: string) {
                 }
                 return 0;
             });
-            dispatch(slice.actions.getOptionsSuccess({local: auxCommunities, topic: auxTopics}));
+            dispatch(slice.actions.getOptionsSuccess({ local: auxCommunities, topic: auxTopics }));
         } catch (error) {
             dispatch(slice.actions.hasError(error));
         }
     };
 }
 
-export function getApiKey(userId: string){
+export function getApiKey(userId: string) {
     return async () => {
         dispatch(slice.actions.startLoadingOptions());
         try {
             var res = await api.get(`/user/userData`);
-            var user ={...res.data}
+            var user = { ...res.data }
             dispatch(slice.actions.getUserSuccess(user));
         } catch (error) {
             dispatch(slice.actions.hasError(error));
@@ -131,11 +127,11 @@ export function getApiKey(userId: string){
     };
 }
 
-export function create(userId: string, post: newPostType, images: File[], links: string[],isLive:any,thumb:any,isLiveNow?:any,date?:any) {
+export function create(userId: string, post: newPostType, images: File[], links: string[], currentTab: number, thumb: any, isLiveNow?: any, date?: any) {
     return async () => {
         dispatch(slice.actions.startLoadingOptions());
         try {
-            if(isLive === 1){
+            if (currentTab === 1) { // Live publica
                 var auxPost: any = {}
                 auxPost.author = userId
                 auxPost.title = post.title
@@ -143,38 +139,36 @@ export function create(userId: string, post: newPostType, images: File[], links:
                 auxPost.local = []
                 auxPost.topics = []
                 auxPost.attachments = []
-                
 
-                post.local.forEach((local) =>{
-                    if(local.value === 'forum'){
-                        auxPost.local.push({localType: 'forum'})
-                    }else{
-                        auxPost.local.push({localType: 'community', community: local.value})
+                post.local.forEach((local) => {
+                    if (local.value === 'forum') {
+                        auxPost.local.push({ localType: 'forum' })
+                    } else {
+                        auxPost.local.push({ localType: 'community', community: local.value })
                     }
                 })
 
-                post.topics.forEach((topic) =>{
+                post.topics.forEach((topic) => {
                     auxPost.topics.push(topic.value)
                 })
 
-                const map = images.map(async (img) =>{
+                const map = images.map(async (img) => {
                     var base64 = await fileToBase64(img)
-                    var res = await api.post('/attachment/create', {image: base64, attachmentType: 'image', userId})
+                    var res = await api.post('/attachment/create', { image: base64, attachmentType: 'image', userId })
                     auxPost.attachments.push(res.data)
                 })
 
                 await Promise.all(map)
 
-                const map2 = links.map(async (link) =>{
-                    var res = await api.post('/attachment/create', {url:link, attachmentType: 'link', userId})
+                const map2 = links.map(async (link) => {
+                    var res = await api.post('/attachment/create', { url: link, attachmentType: 'link', userId })
                     auxPost.attachments.push(res.data)
                 })
 
                 await Promise.all(map2)
 
                 await api.post('/post/create', auxPost)
-            }else{
-                var today = moment(new Date()).format('LT')
+            } else { // Live privada
                 var auxPostLive: any = {}
                 auxPostLive.author = userId
                 auxPostLive.title = post.title
@@ -182,58 +176,53 @@ export function create(userId: string, post: newPostType, images: File[], links:
                 auxPostLive.isLive = true
                 auxPostLive.local = []
                 auxPostLive.topics = []
-                auxPostLive.scheduleHour = post.scheduleHour ? post.scheduleHour : today
+                auxPostLive.scheduleHour = post.scheduleHour ? post.scheduleHour : moment(new Date()).format('LT')
                 auxPostLive.isLiveNow = isLiveNow
                 auxPostLive.date = date
                 auxPostLive.isPanda = post.isPanda
                 auxPostLive.pandaApiKey = post.pandaApiKey
-                let endHour = moment(date).add(post.duration,'minutes').format('LT')
-                auxPostLive.endHour = endHour
-                if(!post.isPanda){
-                    let videoId = await getYoutubeId(post.link)
-                    auxPostLive.link = "https://youtube.com/embed/"+videoId
-                }
+                auxPostLive.endHour = moment(date).add(post.duration, 'minutes').format('LT')
                 auxPostLive.duration = post.duration
-                // auxPostLive.thumbnail = thumb
-                const thumbGen = thumb.map(async (tbm: any) =>{
+                auxPostLive.link = post.isPanda ? '' : `https://youtube.com/embed/${getYoutubeId(post.link)}`;
+                
+                const thumbGen = thumb.map(async (tbm: any) => {
                     var thumbBase64 = await fileToBase64(tbm)
-                    var thumbRes = await api.post('/attachment/create', {image: thumbBase64, attachmentType: 'thumbnail', userId})
+                    var thumbRes = await api.post('/attachment/create', { image: thumbBase64, attachmentType: 'thumbnail', userId })
                     auxPostLive.thumbnail = thumbRes.data.url
                 })
                 await Promise.all(thumbGen)
-                
-                post.local.forEach((local) =>{
-                    if(local.value === 'forum'){
-                        auxPostLive.local.push({localType: 'forum'})
-                    }else{
-                        auxPostLive.local.push({localType: 'community', community: local.value})
+
+                post.local.forEach((local) => {
+                    if (local.value === 'forum') {
+                        auxPostLive.local.push({ localType: 'forum' })
+                    } else {
+                        auxPostLive.local.push({ localType: 'community', community: local.value })
                     }
                 })
 
                 auxPostLive.topics.push('640b42a609a353d4956ebd75')
-                post.topics.forEach((topic) =>{
-                    if(topic.value !== '640b42a609a353d4956ebd75'){
+                post.topics.forEach((topic) => {
+                    if (topic.value !== '640b42a609a353d4956ebd75') {
                         auxPostLive.topics.push(topic.value)
                     }
                 })
-  
-                const map = images.map(async (img) =>{
+
+                const map = images.map(async (img) => {
                     var base64 = await fileToBase64(img)
-                    var res = await api.post('/attachment/create', {image: base64, attachmentType: 'image', userId})
+                    var res = await api.post('/attachment/create', { image: base64, attachmentType: 'image', userId })
                     auxPostLive.attachments.push(res.data)
                 })
 
                 await Promise.all(map)
 
-                const map2 = links.map(async (link) =>{
-                    var res = await api.post('/attachment/create', {url:link, attachmentType: 'link', userId})
+                const map2 = links.map(async (link) => {
+                    var res = await api.post('/attachment/create', { url: link, attachmentType: 'link', userId })
                     auxPostLive.attachments.push(res.data)
                 })
 
                 await Promise.all(map2)
 
                 await api.post('/post/create', auxPostLive)
-
             }
         } catch (error) {
             dispatch(slice.actions.hasError(error));

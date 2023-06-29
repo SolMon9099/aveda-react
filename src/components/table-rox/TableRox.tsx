@@ -1,4 +1,5 @@
-import { TableContainer, Table, TableBody, Card, TextField, InputAdornment, Typography, Box, TablePagination } from "@mui/material"
+import {TableContainer, Table, TableBody, Card, TextField, InputAdornment, Typography, Box, TablePagination } from "@mui/material"
+import FilterListIcon from '@mui/icons-material/FilterList';
 import { Stack } from "@mui/system"
 import useTableRox, { getComparator } from "src/hooks/useTableRox"
 import Iconify from "../Iconify"
@@ -8,7 +9,7 @@ import TableHeadCustom from "./TableHeadCustom"
 import TableRowRox from "./TableRowRox"
 import TableSelectedActions from "./TableSelectedActions"
 import React from "react"
-
+import Label from "../Label";
 
 type Props = {
     data: any[],
@@ -19,6 +20,7 @@ type Props = {
     avatarKey?: string | undefined,
     avatarType?: 'label' | 'icon' | 'default',
     hasSearch?: boolean,
+    hasFilter?: boolean,
     hasCount?: boolean,
     labelCount?: string,
     selectKey?: string,
@@ -42,7 +44,8 @@ export default function TableRox({
         defaultOrderBy,
         tableTitle,
         tableSubtitle, 
-        hasSearch=false, 
+        hasSearch=false,
+        hasFilter=false,
         hasCount=false, 
         labelCount='Dados',
         selectKey='id',
@@ -109,25 +112,42 @@ export default function TableRox({
                         </Stack>
                     }
                     <Stack spacing={2}>
-                        {hasSearch &&
-                            <TextField
-                                sx={{
-                                    ml: 3,
-                                    mr: 3,
-                                    maxWidth: 480
-                                }}
-                                size='small'
-                                InputProps={{
-                                    startAdornment:(
-                                        <InputAdornment position="start">
-                                            <Iconify icon='ri:search-line' width={18} height={18}/>
-                                        </InputAdornment>
-                                    )
-                                }}
-                                placeholder='Pesquisar...'
-                                value={filterName}
-                                onChange={(e) => onFilterName(e.target.value)}
-                            />
+                        {hasSearch && (
+                            <>
+                            <div style={{display:'flex'}}>
+                                <TextField
+                                    sx={{
+                                        ml: 3,
+                                        mr: 3,
+                                        maxWidth: 480
+                                    }}
+                                    size='small'
+                                    InputProps={{
+                                        startAdornment:(
+                                            <InputAdornment position="start">
+                                                <Iconify icon='ri:search-line' width={18} height={18}/>
+                                            </InputAdornment>
+                                        )
+                                    }}
+                                    placeholder='Pesquisar...'
+                                    value={filterName}
+                                    onChange={(e) => onFilterName(e.target.value)}
+                                />
+                                {hasFilter && (
+                                    <Label 
+                                        sx={{
+                                            height: 40
+                                        }}
+                                        variant="filled"
+                                        color='default'
+                                        endIcon = {<FilterListIcon/>}
+                                    >
+                                        Filtrar
+                                    </Label>
+                                )}
+                            </div>
+                            </>
+                        )
                         }
                         {hasCount &&
                             <Typography
@@ -174,7 +194,7 @@ export default function TableRox({
 
                             <TableBody>  
                                 {dataFiltered.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row: any) =>
-                                   <TableRowRox 
+                                    <TableRowRox 
                                         key={row[selectKey]} 
                                         row={row} 
                                         header={header} 

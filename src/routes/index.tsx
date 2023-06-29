@@ -45,7 +45,7 @@ export default function Router() {
     },
     {
       path: '/forum',
-      element: <LiveLayout />,
+      element: <AuthGuard><LiveLayout /></AuthGuard>,
       children: [
         { path: 'live/:postId', element: <LivePost/> },
       ]
@@ -57,7 +57,7 @@ export default function Router() {
         { element: <Navigate to="/erp/processos" replace />, index: true },
         { path: 'pessoas', element: <WIP/> },
         { path: 'agendas', element: <WIP/> },
-        { path: 'tarefas', element: <WIP/> },
+        { path: 'tarefas', element: <Tasks/> },
         { path: 'processos', element: <Process/> },
         { path: 'processos/:processId', element: <ProcessDetail/> },
         { path: 'caso/:caseId', element: <CaseDetail/> },
@@ -126,3 +126,7 @@ const CaseDetail = Loadable(lazy(() => import('../pages/case-detail/CaseDetail')
 
 // Movimentation
 const Movimentations = Loadable(lazy(() => import('../pages/movimentations/Movimentations')));
+
+//tasks
+
+const Tasks = Loadable(lazy(() => import('../pages/tasks/Tasks')));

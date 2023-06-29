@@ -13,6 +13,7 @@ import authReducer from './slices/auth';
 import liveReducer from './slices/live';
 import resetReducer from './slices/reset'
 import processReducer from './slices/process';
+import taskReducer from './slices/task';
 import processImportReducer from './slices/processImport';
 import processImportListReducer from './slices/processImportList';
 import processDetailReducer from './slices/processDetail';
@@ -42,6 +43,7 @@ const rootReducer = combineReducers({
   live: liveReducer,
   reset: resetReducer,
   process: processReducer,
+  task:taskReducer,
   processImport: processImportReducer,
   processImportList: processImportListReducer,
   processDetail: processDetailReducer,
