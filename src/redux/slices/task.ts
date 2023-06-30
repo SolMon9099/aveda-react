@@ -51,6 +51,21 @@ const slice = createSlice({
     getOriginTaskListSuccess(state, action){
       state.origin_taskList = action.payload;
     },
+
+    dropTaskToService(state, action){
+      if(state.taskList){
+        var task_list = state.taskList;
+        if(action.payload.onlyReorder){
+          task_list.splice(action.payload.newIndex, 0, task_list.splice(action.payload.oldIndex, 1)[0]);
+        }else{
+          var task = task_list[action.payload.oldIndex]
+          task_list.splice(action.payload.oldIndex, 1)
+          task.status = action.payload.newStatus
+          task_list.splice(action.payload.newIndex, 0, task);
+        }
+        state.taskList = task_list
+      }
+    },
   },
 });
 
@@ -104,6 +119,17 @@ export function inactiveProcess(ids: string[]){
         await new Promise((resolve) => setTimeout(resolve, 500));
     } catch (error) {
         dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
+export function dropTask(taskId: string, oldStatus: string, newStatus: string, oldIndex: number ,newIndex: number, onlyReorder: boolean){
+  return async () => {
+    try {
+      // await new Promise(resolve => setTimeout(resolve, 1000));
+      dispatch(slice.actions.dropTaskToService({ taskId, oldStatus, newStatus, oldIndex, newIndex, onlyReorder }))
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
     }
   };
 }
