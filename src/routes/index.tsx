@@ -55,7 +55,8 @@ export default function Router() {
       element: <AuthGuard><DashboardLayout /></AuthGuard>,
       children: [
         { element: <Navigate to="/erp/processos" replace />, index: true },
-        { path: 'pessoas', element: <WIP/> },
+        { path: 'pessoas', element: <Contacts/> },
+        { path: 'pessoas/:contactId', element: <ContactDetail/> },
         { path: 'agendas', element: <WIP/> },
         { path: 'tarefas', element: <Tasks/> },
         { path: 'processos', element: <Process/> },
@@ -130,3 +131,6 @@ const Movimentations = Loadable(lazy(() => import('../pages/movimentations/Movim
 //tasks
 
 const Tasks = Loadable(lazy(() => import('../pages/tasks/Tasks')));
+
+const Contacts = Loadable(lazy(() => import('../pages/contacts/Contacts')));
+const ContactDetail = Loadable(lazy(() => import('../pages/contacts/ContactDetail')));

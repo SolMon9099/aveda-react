@@ -30,7 +30,7 @@ export default function RHFAutoComplete({ name, options, multiple, renderTags, .
             options={options}
             getOptionLabel={(option) => option.label || ""}
             isOptionEqualToValue={(option,value) => option.value === value.value}
-            renderInput={(params) => <TextField {...params} {...field} name={name} margin="none" error={!!error} helperText={error?.message} {...other}/>}
+            renderInput={(params) => <TextField {...params} name={name} margin="none" error={!!error} helperText={error?.message} {...other}/>}
             renderTags={renderTags}
         />
       )}
