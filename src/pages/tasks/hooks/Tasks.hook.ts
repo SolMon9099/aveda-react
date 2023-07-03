@@ -7,6 +7,8 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import moment from "moment";
 import { taskSchema } from "src/@types/task";
+import { DropResult } from "react-beautiful-dnd";
+import { dropTask } from 'src/redux/slices/task';
 
 const useTask = () => {
     const [ openPopover, setOpenPopover ] = useState(null)
@@ -147,6 +149,19 @@ const useTask = () => {
         defaultValues,
     });
 
+    const onDragEnd = (result: DropResult) => {
+        const { destination, source, draggableId } = result;
+        if (!destination) return;
+
+        if (destination.droppableId === source.droppableId && destination.index === source.index) return;
+
+        if(destination.droppableId === source.droppableId){
+            dispatch(dropTask(draggableId, source.droppableId, destination.droppableId, source.index, destination.index, true))
+        }else{
+            dispatch(dropTask(draggableId, source.droppableId, destination.droppableId, source.index, destination.index, false))
+        }
+    };
+
     const {
         watch,
         setValue,
@@ -190,7 +205,8 @@ const useTask = () => {
         HOUR_OPTIONS,
         onClickTask,
         setViewMode,
-        viewMode
+        viewMode,
+        onDragEnd
     }
 
     return{

@@ -86,12 +86,24 @@ export default function TaskModal({ taskHook } : any){
                                             )
                                         })}
                                     </Grid>
+
                                     <Grid item xs={12} sm={4} md={3}>
                                         <Typography variant='body2' color='text.secondary'>Data / Hora</Typography>
                                     </Grid>
                                     <Grid item xs={12} sm={8} md={9}>
-                                        <Typography variant='body2' color='text.secondary'>{taskHook.values.date_str}</Typography>
+                                        <Typography fontWeight='500' variant='body2' color='text.secondary'>{taskHook.values.date_str}</Typography>
                                     </Grid>
+
+                                    {taskHook.values.type === 'event' && (
+                                        <>
+                                        <Grid item xs={12} sm={4} md={3}>
+                                            <Typography variant='body2' color='text.secondary'>Visibilidade</Typography>
+                                        </Grid>
+                                        <Grid item xs={12} sm={8} md={9}>
+                                            <Typography fontWeight='500' variant='body2' color='text.secondary'>{taskHook.values.visibility}</Typography>
+                                        </Grid>
+                                        </>
+                                    )}
                                 </Grid>
                             </Box>
                         </Stack>

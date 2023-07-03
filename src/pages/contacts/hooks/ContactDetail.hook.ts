@@ -4,25 +4,25 @@ import { getProcessDetail } from "src/redux/slices/processDetail"
 import { useDispatch } from "src/redux/store"
 
 
-const useProcessDetail = () => {
-    const { processId } = useParams()
+const useContactDetail = () => {
+    const { contactId } = useParams()
     const { pathname } = useLocation()
     const dispatch = useDispatch()
     const [ currentTab, setCurrentTab ] = useState(1)
     const TABS = [
-        {label: 'Resumo', value: 1},
-        {label: 'Atendimentos', value: 2},
+        {label: 'Dados Cadastrais', value: 1, },
+        {label: 'Processos e Casos', value: 2},
         {label: 'Atividades', value: 3},
-        {label: 'Movimentações', value: 4},
-        // {label: 'Publicações', value: 6},
-        {label: 'Documentos', value: 5}
+        {label: 'Atendimentos', value: 4},
+        {label: 'Extrato', value: 5},
+        {label: 'Documentos', value: 6}
     ]
 
     useEffect(() =>{
-        if(processId){
-            dispatch(getProcessDetail(processId))
+        if(contactId){
+            dispatch(getProcessDetail(contactId))
         }
-    },[dispatch, processId, pathname])
+    },[dispatch, contactId, pathname])
 
 
     const processDetailHook: any = {
@@ -36,4 +36,4 @@ const useProcessDetail = () => {
     }
 }
 
-export default useProcessDetail;
+export default useContactDetail;

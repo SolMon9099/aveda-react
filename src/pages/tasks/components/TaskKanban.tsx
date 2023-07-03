@@ -1,63 +1,83 @@
-import { Stack, Box, Typography, Button} from "@mui/material";
+import { Stack, Box, Typography, Button, Grid, Paper} from "@mui/material";
+import { DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd';
 import Iconify from "src/components/Iconify";
-import Label from "src/components/Label";
+import TasksCard from './TasksCard';
 
 export default function TaskKanban({ taskHook, taskList }: any){
     return(
-        <Stack direction='row' alignItems='left' justifyContent='space-between'>
-            {taskHook.STATUS_OPTIONS.map((status_item: any) => {
-                return (
-                    <Box
-                        sx={{
-                            padding:'10px', 
-                            mt:2, mr:'1%', width:'32%', 
-                            bgcolor:(theme) => (theme.palette.grey[300])
-                        }}
+        <>
+        <DragDropContext onDragEnd={taskHook.onDragEnd}>
+            <Droppable droppableId="all-columns" direction="horizontal" type="column">
+                {(provided) => (
+                    <Stack
+                        {...provided.droppableProps}
+                        ref={provided.innerRef}
+                        direction="row"
+                        alignItems="flex-start"
+                        spacing={3}
+                        sx={{ height: 'calc(100% - 32px)', overflowY: 'hidden' }}
                     >
-                        <Typography fontWeight={'600'}>{status_item.label}</Typography>
-                        {taskList.map((list_item : any) => {
-                            if (list_item.status === status_item.label){
-                                return (
-                                    <Box
-                                        sx={{bgcolor:(theme) => (theme.palette.common.white), padding:'10px', marginTop:'20px', borderRadius:'10px', cursor:'pointer'}}
-                                        onClick={() => taskHook.onClickTask(list_item._id)}
-                                    >
-                                        {(list_item.tags && list_item.tags.length > 0) &&
-                                            <Stack spacing={1} direction='row'>
-                                                {list_item.tags.map((tag: any) =>
-                                                    <Label variant="filled" color={tag.color}>
-                                                        {tag.title}
-                                                    </Label>
-                                                )}
-                                            </Stack>
-                                        }
-                                        <Typography variant='subtitle2' fontWeight={'500'}>{list_item.name}</Typography>
-                                        <Typography variant='body2' color='text.secondary'>{list_item.sub_name}</Typography>
-                                        <br/>
-                                        <div style={{display:'flex', justifyContent:'space-between'}}>
-                                            <Typography variant='body2' color='text.secondary'>{list_item.date}</Typography>
-                                            <Label>FV</Label>
-                                        </div>
-                                    </Box>
-                                )
-                            }
-                        })}
-                        <br/>
-                        <div style={{textAlign:'center'}}>
-                            <Button
-                                style={{color:'#212B36'}}
-                                variant='text'
-                                startIcon={
-                                    <Iconify width={18} height={18} icon='ic:baseline-plus'/>
-                                }
-                                onClick={() => taskHook.setOpenModal(true)}
-                            >
-                                Adicionar Tarefa
-                            </Button>
-                        </div>
-                    </Box>
-                )
-            })}
-        </Stack>
+                        <Grid container spacing={3} sx={{ overflow: 'hidden', minWidth: 840 }}>
+                            {taskHook.STATUS_OPTIONS.map((status_item: any, idx: number) =>
+                                <Grid item xs={4} key={status_item.label}>
+                                    <Draggable isDragDisabled draggableId={status_item.label} index={idx}>
+                                        {(provided) => (
+                                            <Paper
+                                                {...provided.draggableProps}
+                                                ref={provided.innerRef}
+                                                variant="outlined"
+                                                sx={{ px: 2, bgcolor: 'grey.5008' }}
+                                            >
+                                                <Stack spacing={3}  {...provided.dragHandleProps}>
+                                                    <Stack direction='row' px={2} pt={3} alignItems='center' spacing={1.5}>
+                                                        <Box
+                                                            display='flex'
+                                                            width={12}
+                                                            height={12}
+                                                            borderRadius='50%'
+                                                        />
+                                                        <Typography variant='h6'>
+                                                            {status_item.label}
+                                                        </Typography>
+                                                    </Stack>
+                                                    <Droppable droppableId={status_item.label} type="task">
+                                                        {(provided) => (
+                                                            <Stack ref={provided.innerRef} {...provided.droppableProps} spacing={2}>
+                                                                {taskList.map((list_item : any, idx: number) => {
+                                                                    if (list_item.status === status_item.label){
+                                                                        return(
+                                                                            <TasksCard TasksHook={taskHook} task={list_item} taskIdx={idx} key={list_item._id}/>
+                                                                        )
+                                                                    }
+                                                                })}
+                                                                {provided.placeholder}
+                                                            </Stack>
+                                                        )}
+                                                    </Droppable>
+                                                    <Stack spacing={2} sx={{ pb: 3 }}>
+                                                        <Button
+                                                            fullWidth
+                                                            size="large"
+                                                            color="inherit"
+                                                            startIcon={<Iconify icon={'eva:plus-fill'} width={20} height={20} />}
+                                                            sx={{ fontSize: 14 }}
+                                                            onClick={() => taskHook.setOpenModal(true)}
+                                                        >
+                                                            Adicionar Tarefa
+                                                        </Button>
+                                                    </Stack>
+                                                </Stack>
+                                            </Paper>
+                                        )}
+                                    </Draggable>
+                                </Grid>
+                            )}
+                        </Grid>
+                        {provided.placeholder}
+                    </Stack>
+                )}
+            </Droppable>
+        </DragDropContext>
+        </>
     )
 }

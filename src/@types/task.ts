@@ -10,6 +10,7 @@ export type taskType = {
     responsible: {_id: string, name: string}[],
     tags: tags[],
     visibility: string,
+    sub_name: string,
 }
 
 export type newProcessType = {
