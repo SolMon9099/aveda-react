@@ -39,6 +39,7 @@ const _mock = {
     rating: (index: number) => rating[index],
     age: (index: number) => age[index],
     price: (index: number) => price[index],
+    count: (index: number) => count[index],
   },
   image: {
     cover: (index: number) =>

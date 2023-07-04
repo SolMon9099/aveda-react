@@ -1,5 +1,7 @@
 import {TableContainer, Table, TableBody, Card, TextField, InputAdornment, Typography, Box, TablePagination } from "@mui/material"
 import FilterListIcon from '@mui/icons-material/FilterList';
+import FileDownloadOutlined from '@mui/icons-material/FileDownloadOutlined';
+// import TableEdit from '@mul/icons-material/TableEdit';
 import { Stack } from "@mui/system"
 import useTableRox, { getComparator } from "src/hooks/useTableRox"
 import Iconify from "../Iconify"
@@ -21,6 +23,8 @@ type Props = {
     avatarType?: 'label' | 'icon' | 'default',
     hasSearch?: boolean,
     hasFilter?: boolean,
+    hasDownloadPdf?: boolean,
+    hasDownloadExcel?: boolean,
     hasCount?: boolean,
     labelCount?: string,
     selectKey?: string,
@@ -46,6 +50,8 @@ export default function TableRox({
         tableSubtitle, 
         hasSearch=false,
         hasFilter=false,
+        hasDownloadPdf=false,
+        hasDownloadExcel=false,
         hasCount=false, 
         labelCount='Dados',
         selectKey='id',
@@ -114,7 +120,7 @@ export default function TableRox({
                     <Stack spacing={2}>
                         {hasSearch && (
                             <>
-                            <div style={{display:'flex'}}>
+                            <div>
                                 <TextField
                                     sx={{
                                         ml: 3,
@@ -145,6 +151,36 @@ export default function TableRox({
                                         Filtrar
                                     </Label>
                                 )}
+                                {hasDownloadExcel && (
+                                    <Label 
+                                        sx={{
+                                            height: 40,
+                                            width: 40,
+                                            mr: 3,
+                                            float: "right",
+                                        }}
+                                        variant="filled"
+                                        color='default'
+                                    >
+                                        <Iconify sx={{ height: 24, width: 24 }} icon="mdi:table-edit"/>
+                                    </Label>
+                                )}
+                                
+                                {hasDownloadPdf && (
+                                    <Label 
+                                        sx={{
+                                            height: 40,
+                                            width: 40,
+                                            mr: 3,
+                                            float: "right"
+                                        }}
+                                        variant="filled"
+                                        color='default'
+                                    >
+                                        <Iconify sx={{ height: 24, width: 24 }} icon="mdi:file-download-outline"/>
+                                    </Label>
+                                )}
+                                
                             </div>
                             </>
                         )

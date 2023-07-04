@@ -73,7 +73,7 @@ export default function Router() {
         { path: 'processos/movimentacao/:processMovimentationId', element: <ProcessMovimentation/> },
         { path: 'processos/lista-importacao', element: <ProcessImportList/> },
         { path: 'financeiro', element: <WIP/> },
-        { path: 'atendimentos', element: <WIP/> },
+        { path: 'atendimentos', element: <Services/> },
         { path: 'documentos', element: <WIP/> },
         { path: 'movimentacoes', element: <Movimentations/> },
       ],
@@ -134,3 +134,6 @@ const Tasks = Loadable(lazy(() => import('../pages/tasks/Tasks')));
 
 const Contacts = Loadable(lazy(() => import('../pages/contacts/Contacts')));
 const ContactDetail = Loadable(lazy(() => import('../pages/contacts/ContactDetail')));
+
+// services(attendimentos)
+const Services = Loadable(lazy(() => import('../pages/services/Services')));
