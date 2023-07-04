@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-// ----------------------------------------------------------------------
 
 type LoadingState = {
   isLoading: boolean,
@@ -19,26 +18,22 @@ const slice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    // START LOADING
     startLoading(state) {
-        state.isLoading = true;
+      state.isLoading = true;
     },
 
-    // HAS ERROR
     hasError(state, action) {
       state.isLoading = false;
       state.error = action.payload;
     },
 
-    setIsOpen(state, action){
-        state.isOpen = action.payload;
+    setIsOpen(state, action) {
+      state.isOpen = action.payload;
     },
 
-    setSelected(state, action){
-        state.selected = action.payload;
+    setSelected(state, action) {
+      state.selected = action.payload;
     }
-
-    
   },
 });
 

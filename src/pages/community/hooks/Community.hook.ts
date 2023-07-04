@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import useAuth from "src/hooks/useAuth";
-import { getCommunityById, getCommunityPosts, resetCommunityPosts, getSearchPosts, resetSearchPosts, getCommunityMembers, getTopics, getTopicsFixed, resetTopics, leaveCommunity, getCommunityAwaitingApproval, declineRequestCommunity, acceptCommunity } from "src/redux/slices/community";
+import { getCommunityById, getCommunityPosts, resetCommunityPosts, getSearchPosts, resetSearchPosts, getCommunityMembers, getTopics, getTopicsFixed, resetTopics, leaveCommunity, getCommunityAwaitingApproval, declineRequestCommunity, acceptCommunity, getAdmins } from "src/redux/slices/community";
 import { useDispatch, useSelector } from "src/redux/store";
 
 
@@ -39,6 +39,7 @@ const useCommunity = () => {
             dispatch(getCommunityPosts(user?.id, 15, communityId))
             dispatch(getTopics(user?.id, 15, communityId))
             dispatch(getTopicsFixed(user?.id, communityId))
+            dispatch(getAdmins(communityId))
         }
     },[dispatch, user?.id, communityId])
 

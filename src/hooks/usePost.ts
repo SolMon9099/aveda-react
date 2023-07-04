@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import { feedPostType } from 'src/@types/feed';
-import { deletePost, likePost, savePost } from 'src/redux/slices/post';
+import { deletePost, likePost, pinPost, savePost } from 'src/redux/slices/post';
 import { removePost } from 'src/redux/slices/saved';
 import { useDispatch } from 'src/redux/store';
 import { PATH_FORUM } from 'src/routes/paths';
@@ -13,7 +13,7 @@ import { setIsOpen } from 'src/redux/slices/auth';
 
 export default function usePost(post: feedPostType) {
     const { pathname } = useLocation();
-    const { user, isAuthenticated } = useAuth()
+    const { user, isAuthenticated } = useAuth();
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -26,6 +26,7 @@ export default function usePost(post: feedPostType) {
         setLiked(post.liked)
         setLikeCount(post.likeCount)
         setSaved(post.saved)
+        
     }, [post])
 
     const handleLike = () => {
@@ -59,6 +60,11 @@ export default function usePost(post: feedPostType) {
         window.location.reload()
     }
 
+    const handlePin = async () => {
+        await dispatch(pinPost(post._id))
+        window.location.reload()
+    }
+
     const handleGoToPost = () => {
         navigate(PATH_FORUM.post + post._id)
     }
@@ -86,7 +92,8 @@ export default function usePost(post: feedPostType) {
         handleGoToPost,
         handleGoToLive,
         handleCopy,
-        handleDelete
+        handleDelete,
+        handlePin
     }
 
     return {

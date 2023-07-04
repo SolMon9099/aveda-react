@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { isString } from 'lodash';
-import { api } from 'src/config';
 import { fileToBase64 } from 'src/utils/toBase64';
 import { dispatch } from '../store';
+import { post } from './api';
 
 type LoadingState = {
   isLoading: boolean,
@@ -45,10 +45,10 @@ export function updateUser(user: any) {
     try {
       if (user.photo && !isString(user.photo)) {
         const image64 = await fileToBase64(user.photo)
-        const imageRes = await api.post('/fileTransfer/sendFile', { base64: image64, path: user.photo.path })
+        const imageRes = await post('/fileTransfer/sendFile', { base64: image64, path: user.photo.path })
         user.photo = imageRes.data.url
       }
-      api.post(`/user/update`, user);
+      post(`/user/update`, user);
       dispatch(slice.actions.setIsOpen(false));
     } catch (error) {
       dispatch(slice.actions.hasError(error));

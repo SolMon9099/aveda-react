@@ -44,7 +44,7 @@ const useLive = () => {
     } = methods;
 
     const handleFinishLive = async(liveId:any) =>{
-        dispatch(finishLive(liveId))
+        await dispatch(finishLive(liveId))
     }
 
     const handleChat = () =>{
