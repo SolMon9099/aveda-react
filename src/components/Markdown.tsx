@@ -90,13 +90,24 @@ const MarkdownStyle = styled('div')(({ theme, maxline, isDesktop }: {
 // ----------------------------------------------------------------------
 
 export default function Markdown({ maxline, ...other }: Options & { maxline?: number }) {
-  const theme = useTheme()
-  const isDesktop = useResponsive('up', 'lg')
-  return (
+  const theme = useTheme();
+  const isDesktop = useResponsive('up', 'lg');
+  // var maxLineValue = maxline;
+  // var showReadMoreButton = false;
+
+  // precisa ser tratado o caso de pouco texto mas varias linhas
+
+  // if (maxline && maxline >= 5 && other.children.length > 500 && isDesktop) {
+  //   maxLineValue = 3;
+  //   showReadMoreButton = true;
+  // }
+
+  return <>
     <MarkdownStyle maxline={maxline} theme={theme} isDesktop={isDesktop}>
       <ReactMarkdown rehypePlugins={[rehypeRaw]} components={components} {...other} />
     </MarkdownStyle>
-  );
+    {/* {showReadMoreButton ? <Button variant='text' size='small'>Ler mais</Button> : <></>} */}
+  </>
 }
 
 // ----------------------------------------------------------------------

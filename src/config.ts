@@ -30,8 +30,8 @@ export const app = firebase.initializeApp(FIREBASE_API);
 export const storage = getStorage(app);
 export const db = firebase.firestore()
 
-export const BASE_URL = 'https://hom-comunidade.adeva.app'
-export const HOST_API = 'https://hom-comunidade-back.adeva.app'
+export const BASE_URL = 'https://comunidade.adeva.app'
+export const HOST_API = 'https://comunidade-back.adeva.app'
 // export const BASE_URL = 'http://localhost:3000'
 // export const HOST_API = 'http://localhost:2020'
 

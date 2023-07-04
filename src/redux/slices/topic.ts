@@ -1,13 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { feedPostType, paginationType } from 'src/@types/feed';
 import { selectedTopicType, topicType } from 'src/@types/topics';
-import { api } from 'src/config';
-// utils
-// import axios from '../../utils/axios';
-//
 import { dispatch } from '../store';
-
-// ----------------------------------------------------------------------
+import { get } from './api';
 
 type TopicState = {
   isLoading: boolean,
@@ -39,7 +34,6 @@ const slice = createSlice({
   name: 'topic',
   initialState,
   reducers: {
-    // START LOADING
     startLoading(state) {
       state.isLoading = true;
     },
@@ -52,7 +46,6 @@ const slice = createSlice({
       state.isLoadingTopicsPosts = true;
     },
 
-    // HAS ERROR
     hasError(state, action) {
       state.isLoading = false;
       state.error = action.payload;
@@ -124,7 +117,7 @@ export function getTopics(userId: string, limit: number, nextCursor?: string) {
       if (nextCursor) {
         req += `nextCursor=${nextCursor}&`
       }
-      var response = await api.get(req);
+      var response = await get(req);
       dispatch(slice.actions.getTopicsSuccess({ topics: response.data.data, pagination: response.data.paging }))
     } catch (error) {
       dispatch(slice.actions.hasError(error));
@@ -143,7 +136,7 @@ export function getTopicsFixed(userId: string) {
       if (userId) {
         req += `userId=${userId}&`
       }
-      var response = await api.get(req);
+      var response = await get(req);
       dispatch(slice.actions.getTopicsFixedSuccess(response.data))
     } catch (error) {
       dispatch(slice.actions.hasError(error));
@@ -171,7 +164,7 @@ export function getTopicPosts(userId: string, limit: number, topicId: string, ne
       if (topicId) {
         req += `topic=${topicId}&`
       }
-      var response = await api.get(req);
+      var response = await get(req);
       dispatch(slice.actions.getTopicPostsSuccess({ posts: response.data.data, pagination: response.data.paging }))
     } catch (error) {
       dispatch(slice.actions.hasError(error));
@@ -185,9 +178,9 @@ export function getTopicById(topicId: string, userId?: any) {
     try {
       let response
       if (userId) {
-        response = await api.get(`/topic/byId/${topicId}?userId=${userId}`);
+        response = await get(`/topic/byId/${topicId}?userId=${userId}`);
       } else {
-        response = await api.get(`/topic/byId/${topicId}`);
+        response = await get(`/topic/byId/${topicId}`);
       }
       dispatch(slice.actions.getTopicByIdSuccess(response.data))
     } catch (error) {

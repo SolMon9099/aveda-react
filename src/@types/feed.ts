@@ -21,6 +21,8 @@ export type feedPostType = {
     }[],
     comments: number,
     createdAt: string,
+    communityId: string,
+    isFixed: boolean,
     isLive?: boolean,
     thumbnail?: any,
     date?: any,

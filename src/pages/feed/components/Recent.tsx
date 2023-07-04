@@ -2,6 +2,7 @@ import CardPost from "src/components/post/CardPost"
 import { useSelector } from "src/redux/store"
 import InfiniteScroll from "react-infinite-scroller"
 import { Box, CircularProgress, Stack } from "@mui/material"
+import CardLive from "src/components/post/CardLive"
 
 type Props = {
     feedHook: any;
@@ -22,9 +23,13 @@ export default function Recent({ feedHook }: Props){
             }
         >
             <Stack spacing={2}>
-                {feedPosts.map((post, idx) =>
-                    <CardPost key={'CARD_POST_'+post._id+idx} post={post}/>
-                )}
+                {feedPosts.map((post, idx) => {
+                    if (post.isLive) {
+                        return <CardLive key={`CARD_POST_${post._id}${idx}}`} post={post}/>
+                    } else {
+                        return <CardPost key={`CARD_POST_${post._id}${idx}}`} post={post}/>
+                    }
+                })}
             </Stack>
         </InfiniteScroll>
     )

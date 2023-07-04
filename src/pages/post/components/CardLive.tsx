@@ -26,6 +26,7 @@ export default function CardLive({ postHook }: any) {
     const isMobile = useResponsive('down', 'sm');
     const today = moment(new Date()).format('LT')
     const { user } = useAuth();
+    
     const finishLive = () => {
         console.log("FINISHING LIVE...")
         liveHook.handleFinishLive(selectedPost?._id)

@@ -2,13 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 import { processDocumentSchema } from 'src/@types/process';
 import { dispatch } from '../store';
 import { post, put } from './api';
-// import { get } from './api';
-
-// ----------------------------------------------------------------------
 
 type SavedState = {
-    isLoading: boolean,
-    error: any | null,
+  isLoading: boolean,
+  error: any | null,
 }
 
 const initialState: SavedState = {
@@ -20,11 +17,10 @@ const slice = createSlice({
   name: 'processDocument',
   initialState,
   reducers: {
-    // START LOADING
     startLoading(state) {
       state.isLoading = true;
     },
-    // HAS ERROR
+
     hasError(state, action) {
       state.isLoading = false;
       state.error = action.payload;
@@ -36,24 +32,24 @@ const slice = createSlice({
 // Reducer
 export default slice.reducer;
 
-export function createDocument(data: processDocumentSchema){
-    return async () => {
-      try {
-          await post('/document/create', data)
-          await new Promise((resolve) => setTimeout(resolve, 500));
-      } catch (error) {
-          dispatch(slice.actions.hasError(error));
-      }
-    };
-  }
-
-export function inactiveDocument(ids: string[]){
+export function createDocument(data: processDocumentSchema) {
   return async () => {
     try {
-        await put('/document/inactive', {ids})
-        await new Promise((resolve) => setTimeout(resolve, 500));
+      await post('/document/create', data)
+      await new Promise((resolve) => setTimeout(resolve, 500));
     } catch (error) {
-        dispatch(slice.actions.hasError(error));
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
+export function inactiveDocument(ids: string[]) {
+  return async () => {
+    try {
+      await put('/document/inactive', { ids })
+      await new Promise((resolve) => setTimeout(resolve, 500));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
     }
   };
 }

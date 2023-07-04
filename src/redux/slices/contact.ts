@@ -4,15 +4,12 @@ import { processListType } from 'src/@types/process';
 import { _contactList } from 'src/_mock/_contacts';
 import { dispatch } from '../store';
 import { put } from './api';
-// import { get } from './api';
-
-// ----------------------------------------------------------------------
 
 type SavedState = {
-    isLoading: boolean,
-    isLoadingContactList: boolean,
-    error: any | null,
-    conactList: processListType[]
+  isLoading: boolean,
+  isLoadingContactList: boolean,
+  error: any | null,
+  conactList: processListType[]
 }
 
 const initialState: SavedState = {
@@ -26,22 +23,20 @@ const slice = createSlice({
   name: 'contact',
   initialState,
   reducers: {
-    // START LOADING
     startLoading(state) {
       state.isLoading = true;
     },
 
-    startLoadingProcessList(state){
+    startLoadingProcessList(state) {
       state.isLoadingContactList = true;
     },
 
-    // HAS ERROR
     hasError(state, action) {
       state.isLoading = false;
       state.error = action.payload;
     },
 
-    getProcessListSuccess(state, action){
+    getProcessListSuccess(state, action) {
       state.conactList = action.payload;
       state.isLoadingContactList = false;
     },
@@ -51,27 +46,27 @@ const slice = createSlice({
 // Reducer
 export default slice.reducer;
 
-export function getProcessList(){
+export function getProcessList() {
   return async () => {
     dispatch(slice.actions.startLoadingProcessList());
     try {
-        // var response = await get('/process/all')
-        await new Promise((resolve) => setTimeout(resolve, 500));
-        var auxProcess = _contactList.map((p) => ({...p, lastChange: moment(p.lastChange).format('DD/MM/YYYY'), subtitle: `Processo Ativo • ${p.number}`}))
-        dispatch(slice.actions.getProcessListSuccess([...auxProcess]))
+      // var response = await get('/process/all')
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      var auxProcess = _contactList.map((p) => ({ ...p, lastChange: moment(p.lastChange).format('DD/MM/YYYY'), subtitle: `Processo Ativo • ${p.number}` }))
+      dispatch(slice.actions.getProcessListSuccess([...auxProcess]))
     } catch (error) {
-        dispatch(slice.actions.hasError(error));
+      dispatch(slice.actions.hasError(error));
     }
   };
 }
 
-export function inactiveProcess(ids: string[]){
+export function inactiveProcess(ids: string[]) {
   return async () => {
     try {
-        await put('/process/inactive', {ids})
-        await new Promise((resolve) => setTimeout(resolve, 500));
+      await put('/process/inactive', { ids })
+      await new Promise((resolve) => setTimeout(resolve, 500));
     } catch (error) {
-        dispatch(slice.actions.hasError(error));
+      dispatch(slice.actions.hasError(error));
     }
   };
 }
