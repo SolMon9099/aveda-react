@@ -15,7 +15,7 @@ export default function CallHandle(){
     const { callHandleHook } = useCallHandle()
     
     return(
-        <Page title={(callHandleHook.isEdit ? "Editar " : "Novo ") + "Callo"}>
+        <Page title={(callHandleHook.isEdit ? "Editar " : "Novo ") + "Atendimento"}>
             <Container maxWidth='md' sx={{ mt: 3 }}>
             {(callHandleHook.isEdit && isLoadingCallToEdit) ?
                 <Box flexGrow={1} display='flex' justifyContent='center' sx={{mt: 40}}>
