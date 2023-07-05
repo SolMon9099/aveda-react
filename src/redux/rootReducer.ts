@@ -14,7 +14,8 @@ import liveReducer from './slices/live';
 import resetReducer from './slices/reset'
 import processReducer from './slices/process';
 import taskReducer from './slices/task';
-import serviceReducer from './slices/service';
+import callReducer from './slices/call';
+import callHandleReducer from './slices/callHandle';
 import contactReducer from './slices/contact';
 import processImportReducer from './slices/processImport';
 import processImportListReducer from './slices/processImportList';
@@ -46,7 +47,8 @@ const rootReducer = combineReducers({
   reset: resetReducer,
   process: processReducer,
   task:taskReducer,
-  service:serviceReducer,
+  call:callReducer,
+  callHandle:callHandleReducer,
   contact:contactReducer,
   processImport: processImportReducer,
   processImportList: processImportListReducer,

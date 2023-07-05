@@ -14,7 +14,7 @@ const status = [
     'Encerrado'
 ]
 
-export const _serviceList = [...Array(25)].map((_,idx) =>({
+export const _callList = [...Array(25)].map((_,idx) =>({
     _id: _mock.id(idx),
     title: titles[idx % 3],
     client: _mock.name.fullName(idx % 20),

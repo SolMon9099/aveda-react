@@ -1,4 +1,4 @@
-export type serviceType = {
+export type callType = {
     _id: string,
     title: string,
     client: string,
@@ -12,7 +12,7 @@ export type serviceType = {
     sub_name: string,
 }
 
-export type newProcessType = {
+export type newCallType = {
     _id: string,
     imported: boolean,
     clientName: string,
@@ -46,14 +46,14 @@ export type newProcessType = {
     movimentations: processMovimenation[],
     movimentationLinkedActivities: processActivity[],
     movimentationGrouped: any,
-    services: processService[],
-    serviceLinkedActivities: processActivity[],
-    serviceGrouped: any,
+    calls: processCall[],
+    callLinkedActivities: processActivity[],
+    callGrouped: any,
     movimentationsPendindgAll: number,
     movimentationsPendindgToday: number,
 }
 
-export type newProcessTypeSchema = {
+export type newCallTypeSchema = {
     _id: string,
     imported: boolean,
     type: string,
@@ -88,9 +88,9 @@ export type newProcessTypeSchema = {
     movimentations: processMovimenation[],
     movimentationLinkedActivities: processActivity[],
     movimentationGrouped: any,
-    services: processService[],
-    serviceLinkedActivities: processActivity[],
-    serviceGrouped: any,
+    calls: processCall[],
+    callLinkedActivities: processActivity[],
+    callGrouped: any,
     movimentationsPendindgAll: number,
     movimentationsPendindgToday: number,
 }
@@ -109,7 +109,7 @@ export type processActivity = {
     visibility: string,
 }
 
-export type serviceSchema = {
+export type callSchema = {
     _id: string,
     name: string,
     description: string,
@@ -121,7 +121,7 @@ export type serviceSchema = {
     responsible: string[],
     tags: string[],
     visibility: string,
-    serviceLinked: boolean,
+    callLinked: boolean,
     movimentationLinked: boolean,
     process: string
 }
@@ -165,7 +165,7 @@ export type tags = {
     title: string
 }
 
-export type newProcessImportType = {
+export type newCallImportType = {
     oabNumber: string,
     sectional: string,
     tribunal: string,
@@ -216,7 +216,7 @@ export type processImportListDetailType = {
     }[]
 }
 
-export type processService = {
+export type processCall = {
     _id: string,
     type: string,
     description: string,
@@ -225,7 +225,7 @@ export type processService = {
     responsible: {_id: string, name: string}
 }
 
-export type processServiceSchema = {
+export type processCallSchema = {
     _id: string,
     type: string,
     description: string,
@@ -247,9 +247,9 @@ export type newCaseType = {
     responsible: {value: string, label: string},
     activities: processActivity[],
     documents: processDocument[],
-    services: processService[],
-    serviceLinkedActivities: processActivity[],
-    serviceGrouped: any
+    calls: processCall[],
+    callLinkedActivities: processActivity[],
+    callGrouped: any
 }
 
 export type newCaseTypeSchema = {
@@ -265,7 +265,7 @@ export type newCaseTypeSchema = {
     responsible: string,
     activities: processActivity[],
     documents: processDocument[],
-    services: processService[],
-    serviceLinkedActivities: processActivity[],
-    serviceGrouped: any
+    calls: processCall[],
+    callLinkedActivities: processActivity[],
+    callGrouped: any
 }

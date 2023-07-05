@@ -1,23 +1,23 @@
 import {useEffect, useState, useMemo } from "react";
 import { PATH_ERP } from "src/routes/paths";
 import { useDispatch, useSelector } from "src/redux/store";
-import { getServiceList} from "src/redux/slices/service";
+import { getCallList} from "src/redux/slices/call";
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import moment from "moment";
-import { serviceSchema } from "src/@types/service";
+import { callSchema } from "src/@types/call";
 import { DropResult } from "react-beautiful-dnd";
-import { dropService } from 'src/redux/slices/service';
+import { dropCall } from 'src/redux/slices/call';
 
-const useService = () => {
+const useCall = () => {
     const [ openPopover, setOpenPopover ] = useState(null)
     const [ openModal, setOpenModal ] = useState(false)
     const [ viewMode, setViewMode] = useState(false)
     const [ currentTab, setCurrentTab ] = useState(1)
-    const { serviceList, origin_serviceList} = useSelector((state) => state.service)
+    const { callList, origin_callList} = useSelector((state) => state.call)
     const [ selectedIds, setSelectedIds ] = useState<string[]>([])
-    const [ serviceToEdit, setServiceToEdit] = useState<any>(null);
+    const [ callToEdit, setCallToEdit] = useState<any>(null);
     const [ HOUR_OPTIONS, setHOUR_OPTIONS ] = useState<any>([])
 
     const dispatch = useDispatch()
@@ -41,10 +41,6 @@ const useService = () => {
     // const POPOVER_OPTIONS = [
     //     {label: 'Ocultar Atividades Completas'},
     // ]
-    // const TABS = [
-    //     {label: 'Lista', value: 1},
-    //     {label: 'Kanban', value: 2},
-    // ]
 
     const TABLEHEADER = [
         {id: 'title', tagsId: 'tags', label: 'Titulo'},
@@ -54,10 +50,7 @@ const useService = () => {
         {id: 'answer', label: 'Atend.'},
         {id: 'date', label: 'Ult.Mov.'},
     ]
-    // const RESPONSIBLE_OPTIONS = [
-    //     {value: '1', label: 'Responsável 1'},
-    //     {value: '2', label: 'Responsável 2'},
-    // ]
+
     const STATUS_OPTIONS = [
         {value: 'toDo', label: 'A Fazer'},
         {value: 'onDoing', label: 'Fazendo'},
@@ -76,11 +69,11 @@ const useService = () => {
     
 
     useEffect(() =>{
-        dispatch(getServiceList())
+        dispatch(getCallList())
     },[dispatch])
 
-    const onClickService = (id: string) => {
-        setServiceToEdit(origin_serviceList.find((act) => act._id === id))
+    const onClickCall = (id: string) => {
+        setCallToEdit(origin_callList.find((act) => act._id === id))
         setOpenModal(true)
         setViewMode(true)
     }
@@ -113,27 +106,27 @@ const useService = () => {
     const onClose = () =>{
         setOpenModal(false)
         setViewMode(false)
-        setServiceToEdit(null)
+        setCallToEdit(null)
         reset()
     }
 
     var defaultValues = useMemo(() =>(
         {
-          name: serviceToEdit?.name || '',
-          processOrCase : serviceToEdit?.processOrCase || '',
-          description: serviceToEdit?.description || '',
-          type: serviceToEdit?.type || 'service',
-          responsible: serviceToEdit?.responsible || [],
-          tags: serviceToEdit?.tags || [],
-          status: serviceToEdit?.status || 'toDo',
-          date: serviceToEdit?.date || moment().format('YYYY-MM-DD'),
-          hour: serviceToEdit?.hour || '',
-          visibility: serviceToEdit?.visibility || 'public',
-          date_str : serviceToEdit?((serviceToEdit.hour && serviceToEdit.date) ? moment(serviceToEdit.date).format('DD/MM/YY') + ' • ' + serviceToEdit.hour : serviceToEdit.date ? moment(serviceToEdit.date).format('DD/MM/YYYY') : ''):''
+          name: callToEdit?.name || '',
+          processOrCase : callToEdit?.processOrCase || '',
+          description: callToEdit?.description || '',
+          type: callToEdit?.type || 'call',
+          responsible: callToEdit?.responsible || [],
+          tags: callToEdit?.tags || [],
+          status: callToEdit?.status || 'toDo',
+          date: callToEdit?.date || moment().format('YYYY-MM-DD'),
+          hour: callToEdit?.hour || '',
+          visibility: callToEdit?.visibility || 'public',
+          date_str : callToEdit?((callToEdit.hour && callToEdit.date) ? moment(callToEdit.date).format('DD/MM/YY') + ' • ' + callToEdit.hour : callToEdit.date ? moment(callToEdit.date).format('DD/MM/YYYY') : ''):''
         }
-      ),[serviceToEdit]) 
+      ),[callToEdit]) 
   
-    const NewServiceSchema = Yup.object().shape({
+    const NewCallSchema = Yup.object().shape({
         name: Yup.string().required('Campo obrigatório!'),
         description: Yup.string().required('Campo obrigatório!'),
         type: Yup.string(),
@@ -144,8 +137,8 @@ const useService = () => {
         visibility: Yup.string()
     });
   
-    const methods = useForm<serviceSchema>({
-        resolver: yupResolver(NewServiceSchema),
+    const methods = useForm<callSchema>({
+        resolver: yupResolver(NewCallSchema),
         defaultValues,
     });
 
@@ -156,9 +149,9 @@ const useService = () => {
         if (destination.droppableId === source.droppableId && destination.index === source.index) return;
 
         if(destination.droppableId === source.droppableId){
-            dispatch(dropService(draggableId, source.droppableId, destination.droppableId, source.index, destination.index, true))
+            dispatch(dropCall(draggableId, source.droppableId, destination.droppableId, source.index, destination.index, true))
         }else{
-            dispatch(dropService(draggableId, source.droppableId, destination.droppableId, source.index, destination.index, false))
+            dispatch(dropCall(draggableId, source.droppableId, destination.droppableId, source.index, destination.index, false))
         }
     };
 
@@ -173,14 +166,14 @@ const useService = () => {
     const values = watch()
 
     useEffect(() =>{
-        if(serviceToEdit && defaultValues){
+        if(callToEdit && defaultValues){
           reset(defaultValues)
         }else if(defaultValues){
           reset(defaultValues)
         }
-      },[serviceToEdit, defaultValues, reset])
+      },[callToEdit, defaultValues, reset])
 
-    const serviceHook: any = {
+    const callHook: any = {
         openPopover,
         currentTab,
         // POPOVER_OPTIONS,
@@ -203,15 +196,15 @@ const useService = () => {
         handleSubmit,
         isSubmitting,
         HOUR_OPTIONS,
-        onClickService,
+        onClickCall,
         setViewMode,
         viewMode,
         onDragEnd
     }
 
     return{
-        serviceHook
+        callHook
     }
 }
 
-export default useService;
+export default useCall;

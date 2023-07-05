@@ -1,24 +1,22 @@
 import { IconButton, Box, Button, Container, MenuItem, Stack, Typography } from "@mui/material";
-// import { useNavigate } from "react-router-dom";
-import Iconify from "src/components/Iconify";
+import { useNavigate } from "react-router-dom";
 import TableRox from "src/components/table-rox/TableRox";
-import MenuPopover from "src/components/MenuPopover";
 import Page from "src/components/Page";
-// import TasksTabs from "./components/TasksTabs";
-import useService from "./hooks/Services.hook";
+import useCall from "./hooks/Calls.hook";
 import { useSelector } from "src/redux/store";
 import AdevaLoading from "src/components/AdevaLoading";
-import ServiceModal from "./components/ServiceModal";
-// import TaskKanban from "./components/TaskKanban";
+import CallModal from "./components/CallModal";
+import { PATH_ERP } from "src/routes/paths"
 
-export default function Services(){
-    const { serviceHook } = useService()
-    const { serviceList, isLoadingServiceList } = useSelector((state) => state.service)
+export default function Calls(){
+    const { callHook } = useCall()
+    const { callList, isLoadingCallList } = useSelector((state) => state.call)
+    const navigate = useNavigate()
     
     return(
         <Page title="atendimento">
             <Container maxWidth='lg' sx={{ mt: 3 }}>
-            {isLoadingServiceList ? (
+            {isLoadingCallList ? (
                 <Box flexGrow={1} display='flex' justifyContent='center' sx={{mt: 40}}>
                     <AdevaLoading/>
                 </Box>
@@ -30,17 +28,16 @@ export default function Services(){
                                 atendimento
                             </Typography>
                             <Button
-                                onClick={() => serviceHook.setOpenModal(true)}
+                                onClick={() => navigate(PATH_ERP.callHandle)}
                                 variant='contained'
-                                // endIcon={<Iconify icon='ic:round-expand-more'/>}
                             >
                                 Novo Atendimento
                             </Button>
                         </Stack>
                         
                         <TableRox
-                            data={serviceList}
-                            header={serviceHook.TABLEHEADER}
+                            data={callList}
+                            header={callHook.TABLEHEADER}
                             defaultOrderBy='name'
                             // selectType="all"
                             // selectKey="_id"
@@ -51,9 +48,9 @@ export default function Services(){
                             hasDownloadExcel
                             hasRecord
                             labelCount="Atendimentos"
-                            // onSelectAllRowFunction={serviceHook.onSelectAllRows}
-                            // onSelectRowFunction={serviceHook.onSelectRow}
-                            onClickKey='_id'
+                            // onSelectAllRowFunction={callHook.onSelectAllRows}
+                            // onSelectRowFunction={callHook.onSelectRow}
+                            // onClickKey='_id'
                             // titleActions={
                             //     <IconButton
                             //         sx={{
@@ -66,16 +63,16 @@ export default function Services(){
                             //                 backgroundColor: 'darkgray',
                             //             }
                             //         }}
-                            //         onClick={(e) => serviceHook.setOpenPopover(e.currentTarget)}
+                            //         onClick={(e) => callHook.setOpenPopover(e.currentTarget)}
                             //     >
                             //         <Iconify icon='ic:outline-more-vert'/>
                             //     </IconButton>
                             // }
-                            onClickFunction={(id) => serviceHook.onClickService(id)}
+                            // onClickFunction={(id) => callHook.onClickCall(id)}
                             // newInfoKey="hasAtualization"
                             // selectActions={
                             //     <Tooltip title="Deletar">
-                            //         <IconButton color="primary" onClick={() => serviceHook.handleDeleteProcess()}>
+                            //         <IconButton color="primary" onClick={() => callHook.handleDeleteProcess()}>
                             //             <Iconify icon={'eva:trash-2-outline'} />
                             //         </IconButton>
                             //     </Tooltip>
@@ -88,12 +85,12 @@ export default function Services(){
                     </Stack>
                 </>
             )}
-            <ServiceModal serviceHook={serviceHook}/>
+            <CallModal callHook={callHook}/>
             </Container>
             {/* <MenuPopover
-                open={Boolean(serviceHook.openPopover)}
-                anchorEl={serviceHook.openPopover}
-                onClose={() => serviceHook.setOpenPopover(false)}
+                open={Boolean(callHook.openPopover)}
+                anchorEl={callHook.openPopover}
+                onClose={() => callHook.setOpenPopover(false)}
                 sx={{
                 '& .MuiMenuItem-root': {
                     px: 1,
@@ -103,7 +100,7 @@ export default function Services(){
                 }}
                 disabledArrow
             >
-                {serviceHook.POPOVER_OPTIONS.map((opt: {label: string}) =>
+                {callHook.POPOVER_OPTIONS.map((opt: {label: string}) =>
                     <MenuItem
                         key={'OPT_'+opt.label}
                         // onClick={() => navigate(opt.to)}

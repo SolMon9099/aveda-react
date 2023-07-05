@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import moment from 'moment';
-import { serviceType } from 'src/@types/service';
-import {_serviceList } from 'src/_mock/_service';
+import { callType } from 'src/@types/call';
+import {_callList } from 'src/_mock/_call';
 import { dispatch } from '../store';
 import { put } from './api';
 // import { get } from './api';
@@ -10,22 +10,22 @@ import { put } from './api';
 
 type SavedState = {
     isLoading: boolean,
-    isLoadingServiceList: boolean,
+    isLoadingCallList: boolean,
     error: any | null,
-    serviceList: serviceType[],
-    origin_serviceList:serviceType[],
+    callList: callType[],
+    origin_callList:callType[],
 }
 
 const initialState: SavedState = {
   isLoading: false,
-  isLoadingServiceList: false,
+  isLoadingCallList: false,
   error: null,
-  serviceList: [],
-  origin_serviceList:[],
+  callList: [],
+  origin_callList:[],
 };
 
 const slice = createSlice({
-  name: 'service',
+  name: 'call',
   initialState,
   reducers: {
     // START LOADING
@@ -33,8 +33,8 @@ const slice = createSlice({
       state.isLoading = true;
     },
 
-    startLoadingServiceList(state){
-      state.isLoadingServiceList = true;
+    startLoadingCallList(state){
+      state.isLoadingCallList = true;
     },
 
     // HAS ERROR
@@ -43,27 +43,27 @@ const slice = createSlice({
       state.error = action.payload;
     },
 
-    getServiceListSuccess(state, action){
-      state.serviceList = action.payload;
-      state.isLoadingServiceList = false;
+    getCallListSuccess(state, action){
+      state.callList = action.payload;
+      state.isLoadingCallList = false;
     },
 
-    getOriginServiceListSuccess(state, action){
-      state.origin_serviceList = action.payload;
+    getOriginCallListSuccess(state, action){
+      state.origin_callList = action.payload;
     },
 
-    dropServiceToService(state, action){
-      if(state.serviceList){
-        var service_list = state.serviceList;
+    dropCallToCall(state, action){
+      if(state.callList){
+        var call_list = state.callList;
         if(action.payload.onlyReorder){
-          service_list.splice(action.payload.newIndex, 0, service_list.splice(action.payload.oldIndex, 1)[0]);
+          call_list.splice(action.payload.newIndex, 0, call_list.splice(action.payload.oldIndex, 1)[0]);
         }else{
-          var service = service_list[action.payload.oldIndex]
-          service_list.splice(action.payload.oldIndex, 1)
-          service.status = action.payload.newStatus
-          service_list.splice(action.payload.newIndex, 0, service);
+          var call = call_list[action.payload.oldIndex]
+          call_list.splice(action.payload.oldIndex, 1)
+          call.status = action.payload.newStatus
+          call_list.splice(action.payload.newIndex, 0, call);
         }
-        state.serviceList = service_list
+        state.callList = call_list
       }
     },
   },
@@ -72,20 +72,20 @@ const slice = createSlice({
 // Reducer
 export default slice.reducer;
 
-export function getServiceList(){
+export function getCallList(){
   return async () => {
-    dispatch(slice.actions.startLoadingServiceList());
+    dispatch(slice.actions.startLoadingCallList());
     try {
         // var response = await get('/process/all')
         await new Promise((resolve) => setTimeout(resolve, 500));
-        var origin_service_list = _serviceList.map((item) => {
+        var origin_call_list = _callList.map((item) => {
           return {
             ...item,
             tags: item.tags.map((t: any, idx: number) => ({...t, value: `${idx+1}`, label: t.title})),
           }
         })
-        dispatch(slice.actions.getOriginServiceListSuccess([...origin_service_list]))
-        var service_list = _serviceList.map((item) => {
+        dispatch(slice.actions.getOriginCallListSuccess([...origin_call_list]))
+        var call_list = _callList.map((item) => {
           return {
             ...item,
             color: 'default',
@@ -93,7 +93,7 @@ export function getServiceList(){
             date: (item.date) ? moment(item.date).format('DD/MM/YY') : ''
           }
         });
-        dispatch(slice.actions.getServiceListSuccess([...service_list,]))
+        dispatch(slice.actions.getCallListSuccess([...call_list,]))
     } catch (error) {
         dispatch(slice.actions.hasError(error));
     }
@@ -111,11 +111,11 @@ export function inactiveProcess(ids: string[]){
   };
 }
 
-export function dropService(serviceId: string, oldStatus: string, newStatus: string, oldIndex: number ,newIndex: number, onlyReorder: boolean){
+export function dropCall(callId: string, oldStatus: string, newStatus: string, oldIndex: number ,newIndex: number, onlyReorder: boolean){
   return async () => {
     try {
       // await new Promise(resolve => setTimeout(resolve, 1000));
-      dispatch(slice.actions.dropServiceToService({ serviceId, oldStatus, newStatus, oldIndex, newIndex, onlyReorder }))
+      dispatch(slice.actions.dropCallToCall({ callId, oldStatus, newStatus, oldIndex, newIndex, onlyReorder }))
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }
