@@ -25,7 +25,7 @@ export default function Calls(){
                     <Stack spacing={3}>
                         <Stack direction='row' alignItems='center' justifyContent='space-between'>
                             <Typography variant='h4'>
-                                atendimento
+                                Atendimentos
                             </Typography>
                             <Button
                                 onClick={() => navigate(PATH_ERP.callHandle)}
