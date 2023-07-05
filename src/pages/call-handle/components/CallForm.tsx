@@ -1,5 +1,5 @@
 import { LoadingButton } from "@mui/lab"
-import { Accordion, AccordionDetails, AccordionSummary, alpha, Box, Button, Card, CardContent, Chip, Divider, Grid, Stack, Typography } from "@mui/material"
+import { Accordion, AccordionDetails, AccordionSummary, alpha, Box, Button, Card, CardContent, Chip, Divider, Grid, Stack, Typography, InputAdornment } from "@mui/material"
 import { FormProvider, RHFSelect, RHFTextField } from "src/components/hook-form"
 import RHFAutoComplete from "src/components/hook-form/RHFAutoComplete"
 import RHFMoneyField from "src/components/hook-form/RHFMoneyField"
@@ -18,18 +18,39 @@ export default function CallForm({ callHandleHook }: Props){
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={12}>
                                 <RHFTextField
+                                    InputProps={{
+                                        endAdornment:(
+                                            <InputAdornment position="end">
+                                                <Iconify icon='ri:search-line' width={24} height={24}/>
+                                            </InputAdornment>
+                                        )
+                                    }}
                                     name="processOrCase"
                                     label='Processo / Caso'
                                 />
                             </Grid>
                             <Grid item xs={12} sm={12}>
                                 <RHFTextField
+                                    InputProps={{
+                                        endAdornment:(
+                                            <InputAdornment position="end">
+                                                <Iconify icon='ri:search-line' width={24} height={24}/>
+                                            </InputAdornment>
+                                        )
+                                    }}
                                     name="client"
                                     label='Nome do Cliente'
                                 />
                             </Grid>
                             <Grid item xs={12}>
                                 <RHFTextField
+                                    InputProps={{
+                                        endAdornment:(
+                                            <InputAdornment position="end">
+                                                43/100
+                                            </InputAdornment>
+                                        )
+                                    }}
                                     name="title"
                                     label='Título do Atendimento'
                                 />
