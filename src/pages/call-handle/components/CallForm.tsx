@@ -44,13 +44,7 @@ export default function CallForm({ callHandleHook }: Props){
                             </Grid>
                             <Grid item xs={12}>
                                 <RHFTextField
-                                    InputProps={{
-                                        endAdornment:(
-                                            <InputAdornment position="end">
-                                                43/100
-                                            </InputAdornment>
-                                        )
-                                    }}
+                                    withCount
                                     name="title"
                                     label='Título do Atendimento'
                                 />
