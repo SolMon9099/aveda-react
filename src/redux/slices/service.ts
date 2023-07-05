@@ -86,23 +86,11 @@ export function getServiceList(){
         })
         dispatch(slice.actions.getOriginServiceListSuccess([...origin_service_list]))
         var service_list = _serviceList.map((item) => {
-          var res = ''
-          item?.responsible?.forEach((r: any, idx: any) =>{
-            if(idx === 0){
-              res += r.label
-            }else{
-              res += ', '+r.label
-            }
-          })
           return {
             ...item,
-            responsible: res, 
-            type: item.type === 'event' ? 'Evento' : 'Tarefa',
-            status: item.status === 'toDo' ? 'A Fazer' : item.status === 'onDoing' ? 'Fazendo' : 'Feito',
             color: 'default',
-            icon: item.type === 'event' ? 'mdi:calendar-check' : 'gg:check-o',
             tags: item.tags.map((t: any, idx: number) => ({...t, value: `${idx+1}`, label: t.title})),
-            date: (item.hour && item.date) ? moment(item.date).format('DD/MM/YY') + ' • ' + item.hour : item.date ? moment(item.date).format('DD/MM/YYYY') : ''
+            date: (item.date) ? moment(item.date).format('DD/MM/YY') : ''
           }
         });
         dispatch(slice.actions.getServiceListSuccess([...service_list,]))

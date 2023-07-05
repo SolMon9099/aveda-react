@@ -25,6 +25,7 @@ type Props = {
     hasFilter?: boolean,
     hasDownloadPdf?: boolean,
     hasDownloadExcel?: boolean,
+    hasRecord?:boolean,
     hasCount?: boolean,
     labelCount?: string,
     selectKey?: string,
@@ -52,6 +53,7 @@ export default function TableRox({
         hasFilter=false,
         hasDownloadPdf=false,
         hasDownloadExcel=false,
+        hasRecord=false,
         hasCount=false, 
         labelCount='Dados',
         selectKey='id',
@@ -234,6 +236,7 @@ export default function TableRox({
                                         key={row[selectKey]} 
                                         row={row} 
                                         header={header} 
+                                        hasRecord={hasRecord}
                                         selectType={selectType} 
                                         selected={selected} 
                                         selectKey={selectKey}

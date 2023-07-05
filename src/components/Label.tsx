@@ -83,7 +83,7 @@ const RootStyle = styled('span')(
 interface Props extends BoxProps {
   startIcon?: React.ReactElement | null;
   endIcon?: React.ReactElement | null;
-  color?: LabelColor;
+  color?: any;
   variant?: LabelVariant;
 }
 

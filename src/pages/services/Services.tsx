@@ -42,15 +42,16 @@ export default function Services(){
                             data={serviceList}
                             header={serviceHook.TABLEHEADER}
                             defaultOrderBy='name'
-                            selectType="all"
-                            selectKey="_id"
+                            // selectType="all"
+                            // selectKey="_id"
                             hasCount 
                             hasSearch 
                             hasFilter
                             hasDownloadPdf
                             hasDownloadExcel
+                            hasRecord
                             labelCount="Atendimentos"
-                            onSelectAllRowFunction={serviceHook.onSelectAllRows}
+                            // onSelectAllRowFunction={serviceHook.onSelectAllRows}
                             // onSelectRowFunction={serviceHook.onSelectRow}
                             onClickKey='_id'
                             // titleActions={
@@ -89,7 +90,7 @@ export default function Services(){
             )}
             <ServiceModal serviceHook={serviceHook}/>
             </Container>
-            <MenuPopover
+            {/* <MenuPopover
                 open={Boolean(serviceHook.openPopover)}
                 anchorEl={serviceHook.openPopover}
                 onClose={() => serviceHook.setOpenPopover(false)}
@@ -110,7 +111,7 @@ export default function Services(){
                         {opt.label}
                     </MenuItem>
                 )}
-            </MenuPopover>
+            </MenuPopover> */}
         </Page>
     )
 }

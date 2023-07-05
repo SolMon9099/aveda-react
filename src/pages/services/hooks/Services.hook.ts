@@ -38,26 +38,26 @@ const useService = () => {
         setHOUR_OPTIONS(aux)
     },[])
 
-    const POPOVER_OPTIONS = [
-        {label: 'Ocultar Atividades Completas'},
-    ]
-    const TABS = [
-        {label: 'Lista', value: 1},
-        {label: 'Kanban', value: 2},
-    ]
+    // const POPOVER_OPTIONS = [
+    //     {label: 'Ocultar Atividades Completas'},
+    // ]
+    // const TABS = [
+    //     {label: 'Lista', value: 1},
+    //     {label: 'Kanban', value: 2},
+    // ]
 
     const TABLEHEADER = [
-        {id: 'name', subId: 'description', tagsId: 'tags', label: 'Atividade'},
-        {id: 'processOrCase', subId: 'sub_name', label: 'Processo/Caso'},
-        {id: 'type', type: 'hasIcon', label: 'Tipo'},
+        {id: 'title', tagsId: 'tags', label: 'Titulo'},
+        {id: 'client', label: 'Cliente'},
+        {id: 'processOrCase', label: 'Processo / Caso'},
         {id: 'status', type: 'label', label: 'Status'},
-        {id: 'responsible', label: 'Responsável'},
-        {id: 'date', label: 'Prazo'},
+        {id: 'answer', label: 'Atend.'},
+        {id: 'date', label: 'Ult.Mov.'},
     ]
-    const RESPONSIBLE_OPTIONS = [
-        {value: '1', label: 'Responsável 1'},
-        {value: '2', label: 'Responsável 2'},
-    ]
+    // const RESPONSIBLE_OPTIONS = [
+    //     {value: '1', label: 'Responsável 1'},
+    //     {value: '2', label: 'Responsável 2'},
+    // ]
     const STATUS_OPTIONS = [
         {value: 'toDo', label: 'A Fazer'},
         {value: 'onDoing', label: 'Fazendo'},
@@ -183,12 +183,12 @@ const useService = () => {
     const serviceHook: any = {
         openPopover,
         currentTab,
-        POPOVER_OPTIONS,
-        TABS,
+        // POPOVER_OPTIONS,
+        // TABS,
         setCurrentTab,
         setOpenPopover,
         TABLEHEADER,
-        RESPONSIBLE_OPTIONS,
+        // RESPONSIBLE_OPTIONS,
         STATUS_OPTIONS,
         TAGS_OPTIONS,
         VISIBILITY_OPTIONS,

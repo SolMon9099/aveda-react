@@ -1,50 +1,58 @@
 import moment from "moment";
 import _mock from "./_mock";
+import { randomInArray } from "./funcs";
+import { futuredValues } from "./sentence";
 
-export const _taskList = [...Array(10)].map((_,idx) =>({
+const titles = [
+    'Ação previdenciária',
+    'Ação previdenciária - análise',
+    'Indenização Trabalhista'
+]
+
+const status = [
+    'Em Andamento',
+    'Encerrado'
+]
+
+export const _serviceList = [...Array(25)].map((_,idx) =>({
     _id: _mock.id(idx),
-    name: `Atividade ${idx}`,
-    description: idx%2 === 0 ? 'Somente última versão do contrato' : 'Ligar antes para Dra. Lívia e confirmar...',
+    title: titles[idx % 3],
+    client: _mock.name.fullName(idx % 20),
     sub_name: idx%2 === 0 ? 'Fabrício Duarte' : 'Janete Freitas',
-    processOrCase: `CA0023${idx}`,
-    type: idx%2 === 0 ? 'event' : 'task',
-    status: idx%3 === 0 ? 'toDo' : idx%2 === 0 ? 'onDoing' : 'Done',
+    processOrCase: `20201125-0000547`,
+    status: randomInArray(status),
+    answer: _mock.number.count(idx % 20),
     date: new Date(),
-    hour: idx%2 === 0 ? moment().format('HH:mm') : null,
-    responsible: [{value: '1', label: 'Flávia Vilaça'}, {value: '2', label: 'Júlio Vargas'}],
+    // responsible: [{value: '1', label: 'Flávia Vilaça'}, {value: '2', label: 'Júlio Vargas'}],
     tags: idx%3 === 0 ? 
         [
             {
                 _id: _mock.id(idx),
-                title: 'Urgente',
-                color: 'error'
+                title: 'Pendente',
+                color: 'waiting'
             },
             {
                 _id: _mock.id(idx),
                 title: `Prioritário`,
-                color: 'success'
+                color: 'default'
             }
         ] : (idx%3 === 1 ? 
             [
                 {
                     _id: _mock.id(idx),
-                    title: 'Análise',
-                    color: 'primary'
+                    title: `Prioritário`,
+                    color: 'default'
                 }
             ]: 
             [
                 {
                     _id: _mock.id(idx),
-                    title: 'Urgente',
-                    color: 'error'
+                    title: 'Fase Inicial',
+                    color: 'analysing'
                 }, 
-                {
-                    _id: _mock.id(idx),
-                    title: 'Análise',
-                    color: 'primary'
-                }
             ]
         ),
     
-    visibility: idx%2 === 0 ? 'public' : 'private'
+    // visibility: idx%2 === 0 ? 'public' : 'private'
+    futuredValues: randomInArray(futuredValues),
 }))
