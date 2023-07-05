@@ -16,10 +16,11 @@ const useCallHandle = () => {
     const navigate = useNavigate()
     const { callManualId } = useParams()
     const { callToEdit } = useSelector((state) => state.callHandle)
-    const QUALIFY_OPTIONS = [
+    const TAG_OPTIONS = [
         {value: '', label: ''},
-        {value: 'reu', label: 'Réu'},
-        {value: 'autor', label: 'Autor'}
+        {value: 'pending', label: 'Pendente'},
+        {value: 'priority', label: 'Prioritário'},
+        {value: 'earlyStage', label: 'Fase Inicial'},
     ]
     const PART_OPTIONS = [
         {value: '', label: ''},
@@ -67,8 +68,9 @@ const useCallHandle = () => {
         {value: '2', label: 'Tipo 2'}
     ]
     const TAGS_OPTIONS = [
-        {value: '1', label: 'Teste 1', color: 'error'},
-        {value: '2', label: 'Teste 2', color: 'success'}
+        {value: 'pending', label: 'Pendente', color: 'waiting'},
+        {value: 'priority', label: 'Prioritário', color: 'default'},
+        {value: 'earlyStage', label: 'Fase Inicial', color: 'analysing'},
     ]
 
     useEffect(() =>{
@@ -109,32 +111,12 @@ const useCallHandle = () => {
     }),[callToEdit]);
 
     const NewCallSchema = Yup.object().shape({
-        clientName: Yup.string().required('Campo obrigatório!'),
-        clientQualify: Yup.string().required('Campo obrigatório!'),
-        counterName: Yup.string().required('Campo obrigatório!'),
-        counterQualify: Yup.string().required('Campo obrigatório!'),
+        processOrCase: Yup.string().required('Campo obrigatório!'),
+        client: Yup.string().required('Campo obrigatório!'),
         title: Yup.string().required('Campo obrigatório!'),
-        folder: Yup.string().required('Campo obrigatório!'),
         tags: Yup.array(),
-        number: Yup.string().required('Campo obrigatório!'),
-        part: Yup.string().required('Campo obrigatório!'),
-        action: Yup.string().required('Campo obrigatório!'),
-        matter: Yup.string().required('Campo obrigatório!'),
-        county: Yup.string().required('Campo obrigatório!'),
-        instance: Yup.string().required('Campo obrigatório!'),
-        phase: Yup.string().required('Campo obrigatório!'),
-        url: Yup.string().required('Campo obrigatório!'),
-        causeValue: Yup.number().required('Campo obrigatório!'),
-        object: Yup.string().required('Campo obrigatório!'),
-        strategy: Yup.string().required('Campo obrigatório!'),
-        observations: Yup.string().required('Campo obrigatório!'),
-        responsible: Yup.string().required('Campo obrigatório!'),
-        status: Yup.string().required('Campo obrigatório!'),
-        endDate: Yup.string().required('Campo obrigatório!'),
-        endType: Yup.string().required('Campo obrigatório!'),
-        endValue: Yup.number().required('Campo obrigatório!'),
-        endObject: Yup.string().required('Campo obrigatório!'),
-        endObservations: Yup.string().required('Campo obrigatório!')
+        type: Yup.string(),
+        message: Yup.string().required('Campo obrigatório!')
     });
 
     const methods = useForm<newCallTypeSchema>({
@@ -186,7 +168,7 @@ const useCallHandle = () => {
         callManualId,
         methods,
         isSubmitting,
-        QUALIFY_OPTIONS,
+        QUALIFY_OPTIONS: TAG_OPTIONS,
         PART_OPTIONS,
         ACTION_OPTIONS,
         MATTER_OPTIONS,
