@@ -83,15 +83,9 @@ export default function ProcessImportDetail(){
                         processDetailHook.currentTab === 2 ?
                         <Box flexGrow={1}>
                             <Grid container spacing={3}>
-                                <ServiceList/>
-                                {/* <Grid item md={12} xs={12}>
-                                    
-                                </Grid> */}
-                                {/* {isDesktop &&
-                                    <Grid item md={4} xs={0}>
-                                        <LinkedActivitiesCard type='service' activitiesListHook={activitiesListHook} processDetailHook={processDetailHook}/>
-                                    </Grid>
-                                } */}
+                                <Grid item md={12} xs={12}>
+                                    <ServiceList activitiesListHook={activitiesListHook} processDetailHook={processDetailHook}/>
+                                </Grid>
                             </Grid>
                         </Box>
                         :

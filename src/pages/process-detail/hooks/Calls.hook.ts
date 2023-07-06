@@ -46,14 +46,14 @@ const useCall = () => {
         {id: 'title', tagsId: 'tags', label: 'Titulo'},
         {id: 'client', label: 'Cliente'},
         {id: 'processOrCase', label: 'Processo / Caso'},
-        {id: 'status', type: 'label', label: 'Status'},
+        {id: 'status', label: 'Status'},
         {id: 'answer', label: 'Atend.'},
         {id: 'date', label: 'Ult.Mov.'},
     ]
 
     const PROCESSTABLEHEADER = [
         {id: 'title', tagsId: 'tags', label: 'Titulo'},
-        {id: 'status', type: 'label', label: 'Status'},
+        {id: 'status', label: 'Status'},
         {id: 'answer', label: 'Atend.'},
         {id: 'date', label: 'Ult.Mov.'},
     ]

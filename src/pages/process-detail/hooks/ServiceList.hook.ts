@@ -100,6 +100,16 @@ const useServiceList = () => {
     reset()
   }
 
+  const onClickNewCall = () => {
+    setOpenForm(true)
+    setOpenList(false)
+  }
+
+  const onClickCall = () => {
+    setOpenForm(false)
+    setOpenList(false)
+  }
+
   const serviceListHook: any = {
       openForm,
       openList,
@@ -114,6 +124,8 @@ const useServiceList = () => {
       handleSubmit,
       setOpenForm,
       setOpenList,
+      onClickNewCall,
+      onClickCall
   }
 
   return{
