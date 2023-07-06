@@ -39,8 +39,6 @@ export default function Calls(){
                             data={callList}
                             header={callHook.TABLEHEADER}
                             defaultOrderBy='name'
-                            // selectType="all"
-                            // selectKey="_id"
                             hasCount 
                             hasSearch 
                             hasFilter
@@ -48,67 +46,12 @@ export default function Calls(){
                             hasDownloadExcel
                             hasRecord
                             labelCount="Atendimentos"
-                            // onSelectAllRowFunction={callHook.onSelectAllRows}
-                            // onSelectRowFunction={callHook.onSelectRow}
-                            // onClickKey='_id'
-                            // titleActions={
-                            //     <IconButton
-                            //         sx={{
-                            //             width: 36,
-                            //             height: 36,
-                            //             borderRadius: 1,
-                            //             backgroundColor: 'lightgray',
-                            //             color: (theme) => theme.palette.common.black,
-                            //             '&:hover':{
-                            //                 backgroundColor: 'darkgray',
-                            //             }
-                            //         }}
-                            //         onClick={(e) => callHook.setOpenPopover(e.currentTarget)}
-                            //     >
-                            //         <Iconify icon='ic:outline-more-vert'/>
-                            //     </IconButton>
-                            // }
-                            // onClickFunction={(id) => callHook.onClickCall(id)}
-                            // newInfoKey="hasAtualization"
-                            // selectActions={
-                            //     <Tooltip title="Deletar">
-                            //         <IconButton color="primary" onClick={() => callHook.handleDeleteProcess()}>
-                            //             <Iconify icon={'eva:trash-2-outline'} />
-                            //         </IconButton>
-                            //     </Tooltip>
-                            // }
-                            // defaultSelected={activitiesListHook.selectedIds}
-                            // disableOnSelect
-                            
                         />
-                        
                     </Stack>
                 </>
             )}
             <CallModal callHook={callHook}/>
             </Container>
-            {/* <MenuPopover
-                open={Boolean(callHook.openPopover)}
-                anchorEl={callHook.openPopover}
-                onClose={() => callHook.setOpenPopover(false)}
-                sx={{
-                '& .MuiMenuItem-root': {
-                    px: 1,
-                    typography: 'body2',
-                    borderRadius: 0.75,
-                },
-                }}
-                disabledArrow
-            >
-                {callHook.POPOVER_OPTIONS.map((opt: {label: string}) =>
-                    <MenuItem
-                        key={'OPT_'+opt.label}
-                        // onClick={() => navigate(opt.to)}
-                    >
-                        {opt.label}
-                    </MenuItem>
-                )}
-            </MenuPopover> */}
         </Page>
     )
 }

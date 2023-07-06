@@ -17,6 +17,7 @@ import DocumentsCard from "./components/DocumentsCard";
 import MovimentationList from "./components/MovimentationsList";
 import Label from "src/components/Label";
 import ServiceList from "./components/ServiceList";
+import CallList from "./components/CallList";
 import LinkedActivitiesCard from "./components/LinkedActivitiesCard";
 import ActivityModal from "../case-detail/components/ActivityModal";
 
@@ -82,14 +83,15 @@ export default function ProcessImportDetail(){
                         processDetailHook.currentTab === 2 ?
                         <Box flexGrow={1}>
                             <Grid container spacing={3}>
-                                <Grid item md={8} xs={12}>
-                                    <ServiceList/>
-                                </Grid>
-                                {isDesktop &&
+                                <ServiceList/>
+                                {/* <Grid item md={12} xs={12}>
+                                    
+                                </Grid> */}
+                                {/* {isDesktop &&
                                     <Grid item md={4} xs={0}>
                                         <LinkedActivitiesCard type='service' activitiesListHook={activitiesListHook} processDetailHook={processDetailHook}/>
                                     </Grid>
-                                }
+                                } */}
                             </Grid>
                         </Box>
                         :

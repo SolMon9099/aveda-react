@@ -106,7 +106,7 @@ const ERROR = {
 const WAITING = {
   lighter: '#FFE7D9',
   light: '#FFA48D',
-  main: '#E5F01F',
+  main: '#FFC107',
   dark: '#B72136',
   darker: '#7A0C2E',
 };

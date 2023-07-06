@@ -17,6 +17,7 @@ const useServiceList = () => {
     const { user } = useAuth()
     const { processId } = useParams()
     const [ openForm, setOpenForm ] = useState(false)
+    const [ openList, setOpenList ] = useState(true)
     const [ HOUR_OPTIONS, setHOUR_OPTIONS ] = useState<any>([])
     const TYPE_OPTIONS = [
       {value: 'service', label: 'Atendimento'},
@@ -101,6 +102,7 @@ const useServiceList = () => {
 
   const serviceListHook: any = {
       openForm,
+      openList,
       isSubmitting,
       values,
       TYPE_OPTIONS,
@@ -111,6 +113,7 @@ const useServiceList = () => {
       setValue,
       handleSubmit,
       setOpenForm,
+      setOpenList,
   }
 
   return{
