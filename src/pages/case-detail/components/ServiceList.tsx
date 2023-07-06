@@ -18,6 +18,9 @@ export default function ServiceList(){
                 <Stack spacing={3}>
                     <Stack spacing={4}>
                         <Stack spacing={4} direction={'row'} justifyContent={'space-between'}>
+                            <Typography variant='h6'>
+                                Atendimentos
+                            </Typography>
                             <IconButton
                                 sx={{
                                     width: 36,
@@ -44,11 +47,16 @@ export default function ServiceList(){
                                 <Box flexGrow={1}/>
                             </Stack>
                             :
-                            <FormProvider methods={serviceListHook.methods} onSubmit={serviceListHook.handleSubmit(serviceListHook.onSubmit)}>
-                                <Grid container spacing={2}>
-                                    <Typography variant='h6'>
-                                        Novo Atendimento
-                                    </Typography>
+                            <FormProvider 
+                                methods={serviceListHook.methods} 
+                                onSubmit={serviceListHook.handleSubmit(serviceListHook.onSubmit)}
+                            >
+                                <Grid sx={{ borderTop: '1px solid #919EAB' }} container spacing={2}>
+                                    <Grid item spacing={3} xs={12}>
+                                        <Typography variant='h6'>
+                                            Novo Atendimento
+                                        </Typography>
+                                    </Grid>
                                     <Grid item xs={6}>
                                         <RHFSelect
                                             name="type"
@@ -68,25 +76,6 @@ export default function ServiceList(){
                                             multiline
                                             rows={4}
                                         />
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <RHFTextField
-                                            type='date'
-                                            name='date'
-                                            label='Data'
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12} sm={6}>
-                                        <RHFSelect
-                                            name='hour'
-                                            label='Hora'
-                                        >
-                                            {serviceListHook.HOUR_OPTIONS.map((opt: any) =>
-                                                <option key={opt.value} value={opt.value}>
-                                                    {opt.label}
-                                                </option>
-                                            )}
-                                        </RHFSelect>
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Stack direction='row' justifyContent='space-between' spacing={2}>
