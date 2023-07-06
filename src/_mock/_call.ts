@@ -34,14 +34,14 @@ export const _callList = [...Array(25)].map((_,idx) =>({
             {
                 _id: _mock.id(idx),
                 title: `Prioritário`,
-                color: 'default'
+                color: 'priority'
             }
         ] : (idx%3 === 1 ? 
             [
                 {
                     _id: _mock.id(idx),
                     title: `Prioritário`,
-                    color: 'default'
+                    color: 'priority'
                 }
             ]: 
             [
