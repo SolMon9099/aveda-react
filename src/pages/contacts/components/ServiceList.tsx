@@ -43,7 +43,6 @@ export default function ServiceList({processDetailHook, activitiesListHook} : an
                                         sx={{
                                             paddingBottom: '20px',
                                             marginBottom: '20px',
-                                            borderBottom: '1px solid #919EAB',
                                         }}
                                         spacing={4} direction='row' alignItems='center' justifyContent='space-between'>
                                         <Stack spacing={3} direction={'row'}>
@@ -81,6 +80,55 @@ export default function ServiceList({processDetailHook, activitiesListHook} : an
                                         >
                                             <Iconify icon='ic:outline-more-vert'/>
                                         </IconButton>
+                                        
+                                    </Stack>
+                                    <Stack
+                                        sx={{
+                                            paddingBottom: '20px',
+                                            marginBottom: '20px',
+                                            borderBottom: '1px solid #919EAB',
+                                        }}
+                                        spacing={4} 
+                                        direction='row' 
+                                        alignItems='center' 
+                                        justifyContent='space-between'
+                                    >
+                                        <Stack spacing={3} direction={'row'}>
+                                            <Grid container md={12}>
+                                                <Grid md={12}>
+                                                    <Stack direction='row' spacing={1} >
+                                                        <Grid md={1}>
+                                                        </Grid>
+                                                        <Grid md={4}>
+                                                            <Typography variant="body2" fontWeight='400' color='text.secondary'>
+                                                                Processo
+                                                            </Typography>
+                                                        </Grid>
+                                                        <Grid md={4}>
+                                                            <Typography variant="body2" fontWeight='400' color='text.primary'>
+                                                                {call?.processOrCase}
+                                                            </Typography>
+                                                        </Grid>
+                                                    </Stack>
+                                                </Grid>
+                                                <Grid md={12}>
+                                                    <Stack direction='row' spacing={1} >
+                                                        <Grid md={1}>
+                                                        </Grid>
+                                                        <Grid md={4}>
+                                                            <Typography variant="body2" fontWeight='400' color='text.secondary'>
+                                                                Título Processo
+                                                            </Typography>
+                                                        </Grid>
+                                                        <Grid md={6}>
+                                                            <Typography variant="body2" fontWeight='400' color='text.primary'>
+                                                                {process?.title}
+                                                            </Typography>
+                                                        </Grid>
+                                                    </Stack>
+                                                </Grid>
+                                            </Grid>
+                                        </Stack>
                                         
                                     </Stack>
                                     <Stack spacing={4}>
