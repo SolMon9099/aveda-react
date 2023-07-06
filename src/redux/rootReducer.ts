@@ -16,6 +16,7 @@ import processReducer from './slices/process';
 import taskReducer from './slices/task';
 import callReducer from './slices/call';
 import callHandleReducer from './slices/callHandle';
+import callDetailReducer from './slices/callDetail';
 import contactReducer from './slices/contact';
 import processImportReducer from './slices/processImport';
 import processImportListReducer from './slices/processImportList';
@@ -49,6 +50,7 @@ const rootReducer = combineReducers({
   task:taskReducer,
   call:callReducer,
   callHandle:callHandleReducer,
+  callDetail: callDetailReducer,
   contact:contactReducer,
   processImport: processImportReducer,
   processImportList: processImportListReducer,

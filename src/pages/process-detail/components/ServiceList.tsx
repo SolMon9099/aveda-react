@@ -1,5 +1,7 @@
 import { LoadingButton, Timeline, TimelineConnector, TimelineContent, TimelineDot, TimelineItem, TimelineSeparator } from "@mui/lab";
-import { Box, Button, Card, CardContent, Grid, Stack, Typography } from "@mui/material";
+import { Box, Button, Card, CardContent, Grid, Stack, Typography, IconButton } from "@mui/material";
+import Iconify from "src/components/Iconify";
+import Label from "src/components/Label";
 import moment from "moment";
 import { FormProvider, RHFSelect, RHFTextField } from "src/components/hook-form";
 import Markdown from "src/components/Markdown";
@@ -8,12 +10,22 @@ import { useSelector } from "src/redux/store";
 import useServiceList from "../hooks/ServiceList.hook";
 import LinkedActivitiesCard from "../components/LinkedActivitiesCard";
 import useResponsive from "src/hooks/useResponsive";
+import { useEffect, useState } from "react";
 
 
 export default function ServiceList({processDetailHook, activitiesListHook} : any){
     const { process } = useSelector((state) => state.processDetail)
+    const { callList } = useSelector((state) => state.call)
     const { serviceListHook } = useServiceList()
     const isDesktop = useResponsive('up', 'md');
+    const [call, setCall] = useState<any>()
+
+    useEffect(() => {
+        if (serviceListHook?.selectedId && callList?.length) {
+            var call = callList.filter(d => d._id === serviceListHook.selectedId)[0]
+            setCall(call);
+        }
+    }, [callList, serviceListHook.selectedId])
 
     return(
         <Stack spacing={3}>
@@ -27,10 +39,51 @@ export default function ServiceList({processDetailHook, activitiesListHook} : an
                         <Grid item md={7.5} xs={12}>
                             <Card>
                                 <CardContent>
+                                    <Stack
+                                        sx={{
+                                            paddingBottom: '20px',
+                                            marginBottom: '20px',
+                                            borderBottom: '1px solid #919EAB',
+                                        }}
+                                        spacing={4} direction='row' alignItems='center' justifyContent='space-between'>
+                                        <Stack spacing={3} direction={'row'}>
+                                            <IconButton color="primary" onClick={() => serviceListHook.setOpenList(true)}>
+                                                <Iconify icon='material-symbols:arrow-back'/>
+                                            </IconButton>
+                                            <Stack>
+                                                <Typography variant='h6'>
+                                                    {call?.title}
+                                                </Typography>
+                                                <Stack direction='row' spacing={1}>
+                                                    {call?.tags.map((tag: any) =>
+                                                        <Label
+                                                            color={tag.color as any}
+                                                            variant="filled"
+                                                        >
+                                                            {tag.title}
+                                                        </Label>
+                                                    )}
+                                                </Stack>
+                                            </Stack>
+                                        </Stack>
+                                        
+                                        <IconButton
+                                            sx={{
+                                                width: 36,
+                                                height: 36,
+                                                borderRadius: 1,
+                                                backgroundColor: (theme) => theme.palette.grey[300],
+                                                color: (theme) => theme.palette.grey[800],
+                                                '&:hover':{
+                                                    backgroundColor: (theme) => theme.palette.grey[500],
+                                                }
+                                            }}
+                                        >
+                                            <Iconify icon='ic:outline-more-vert'/>
+                                        </IconButton>
+                                        
+                                    </Stack>
                                     <Stack spacing={4}>
-                                        <Typography variant='h6'>
-                                            Atendimentos
-                                        </Typography>
                                         {!serviceListHook.openForm ? 
                                             <Stack direction='row'>
                                                 <Button

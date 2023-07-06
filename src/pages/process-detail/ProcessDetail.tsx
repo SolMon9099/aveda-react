@@ -17,7 +17,6 @@ import DocumentsCard from "./components/DocumentsCard";
 import MovimentationList from "./components/MovimentationsList";
 import Label from "src/components/Label";
 import ServiceList from "./components/ServiceList";
-import CallList from "./components/CallList";
 import LinkedActivitiesCard from "./components/LinkedActivitiesCard";
 import ActivityModal from "../case-detail/components/ActivityModal";
 

@@ -24,7 +24,7 @@ export default function CallList({serviceListHook}: any){
                 hasRecord
                 labelCount="Atendimentos"
                 onClickKey="_id"
-                onClickFunction={(id) => serviceListHook.onClickCall()}
+                onClickFunction={(id) => {serviceListHook.onClickCall(id)}}
                 titleActions={
                     <Button
                         variant='contained'

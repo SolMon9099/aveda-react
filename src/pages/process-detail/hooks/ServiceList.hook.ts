@@ -18,6 +18,7 @@ const useServiceList = () => {
     const { processId } = useParams()
     const [ openForm, setOpenForm ] = useState(false)
     const [ openList, setOpenList ] = useState(true)
+    const [ selectedId, setSelectedId ] = useState('')
     const [ HOUR_OPTIONS, setHOUR_OPTIONS ] = useState<any>([])
     const TYPE_OPTIONS = [
       {value: 'service', label: 'Atendimento'},
@@ -105,14 +106,16 @@ const useServiceList = () => {
     setOpenList(false)
   }
 
-  const onClickCall = () => {
+  const onClickCall = (id: any) => {
     setOpenForm(false)
     setOpenList(false)
+    setSelectedId(id)
   }
 
   const serviceListHook: any = {
       openForm,
       openList,
+      selectedId,
       isSubmitting,
       values,
       TYPE_OPTIONS,
