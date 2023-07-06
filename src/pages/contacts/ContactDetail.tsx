@@ -1,8 +1,9 @@
-import { Box, Container, Grid, IconButton, Stack, Typography } from "@mui/material";
+import { Box, Container, Grid, IconButton, Stack, Typography, MenuItem } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import AdevaLoading from "src/components/AdevaLoading";
 import Iconify from "src/components/Iconify";
 import Page from "src/components/Page";
+import MenuPopover from "src/components/MenuPopover";
 import useResponsive from "src/hooks/useResponsive";
 import { useSelector } from "src/redux/store";
 import { PATH_ERP } from "src/routes/paths";
@@ -95,7 +96,7 @@ export default function ProcessImportDetail(){
                         <ActivitiesList activitiesListHook={activitiesListHook}/>
                         :
                         processDetailHook.currentTab === 4 ?
-                        <ServiceList />
+                        <ServiceList processDetailHook={processDetailHook} activitiesListHook={activitiesListHook} />
                         :
                         // <DocumentList/>
                         <></>
@@ -104,6 +105,28 @@ export default function ProcessImportDetail(){
             }
             <ActivityModal activitiesListHook={activitiesListHook}/>
             </Container>
+            <MenuPopover
+                open={Boolean(processDetailHook.openPopover)}
+                anchorEl={processDetailHook.openPopover}
+                onClose={() => processDetailHook.setOpenPopover(null)}
+                sx={{
+                '& .MuiMenuItem-root': {
+                    px: 1,
+                    typography: 'body2',
+                    borderRadius: 0.75,
+                },
+                }}
+                disabledArrow
+            >
+                {processDetailHook.POPOVER_OPTIONS?.map((opt: {to: string, label: string}) =>
+                    <MenuItem
+                        key={'OPT_'+opt.to}
+                        onClick={() => navigate(opt.to)}
+                    >
+                        {opt.label}
+                    </MenuItem>
+                )}
+            </MenuPopover>
         </Page>
     )
 }

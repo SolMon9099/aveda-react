@@ -1,7 +1,9 @@
 import { LoadingButton, Timeline, TimelineConnector, TimelineContent, TimelineDot, TimelineItem, TimelineSeparator } from "@mui/lab";
-import { Box, Button, Card, CardContent, Grid, Stack, Typography, IconButton } from "@mui/material";
+import { Box, Button, Card, CardContent, Grid, Stack, Typography, IconButton, MenuItem } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import Iconify from "src/components/Iconify";
 import Label from "src/components/Label";
+import MenuPopover from "src/components/MenuPopover";
 import moment from "moment";
 import { FormProvider, RHFSelect, RHFTextField } from "src/components/hook-form";
 import Markdown from "src/components/Markdown";
@@ -19,6 +21,8 @@ export default function ServiceList({processDetailHook, activitiesListHook} : an
     const { serviceListHook } = useServiceList()
     const isDesktop = useResponsive('up', 'md');
     const [call, setCall] = useState<any>()
+    
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (serviceListHook?.selectedId && callList?.length) {
@@ -28,6 +32,7 @@ export default function ServiceList({processDetailHook, activitiesListHook} : an
     }, [callList, serviceListHook.selectedId])
 
     return(
+        <>
         <Stack spacing={3}>
             <Grid container item md={12} xs={12}>
                 {serviceListHook.openList ? 
@@ -77,6 +82,7 @@ export default function ServiceList({processDetailHook, activitiesListHook} : an
                                                     backgroundColor: (theme) => theme.palette.grey[500],
                                                 }
                                             }}
+                                            onClick={(e) => processDetailHook?.setOpenPopover(e.currentTarget)}
                                         >
                                             <Iconify icon='ic:outline-more-vert'/>
                                         </IconButton>
@@ -255,5 +261,7 @@ export default function ServiceList({processDetailHook, activitiesListHook} : an
                 }
             </Grid>
         </Stack>
+        </>
+        
     )
 }

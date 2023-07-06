@@ -72,7 +72,7 @@ export default function ProcessImportDetail(){
                             }}
                         >
                             <Iconify icon='ic:outline-more-vert'/>
-                        </IconButton>             
+                        </IconButton>
                     </Stack>
                     <CardDetails/>
                     <ProcessDetailTabs processDetailHook={processDetailHook}/>

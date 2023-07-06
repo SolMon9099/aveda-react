@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useLocation, useParams } from "react-router-dom"
 import { getProcessDetail } from "src/redux/slices/processDetail"
 import { useDispatch } from "src/redux/store"
+import { PATH_ERP } from "src/routes/paths";
 
 
 const useContactDetail = () => {
@@ -9,6 +10,7 @@ const useContactDetail = () => {
     const { pathname } = useLocation()
     const dispatch = useDispatch()
     const [ currentTab, setCurrentTab ] = useState(1)
+    const [openPopover, setOpenPopover] = useState(null)
     const TABS = [
         {label: 'Dados Cadastrais', value: 1, },
         {label: 'Processos e Casos', value: 2},
@@ -16,6 +18,13 @@ const useContactDetail = () => {
         {label: 'Atendimentos', value: 4},
         {label: 'Extrato', value: 5},
         {label: 'Documentos', value: 6}
+    ]
+    const POPOVER_OPTIONS = [
+        {label: 'Editar Atendimento', to: PATH_ERP.handleCase},
+        {label: 'Transformar em Caso', to: PATH_ERP.handleProcess},
+        {label: 'Transformar em Processo', to: PATH_ERP.handleProcess},
+        {label: 'Encerrar Atendimento', to: PATH_ERP.importListProcess},
+        {label: 'Excluir Atendimento', to: PATH_ERP.importListProcess},
     ]
 
     useEffect(() =>{
@@ -27,8 +36,11 @@ const useContactDetail = () => {
 
     const processDetailHook: any = {
         TABS,
+        POPOVER_OPTIONS,
         currentTab,
-        setCurrentTab
+        openPopover,
+        setCurrentTab,
+        setOpenPopover,
     }
 
     return{
