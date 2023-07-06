@@ -75,6 +75,7 @@ export default function Router() {
         { path: 'financeiro', element: <WIP/> },
         { path: 'atendimentos', element: <Calls/> },
         { path: 'atendimentos/manual', element: <CallHandle/> },
+        { path: 'processos/atendimento/manual', element: <CallProcessHandle/> },
         { path: 'documentos', element: <WIP/> },
         { path: 'movimentacoes', element: <Movimentations/> },
       ],
@@ -139,3 +140,4 @@ const ContactDetail = Loadable(lazy(() => import('../pages/contacts/ContactDetai
 // calls(attendimentos)
 const Calls = Loadable(lazy(() => import('../pages/calls/Calls')));
 const CallHandle = Loadable(lazy(() => import('../pages/call-handle/CallHandle')));
+const CallProcessHandle = Loadable(lazy(() => import('../pages/call-process-handle/CallHandle')));

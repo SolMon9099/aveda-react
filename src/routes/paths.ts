@@ -52,6 +52,7 @@ export const PATH_ERP = {
   finance: path(ROOTS_ERP, '/financeiro'),
   calls: path(ROOTS_ERP, '/atendimentos'),
   callHandle: path(ROOTS_ERP, '/atendimentos/manual'),
+  HandleCallProcess: path(ROOTS_ERP, '/processos/atendimento/manual'),
   documents: path(ROOTS_ERP, '/documentos'),
   movimentatiosn: path(ROOTS_ERP, '/movimentacoes'),
 };
