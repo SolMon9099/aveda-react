@@ -1,5 +1,6 @@
 import { LoadingButton, Timeline, TimelineConnector, TimelineContent, TimelineDot, TimelineItem, TimelineSeparator } from "@mui/lab";
-import { Box, Button, Card, CardContent, Grid, Stack, Typography } from "@mui/material";
+import { Box, Button, Card, CardContent, Grid, Stack, Typography, IconButton } from "@mui/material";
+import Iconify from "src/components/Iconify";
 import moment from "moment";
 import { FormProvider, RHFSelect, RHFTextField } from "src/components/hook-form";
 import Markdown from "src/components/Markdown";
@@ -16,9 +17,22 @@ export default function ServiceList(){
             <CardContent>
                 <Stack spacing={3}>
                     <Stack spacing={4}>
-                        <Typography variant='h6'>
-                            Atendimentos
-                        </Typography>
+                        <Stack spacing={4} direction={'row'} justifyContent={'space-between'}>
+                            <IconButton
+                                sx={{
+                                    width: 36,
+                                    height: 36,
+                                    borderRadius: 1,
+                                    backgroundColor: (theme) => theme.palette.grey[300],
+                                    color: (theme) => theme.palette.grey[800],
+                                    '&:hover':{
+                                        backgroundColor: (theme) => theme.palette.grey[500],
+                                    }
+                                }}
+                            >
+                                <Iconify icon='mdi:pencil'/>
+                            </IconButton>
+                        </Stack>
                         {!serviceListHook.openForm ? 
                             <Stack direction='row'>
                                 <Button
@@ -32,6 +46,9 @@ export default function ServiceList(){
                             :
                             <FormProvider methods={serviceListHook.methods} onSubmit={serviceListHook.handleSubmit(serviceListHook.onSubmit)}>
                                 <Grid container spacing={2}>
+                                    <Typography variant='h6'>
+                                        Novo Atendimento
+                                    </Typography>
                                     <Grid item xs={6}>
                                         <RHFSelect
                                             name="type"

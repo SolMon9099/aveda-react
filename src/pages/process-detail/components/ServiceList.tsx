@@ -97,6 +97,11 @@ export default function ServiceList({processDetailHook, activitiesListHook} : an
                                             :
                                             <FormProvider methods={serviceListHook.methods} onSubmit={serviceListHook.handleSubmit(serviceListHook.onSubmit)}>
                                                 <Grid container spacing={2}>
+                                                    <Grid item spacing={3} xs={12}>
+                                                        <Typography variant='h6'>
+                                                            Novo Atendimento
+                                                        </Typography>
+                                                    </Grid>
                                                     <Grid item xs={6}>
                                                         <RHFSelect
                                                             name="type"
@@ -109,6 +114,7 @@ export default function ServiceList({processDetailHook, activitiesListHook} : an
                                                             )}
                                                         </RHFSelect>
                                                     </Grid>
+                                                    
                                                     <Grid item xs={12}>
                                                         <RHFTextField
                                                             label='Descrição'
@@ -116,25 +122,6 @@ export default function ServiceList({processDetailHook, activitiesListHook} : an
                                                             multiline
                                                             rows={4}
                                                         />
-                                                    </Grid>
-                                                    <Grid item xs={12} sm={6}>
-                                                        <RHFTextField
-                                                            type='date'
-                                                            name='date'
-                                                            label='Data'
-                                                        />
-                                                    </Grid>
-                                                    <Grid item xs={12} sm={6}>
-                                                        <RHFSelect
-                                                            name='hour'
-                                                            label='Hora'
-                                                        >
-                                                            {serviceListHook.HOUR_OPTIONS.map((opt: any) =>
-                                                                <option key={opt.value} value={opt.value}>
-                                                                    {opt.label}
-                                                                </option>
-                                                            )}
-                                                        </RHFSelect>
                                                     </Grid>
                                                     <Grid item xs={12}>
                                                         <Stack direction='row' justifyContent='space-between' spacing={2}>
