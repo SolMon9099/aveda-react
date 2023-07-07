@@ -4,6 +4,7 @@ import Iconify from "src/components/Iconify";
 import MenuPopover from "src/components/MenuPopover";
 import Page from "src/components/Page";
 import MovimentationsTabs from "./components/MovimentationsTabs";
+import Description from "./components/Description";
 import useMovimentation from "./hooks/Movimentations.hook";
 
 export default function Movimentations(){
@@ -27,6 +28,12 @@ export default function Movimentations(){
                         </Button>
                     </Stack>
                     <MovimentationsTabs movimentationHook={movimentationHook}/>
+                    {movimentationHook.currentTab === 1 && (
+                        <Description />
+                    )}
+                    {movimentationHook.currentTab === 2 && (
+                        <></>
+                    )}
                 </Stack>
             </Container>
             <MenuPopover
