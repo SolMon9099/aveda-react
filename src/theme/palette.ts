@@ -112,7 +112,7 @@ const WAITING = {
 };
 const ANALYSING = {
   main: '#83CFFF',
-};
+}
 
 const GREY = {
   0: '#FFFFFF',
@@ -163,7 +163,9 @@ const COMMON = {
   analysing: { ...ANALYSING, contrastText: '#fff' },
   priority: {main: CHART_COLORS.green[1], contrastText: GREY[800]},
   grey_100: {main: GREY[100], contrastText: GREY[800]},
+  grey_300: {main: GREY[300], contrastText: GREY[800]},
   grey_400: {main: GREY[400], contrastText: GREY[800]},
+  opening: {main: '#36B37E', contrastText: '#fff'},
   grey: GREY,
   gradients: GRADIENTS,
   chart: CHART_COLORS,
