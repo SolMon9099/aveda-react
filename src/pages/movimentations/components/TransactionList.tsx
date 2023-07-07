@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardContent, Grid, Stack, Typography } from "@mui/material";
+import { Box, Button, Card, CardContent, Grid, IconButton, Stack, Typography } from "@mui/material";
 import { useSelector } from "src/redux/store";
 import AdevaLoading from "src/components/AdevaLoading";
 import TableRox from "src/components/table-rox/TableRox";
@@ -35,6 +35,75 @@ export default function TransactionList({movimentationHook}: any){
                     onClickFunction={(id) => {movimentationHook.onClickTransaction(id)}}
                     titleActions={(
                         <FilterButtons transactionHook={transactionHook} />
+                    )}
+                    selectActions={(
+                        <>
+                            <IconButton
+                                sx={{
+                                    minWidth: 103,
+                                    height: 36,
+                                    marginLeft: '12px',
+                                    fontSize: '14px',
+                                    fontWeight: 600,
+                                    lineHeight: '24px',
+                                    borderRadius: 1,
+                                    border: '1px solid #7C3FFF',
+                                    backgroundColor: 'primary.lighter',
+                                    opacity: 0.48,
+                                    color: 'primary.main',
+                                    '&:hover':{
+                                        backgroundColor: 'primary.light',
+                                    }
+                                }}
+                                
+                                onClick={() => {}}
+                            >
+                                Descartar
+                            </IconButton>
+                            <IconButton
+                                sx={{
+                                    minWidth: 103,
+                                    height: 36,
+                                    marginLeft: '12px',
+                                    fontSize: '14px',
+                                    fontWeight: 600,
+                                    lineHeight: '24px',
+                                    borderRadius: 1,
+                                    border: '1px solid #7C3FFF',
+                                    backgroundColor: 'primary.lighter',
+                                    opacity: 0.48,
+                                    color: 'primary.main',
+                                    '&:hover':{
+                                        backgroundColor: 'primary.light',
+                                    }
+                                }}
+                                
+                                onClick={() => {}}
+                            >
+                                Bloquear
+                            </IconButton>
+                            <IconButton
+                                sx={{
+                                    minWidth: 103,
+                                    height: 36,
+                                    marginLeft: '12px',
+                                    fontSize: '14px',
+                                    fontWeight: 600,
+                                    lineHeight: '24px',
+                                    borderRadius: 1,
+                                    border: '1px solid #7C3FFF',
+                                    backgroundColor: 'primary.main',
+                                    color: '#fff',
+                                    '&:hover':{
+                                        backgroundColor: 'primary.light',
+                                    }
+                                }}
+                                
+                                onClick={() => {}}
+                            >
+                                Revisado
+                            </IconButton>
+                        </>
                     )}
                 />
             }
