@@ -9,7 +9,7 @@ const status = [
     { title: 'Revisada', value: 'revised', color: 'opening' },
     { title: 'Atividade', value: 'activity', color: 'primary' },
     { title: 'Descartada', value: 'discarded', color: 'error' },
-    { title: 'Bloqueada', value: 'blocked', color: 'error' },
+    { title: 'Bloqueada', value: 'blocked', color: 'grey_300' },
 ]
 
 export const _transactionList = [...Array(25)].map((_,idx) =>({

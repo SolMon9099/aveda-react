@@ -75,7 +75,7 @@ export type processActivity = {
     visibility: string,
 }
 
-export type callSchema = {
+export type transactionSchema = {
     _id: string,
     name: string,
     description: string,

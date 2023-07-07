@@ -1,7 +1,7 @@
 import { Card, CardContent, Grid, Stack, Typography } from "@mui/material";
 import Label from "src/components/Label";
 
-export default function Description({ movimentationHook }: any){
+export default function FilterButtons({ transactionHook }: any){
     return(
         <Grid container md={12} >
             <Card>

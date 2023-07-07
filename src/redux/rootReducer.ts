@@ -25,6 +25,7 @@ import processHandleReducer from './slices/processHandle';
 import profileReducer from './slices/profile';
 import caseHandleReducer from './slices/caseHandle';
 import caseDetailReducer from './slices/caseDetail';
+import transactionReducer from './slices/transaction';
 
 // ----------------------------------------------------------------------
 
@@ -58,7 +59,8 @@ const rootReducer = combineReducers({
   processHandle: processHandleReducer,
   profile: profileReducer,
   caseHandle: caseHandleReducer,
-  caseDetail: caseDetailReducer
+  caseDetail: caseDetailReducer,
+  transaction: transactionReducer,
 });
 
 export { rootPersistConfig, rootReducer };

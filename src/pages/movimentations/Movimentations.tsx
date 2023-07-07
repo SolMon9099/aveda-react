@@ -5,6 +5,7 @@ import MenuPopover from "src/components/MenuPopover";
 import Page from "src/components/Page";
 import MovimentationsTabs from "./components/MovimentationsTabs";
 import Description from "./components/Description";
+import TransactionLit from "./components/TransactionList";
 import useMovimentation from "./hooks/Movimentations.hook";
 
 export default function Movimentations(){
@@ -29,7 +30,8 @@ export default function Movimentations(){
                     </Stack>
                     <MovimentationsTabs movimentationHook={movimentationHook}/>
                     {movimentationHook.currentTab === 1 && (
-                        <Description />
+                        // <Description />
+                        <TransactionLit />
                     )}
                     {movimentationHook.currentTab === 2 && (
                         <></>

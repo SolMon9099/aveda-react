@@ -72,14 +72,23 @@ export default function TableRowRox({
                     })
                     return(
                         <TableCell>
-                            {(head.type && head.type === 'label') ?
+                            {(head.type && head.type === 'coloredLabel') && (
+                                <Label
+                                    variant="filled"
+                                    color={dataRow.color}
+                                >
+                                    {dataRow.title}
+                                </Label>
+                            )}
+                            {(head.type && head.type === 'label') && (
                                 <Label
                                     variant="filled"
                                     color={row.color || 'primary'}
                                 >
                                     {dataRow}
                                 </Label>
-                                :
+                            )}
+                            {(!head.type || (head.type !== 'label' && head.type !== 'coloredLabel')) && (
                                 <Stack direction='row' spacing={1}>
                                     {(newInfoKey && row[newInfoKey] && idx === 0) &&
                                         <Box
@@ -150,7 +159,7 @@ export default function TableRowRox({
                                         </Stack>
                                     </Stack>
                                 </Stack>
-                            }
+                            )}
                         </TableCell>
                     )
                 })}
