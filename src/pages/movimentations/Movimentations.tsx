@@ -31,7 +31,7 @@ export default function Movimentations(){
                     <MovimentationsTabs movimentationHook={movimentationHook}/>
                     {movimentationHook.currentTab === 1 && (
                         // <Description />
-                        <TransactionLit />
+                        <TransactionLit movimentationHook={movimentationHook} />
                     )}
                     {movimentationHook.currentTab === 2 && (
                         <></>

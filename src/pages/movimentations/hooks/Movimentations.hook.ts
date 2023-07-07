@@ -14,6 +14,10 @@ const useMovimentation = () => {
         {label: 'Andamentos Processuais', value: 2},
     ]
 
+    const onClickTransaction = (id: any) => {
+        console.log(id);
+    }
+
     const movimentationHook: any = {
         openPopover,
         currentTab,
@@ -23,6 +27,7 @@ const useMovimentation = () => {
         setCurrentTab,
         setOpenPopover,
         setCurrentPage,
+        onClickTransaction,
     }
 
     return{

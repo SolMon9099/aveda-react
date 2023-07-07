@@ -104,18 +104,20 @@ export default function TableRox({
                 <TableContainer sx={{ minWidth: 800, mt: 3 }}>
                     {(tableTitle || titleActions || tableSubtitle) &&
                         <Stack direction='row' alignItems='center' justifyContent='space-between' sx={{ pb:3, px: 3 }}>
-                            <Stack>
-                                {(tableTitle && tableTitle !== '') && 
-                                    <Typography variant='h6'>
-                                        {tableTitle}
-                                    </Typography>
-                                }
-                                {(tableSubtitle && tableSubtitle !== '') && 
-                                    <Typography variant='body1'>
-                                        {tableSubtitle}
-                                    </Typography>
-                                }
-                            </Stack>
+                            {(tableTitle || tableSubtitle) && (
+                                <Stack>
+                                    {(tableTitle && tableTitle !== '') && 
+                                        <Typography variant='h6'>
+                                            {tableTitle}
+                                        </Typography>
+                                    }
+                                    {(tableSubtitle && tableSubtitle !== '') && 
+                                        <Typography variant='body1'>
+                                            {tableSubtitle}
+                                        </Typography>
+                                    }
+                                </Stack>
+                            )}
                             {titleActions && titleActions}
                         </Stack>
                     }

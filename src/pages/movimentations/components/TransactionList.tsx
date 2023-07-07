@@ -7,14 +7,13 @@ import useTransactionList from "../hooks/TransactionList.hook";
 import { useNavigate } from "react-router-dom";
 
 
-export default function TransactionList({serviceListHook}: any){
+export default function TransactionList({movimentationHook}: any){
     const { transactionList, isLoadingTransactionList } = useSelector((state) => state.transaction)
     const { transactionHook } = useTransactionList()
     const navigate = useNavigate()
 
     return(
         <>
-            <FilterButtons transactionHook={transactionHook} />
             {isLoadingTransactionList ?
                 <Box flexGrow={1} display='flex' justifyContent='center' sx={{mt: 40}}>
                     <AdevaLoading/>
@@ -33,7 +32,10 @@ export default function TransactionList({serviceListHook}: any){
                     selectKey="_id"
                     // labelCount="Atendimentos"
                     onClickKey="_id"
-                    onClickFunction={(id) => {serviceListHook.onClickTransaction(id)}}
+                    onClickFunction={(id) => {movimentationHook.onClickTransaction(id)}}
+                    titleActions={(
+                        <FilterButtons transactionHook={transactionHook} />
+                    )}
                 />
             }
         </>

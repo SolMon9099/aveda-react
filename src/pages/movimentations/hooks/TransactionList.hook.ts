@@ -74,10 +74,10 @@ const useTransaction = () => {
     ]
 
     const FILTER_BUTTONS = [
-        {value: 'received', label: 'Recebidas (hoje)', amount: 42, color: '#D0F2FF'},
-        {value: 'revised', label: 'Revisadas (hoje)', amount: 35, color: '#D8FBDE'},
-        {value: 'pending', label: 'Pendentes (hoje)', amount: 7, color: '#FFF7CD'},
-        {value: 'pending_all', label: 'Pendentes (todo período)', amount: 32, color: '#FFE7D9'},
+        {value: 'received', label: 'Recebidas (hoje)', amount: 42, color: 'info.darker', backgroundColor: 'info.lighter'}, // #D0F2FF
+        {value: 'revised', label: 'Revisadas (hoje)', amount: 35, color: 'success.darker', backgroundColor: 'success.lighter'}, // #D8FBDE
+        {value: 'pending', label: 'Pendentes (hoje)', amount: 7, color: 'warning.darker', backgroundColor: 'warning.lighter'}, // #FFF7CD
+        {value: 'pending_all', label: 'Pendentes (todo período)', amount: 32, color: 'error.darker', backgroundColor: 'error.lighter'}, // #FFE7D9
     ]
 
     useEffect(() =>{
@@ -198,6 +198,7 @@ const useTransaction = () => {
         STATUS_OPTIONS,
         TAGS_OPTIONS,
         VISIBILITY_OPTIONS,
+        FILTER_BUTTONS,
         onSelectAllRows,
         onSelectRow,
         setOpenModal,
