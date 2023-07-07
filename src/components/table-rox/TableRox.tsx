@@ -22,6 +22,7 @@ type Props = {
     avatarKey?: string | undefined,
     avatarType?: 'label' | 'icon' | 'default',
     hasSearch?: boolean,
+    searchPlaceholder?: string,
     hasFilter?: boolean,
     hasDownloadPdf?: boolean,
     hasDownloadExcel?: boolean,
@@ -36,6 +37,7 @@ type Props = {
     onSelectAllRowFunction?: (id: string[]) => void,
     defaultSelected?: string[],
     selectActions?: React.ReactNode,
+    selectedUnit?: string,
     titleActions?: React.ReactNode,
     disableOnSelect?: boolean,
     newInfoKey?: string 
@@ -50,6 +52,7 @@ export default function TableRox({
         tableTitle,
         tableSubtitle, 
         hasSearch=false,
+        searchPlaceholder='',
         hasFilter=false,
         hasDownloadPdf=false,
         hasDownloadExcel=false,
@@ -64,6 +67,7 @@ export default function TableRox({
         onSelectAllRowFunction,
         defaultSelected,
         selectActions,
+        selectedUnit='',
         titleActions,
         disableOnSelect=false,
         newInfoKey
@@ -129,7 +133,7 @@ export default function TableRox({
                                     sx={{
                                         ml: 3,
                                         mr: 3,
-                                        maxWidth: 480
+                                        minWidth: 480,
                                     }}
                                     size='small'
                                     InputProps={{
@@ -139,7 +143,7 @@ export default function TableRox({
                                             </InputAdornment>
                                         )
                                     }}
-                                    placeholder='Pesquisar...'
+                                    placeholder={searchPlaceholder !== '' ? searchPlaceholder : 'Pesquisar...'}
                                     value={filterName}
                                     onChange={(e) => onFilterName(e.target.value)}
                                 />
@@ -203,6 +207,7 @@ export default function TableRox({
                         {(selected.length > 0 && selectType === 'all') && (
                             <TableSelectedActions
                                 numSelected={selected.length}
+                                selectedUnit={selectedUnit}
                                 rowCount={data.length}
                                 onSelectAllRows={(checked) =>
                                     onSelectAllRows(

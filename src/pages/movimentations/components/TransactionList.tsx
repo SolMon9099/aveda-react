@@ -25,11 +25,13 @@ export default function TransactionList({movimentationHook}: any){
                     defaultOrderBy='date'
                     hasRecord
                     hasSearch
+                    searchPlaceholder="Pesquisar em 709 publicações..."
                     hasFilter
                     hasDownloadExcel
                     hasDownloadPdf
                     selectType="all"
                     selectKey="_id"
+                    selectedUnit='Publicações Selecionadas'
                     // labelCount="Atendimentos"
                     onClickKey="_id"
                     onClickFunction={(id) => {movimentationHook.onClickTransaction(id)}}

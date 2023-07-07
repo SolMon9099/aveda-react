@@ -157,7 +157,7 @@ const COMMON = {
   secondary: { ...SECONDARY, contrastText: '#fff' },
   info: { ...INFO, contrastText: '#fff' },
   success: { ...SUCCESS, contrastText: GREY[800] },
-  warning: { ...WARNING, contrastText: GREY[800] },
+  warning: { ...WARNING, contrastText: '#fff' },
   error: { ...ERROR, contrastText: '#fff' },
   waiting: { ...WAITING, contrastText: '#fff' },
   analysing: { ...ANALYSING, contrastText: '#fff' },

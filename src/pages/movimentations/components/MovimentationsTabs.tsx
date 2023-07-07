@@ -25,7 +25,8 @@ export default function MovimentationsTabs({ movimentationHook }: any){
                         <Label
                             variant="filled"
                             sx={{
-                                ml: 1
+                                ml: 1,
+                                borderRadius: '10px'
                             }}
                         >
                             {tab.icon}

@@ -8,6 +8,7 @@ interface Props extends StackProps {
   actions?: React.ReactNode;
   rowCount: number;
   numSelected: number;
+  selectedUnit?: string,
   onSelectAllRows: (checked: boolean) => void;
 }
 
@@ -16,6 +17,7 @@ export default function TableSelectedActions({
   actions,
   rowCount,
   numSelected,
+  selectedUnit,
   onSelectAllRows,
   sx,
   ...other
@@ -55,7 +57,7 @@ export default function TableSelectedActions({
           }),
         }}
       >
-        {numSelected} selecionados
+        {numSelected} {selectedUnit && selectedUnit !== '' ? selectedUnit : 'selecionado'}
       </Typography>
 
       {actions && actions}

@@ -10,8 +10,8 @@ const useMovimentation = () => {
         {label: 'Termos Buscados', to: PATH_ERP.handleProcess},
     ]
     const TABS = [
-        {label: 'Publicações', value: 1},
-        {label: 'Andamentos Processuais', value: 2},
+        {label: 'Publicações', value: 1, amount: 35, icon: 35},
+        {label: 'Andamentos Processuais', value: 2, amount: 219, icon: 219},
     ]
 
     const onClickTransaction = (id: any) => {
