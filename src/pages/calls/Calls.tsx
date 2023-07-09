@@ -45,6 +45,7 @@ export default function Calls(){
                             hasDownloadPdf
                             hasDownloadExcel
                             hasRecord
+                            hasRecordMark
                             labelCount="Atendimentos"
                         />
                     </Stack>

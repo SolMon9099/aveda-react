@@ -1,7 +1,7 @@
 import moment from "moment";
 import _mock from "./_mock";
 import { fullName } from "./name";
-import { randomInArray } from "./funcs";
+import { randomInArray, randomItemsInArray, randomNumberRange } from "./funcs";
 import { futuredValues } from "./sentence";
 
 const status = [
@@ -20,7 +20,8 @@ export const _transactionList = [...Array(25)].map((_,idx) =>({
     daily: 'TJRS',
     stickOrCounty: 'Caderno IV - 1a Instância / Comarca de Porto Alegre',
     search: 'Flávia Vilaça',
-    status: randomInArray(status),
+    // status: randomInArray(status),
+    status: randomItemsInArray(status, randomNumberRange(1, 2)),
     futuredValues: randomInArray(futuredValues),
 }))
 

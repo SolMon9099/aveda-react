@@ -44,11 +44,11 @@ const useTransaction = () => {
 
     const TABLEHEADER = [
         {id: 'date', label: 'Data'},
-        {id: 'process', subId: 'processTitle', label: 'Processo'},
+        {id: 'process', subId: 'processTitle', label: 'Processo', subColor: 'primary.main'},
         {id: 'daily', label: 'Diário'},
         {id: 'stickOrCounty', label: 'Vara / Comarca', width: '200px'},
         {id: 'search', label: 'Pesquisa'},
-        {id: 'status', type: 'coloredLabel', label: 'Status'},
+        {tagsId: 'status', type: 'coloredLabel', label: 'Status', width: '50px'},
     ]
 
     const PROCESSTABLEHEADER = [

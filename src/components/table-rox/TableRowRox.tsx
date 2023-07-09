@@ -5,8 +5,9 @@ import Label from "../Label";
 
 type Props = {
     row: any;
-    header: {id: string, subId?: string, tagsId?: string, label: string, align?: string, type?: string, icon?: string}[],
+    header: {id: string, subId?: string, tagsId?: string, label: string, align?: string, type?: string, icon?: string, subColor?: string}[],
     hasRecord: boolean,
+    hasRecordMark?: boolean,
     selectType: string,
     selectKey: string,
     selected: string[],
@@ -23,6 +24,7 @@ export default function TableRowRox({
         row, 
         header, 
         hasRecord,
+        hasRecordMark,
         selectType, 
         selected, 
         selectKey, 
@@ -51,7 +53,7 @@ export default function TableRowRox({
                     </TableCell>
                 }
                 {header.map((head, idx) =>{
-                    var headIdArray = head.id.split('.')
+                    var headIdArray = head.id?.split('.')
                     if(head.subId){
                         var headSubIdArray = head.subId.split('.')
                         var dataRowSub = row;
@@ -67,19 +69,23 @@ export default function TableRowRox({
                         })
                     }
                     var dataRow = row;
-                    headIdArray.forEach((id) =>{
+                    headIdArray?.forEach((id) =>{
                         dataRow = dataRow[id] ? dataRow[id] : '-'
                     })
+                    if (headIdArray === undefined) {
+                        dataRow = "";
+                    }
                     return(
                         <TableCell>
-                            {(head.type && head.type === 'coloredLabel') && (
-                                <Label
-                                    variant="filled"
-                                    color={dataRow.color}
-                                >
-                                    {dataRow.title}
-                                </Label>
-                            )}
+                            {(head.type && head.type === 'coloredLabel') && (dataTags && dataTags.length > 0) &&
+                                <Stack spacing={1} direction={'column'}>
+                                    {dataTags.map((tag: any) =>
+                                        <Label variant="filled" color={tag.color}>
+                                            {tag.title}
+                                        </Label>
+                                    )}
+                                </Stack>
+                            }
                             {(head.type && head.type === 'label') && (
                                 <Label
                                     variant="filled"
@@ -142,13 +148,13 @@ export default function TableRowRox({
                                                         textDecoration: (disableOnSelect && selected.includes(row[selectKey])) ? 'line-through' : undefined
                                                     }} 
                                                     variant='body2' 
-                                                    color='text.secondary'
+                                                    color={head.subColor ?? 'text.secondary'}
                                                 >
                                                     {dataRowSub}
                                                 </Typography>
                                             }
                                             {(dataTags && dataTags.length > 0) &&
-                                                <Stack spacing={1} direction='row'>
+                                                <Stack spacing={1} direction={'row'}>
                                                     {dataTags.map((tag: any) =>
                                                         <Label variant="filled" color={tag.color}>
                                                             {tag.title}
@@ -189,7 +195,8 @@ export default function TableRowRox({
                             variant="filled"
                             color="grey_100"
                         >
-                            <Label
+                            {hasRecordMark && (
+                                <Label
                                 sx={{
                                     width: 24,
                                     height: 24,
@@ -199,6 +206,7 @@ export default function TableRowRox({
                                 variant="filled"
                                 color="grey_400"
                                 >FV</Label>
+                            )}
                             {row.futuredValues}
                         </Label>
                     </TableCell>
