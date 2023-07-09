@@ -26,6 +26,7 @@ type Props = {
     hasFilter?: boolean,
     hasDownloadPdf?: boolean,
     hasDownloadExcel?: boolean,
+    subDescription?: React.ReactNode,
     hasRecord?:boolean,
     hasRecordMark?:boolean,
     hasCount?: boolean,
@@ -57,6 +58,7 @@ export default function TableRox({
         hasFilter=false,
         hasDownloadPdf=false,
         hasDownloadExcel=false,
+        subDescription,
         hasRecord=false,
         hasRecordMark=false,
         hasCount=false, 
@@ -206,6 +208,7 @@ export default function TableRox({
                                 {`${filteredData.length} ${labelCount}`}
                             </Typography>
                         }
+                        {subDescription && subDescription}
                         {(selected.length > 0 && selectType === 'all') && (
                             <TableSelectedActions
                                 numSelected={selected.length}

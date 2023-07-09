@@ -19,6 +19,8 @@ const useTransaction = () => {
     const [ selectedIds, setSelectedIds ] = useState<string[]>([])
     const [ transactionToEdit, setTransactionToEdit] = useState<any>(null);
     const [ HOUR_OPTIONS, setHOUR_OPTIONS ] = useState<any>([])
+    const [ selectedFilter, setSelectedFilter ] = useState<string>('')
+    const [ selectedFilterInfo, setSelectedFilterInfo ] = useState<any>(null)
 
     const dispatch = useDispatch()
 
@@ -74,12 +76,19 @@ const useTransaction = () => {
     ]
 
     const FILTER_BUTTONS = [
-        {value: 'received', label: 'Recebidas (hoje)', amount: 42, color: 'info.darker', backgroundColor: 'info.lighter'}, // #D0F2FF
-        {value: 'revised', label: 'Revisadas (hoje)', amount: 35, color: 'success.darker', backgroundColor: 'success.lighter'}, // #D8FBDE
-        {value: 'pending', label: 'Pendentes (hoje)', amount: 7, color: 'warning.darker', backgroundColor: 'warning.lighter'}, // #FFF7CD
-        {value: 'pending_all', label: 'Pendentes (todo período)', amount: 32, color: 'error.darker', backgroundColor: 'error.lighter'}, // #FFE7D9
+        {value: 'received', label: 'Recebidas (hoje)', amount: 42, color: 'info.darker', backgroundColor: 'info.lighter', selectedBColor: 'info.main'}, // #D0F2FF
+        {value: 'revised', label: 'Revisadas (hoje)', amount: 35, color: 'success.darker', backgroundColor: 'success.lighter', selectedBColor: 'success.main'}, // #D8FBDE
+        {value: 'pending', label: 'Pendentes (hoje)', amount: 7, color: 'warning.darker', backgroundColor: 'warning.lighter', selectedBColor: 'warning.main'}, // #FFF7CD
+        {value: 'pending_all', label: 'Pendentes (todo período)', amount: 32, color: 'error.darker', backgroundColor: 'error.lighter', selectedBColor: 'error.main'}, // #FFE7D9
     ]
 
+    const FILTER_TYPES = [
+        {value: 'received', label: 'Recebidas', date: 'hoje', color: 'info'},
+        {value: 'revised', label: 'Revisadas', date: 'hoje', color: 'success'},
+        {value: 'pending', label: 'Pendentes', date: 'hoje', color: 'warning'},
+        {value: 'pending_all', label: 'Pendentes', date: 'todo período', color: 'warning'},
+    ]
+    
     useEffect(() =>{
         dispatch(getTransactionList())
     },[dispatch])
@@ -89,6 +98,8 @@ const useTransaction = () => {
         setOpenModal(true)
         setViewMode(true)
     }
+
+
 
     const onSelectRow = (id: string) => {    
         const selectedIndex = selectedIds.indexOf(id);
@@ -179,19 +190,29 @@ const useTransaction = () => {
 
     useEffect(() =>{
         if(transactionToEdit && defaultValues){
-          reset(defaultValues)
+            reset(defaultValues)
         }else if(defaultValues){
-          reset(defaultValues)
+            reset(defaultValues)
         }
-      },[transactionToEdit, defaultValues, reset])
+    },[transactionToEdit, defaultValues, reset])
+
+    useEffect(() => {
+        if (selectedFilter && selectedFilter !== '') {
+            var filterInfo = FILTER_TYPES.filter(d => d.value === selectedFilter)
+            setSelectedFilterInfo(filterInfo[0])
+        }
+    }, [selectedFilter])
 
     const transactionHook: any = {
         openPopover,
         currentTab,
+        selectedFilter,
+        selectedFilterInfo,
         // POPOVER_OPTIONS,
         // TABS,
         setCurrentTab,
         setOpenPopover,
+        setSelectedFilter,
         TABLEHEADER,
         PROCESSTABLEHEADER,
         // RESPONSIBLE_OPTIONS,
@@ -199,6 +220,7 @@ const useTransaction = () => {
         TAGS_OPTIONS,
         VISIBILITY_OPTIONS,
         FILTER_BUTTONS,
+        FILTER_TYPES,
         onSelectAllRows,
         onSelectRow,
         setOpenModal,

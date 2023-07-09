@@ -1,10 +1,12 @@
 import { Box, Button, Card, CardContent, Grid, IconButton, Stack, Typography } from "@mui/material";
+import RemoveIcon from '@mui/icons-material/Remove';
 import { useSelector } from "src/redux/store";
 import AdevaLoading from "src/components/AdevaLoading";
 import TableRox from "src/components/table-rox/TableRox";
 import FilterButtons from "./FilterButtons";
 import useTransactionList from "../hooks/TransactionList.hook";
 import { useNavigate } from "react-router-dom";
+import Label from "src/components/Label";
 
 
 export default function TransactionList({movimentationHook}: any){
@@ -29,6 +31,43 @@ export default function TransactionList({movimentationHook}: any){
                     hasFilter
                     hasDownloadExcel
                     hasDownloadPdf
+                    subDescription={transactionHook.selectedFilter !== '' && transactionHook.selectedFilterInfo && (
+                        <Stack direction={'row'} >
+                            <Stack direction={'row'} ml={3}>
+                                <Typography
+                                    variant="body2"
+                                >
+                                    Stauts:
+                                </Typography>
+                                <Label
+                                    sx={{
+                                        marginLeft: '10px',
+                                    }}
+                                    variant="filled"
+                                    color={transactionHook.selectedFilterInfo.color}
+                                    endIcon={<RemoveIcon />}>
+                                    {transactionHook.selectedFilterInfo.label}
+                                </Label>
+                            </Stack>
+                            <Stack direction={'row'} ml={5}>
+                                <Typography
+                                    variant="body2"
+                                >
+                                    Data:
+                                </Typography>
+                                <Label
+                                    sx={{
+                                        opacity: 0.18,
+                                        marginLeft: '10px',
+                                    }}
+                                    variant="filled"
+                                    color={'grey_500'}
+                                    endIcon={<RemoveIcon />}>
+                                    {transactionHook.selectedFilterInfo.date}
+                                </Label>
+                            </Stack>
+                        </Stack>
+                    )}
                     selectType="all"
                     selectKey="_id"
                     selectedUnit='Publicações Selecionadas'

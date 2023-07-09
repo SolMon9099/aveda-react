@@ -11,8 +11,9 @@ export default function FilterButtons({ transactionHook }: any){
                         <Card 
                             sx={{
                                 width: '100%',
-                                backgroundColor: button.backgroundColor,
+                                backgroundColor: (transactionHook.selectedFilter === '' ? button.backgroundColor : (transactionHook.selectedFilter !== button.value ?  '#fff' : button.selectedBColor)),
                             }}
+                            onClick={() => {transactionHook.setSelectedFilter(button.value)}}
                         >
                             <CardContent>
                                 <Typography

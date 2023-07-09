@@ -165,6 +165,7 @@ const COMMON = {
   grey_100: {main: GREY[100], contrastText: GREY[800]},
   grey_300: {main: GREY[300], contrastText: GREY[800]},
   grey_400: {main: GREY[400], contrastText: GREY[800]},
+  grey_500: {main: GREY[500], contrastText: GREY[800]},
   opening: {main: '#36B37E', contrastText: '#fff'},
   grey: GREY,
   gradients: GRADIENTS,
