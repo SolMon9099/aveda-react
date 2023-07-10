@@ -27,6 +27,11 @@ const useMovimentation = () => {
         setCurrentPage('publicationDetail')
     }
 
+    const onClickProcedural = (id: any, transactionList: any[]) => {
+        // setPublicationToShow(transactionList?.find((act) => act._id === id))
+        // setCurrentPage('publicationDetail')
+    }
+
     const movimentationHook: any = {
         openPopover,
         currentTab,
@@ -41,6 +46,7 @@ const useMovimentation = () => {
         setCurrentPage,
         setOpenDetailPopover,
         onClickTransaction,
+        onClickProcedural,
     }
 
     return{
