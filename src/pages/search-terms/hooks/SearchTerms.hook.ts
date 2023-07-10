@@ -1,14 +1,16 @@
 import {useEffect, useState, useMemo } from "react";
 import { PATH_ERP } from "src/routes/paths";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "src/redux/store";
 import { getSearchTermList} from "src/redux/slices/searchTerms";
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import moment from "moment";
-import { callSchema } from "src/@types/call";
+import { newSearchTermTypeSchema } from "src/@types/searchTerms"
 import { DropResult } from "react-beautiful-dnd";
 import { dropCall } from 'src/redux/slices/call';
+import { useSnackbar } from 'notistack';
 
 const useCall = () => {
     const [ currentPage, setCurrentPage ] = useState('list');
@@ -18,6 +20,10 @@ const useCall = () => {
     const { searchTermList, origin_searchTermList} = useSelector((state) => state.searchTerm)
     const [ selectedIds, setSelectedIds ] = useState<string[]>([])
     const [ callToEdit, setCallToEdit] = useState<any>(null);
+
+    const { enqueueSnackbar } = useSnackbar()
+
+    const navigate = useNavigate()
 
     const dispatch = useDispatch()
 
@@ -35,10 +41,6 @@ const useCall = () => {
             return true
         })
     },[])
-
-    // const POPOVER_OPTIONS = [
-    //     {label: 'Ocultar Atividades Completas'},
-    // ]
 
     const TABLEHEADER = [
         {id: 'type', label: 'Tipo'},
@@ -65,7 +67,23 @@ const useCall = () => {
         {value: 'public', label: 'Público'},
     ]
 
-    
+    const SEARCHSCOPE_OPTIONS = [
+        {value: '1', label: 'RS'},
+        {value: '2', label: 'SC'},
+        {value: '3', label: 'PR'},
+    ]
+    const RECIPIENT_OPTIONS = [
+        {value: '1', label: 'Flávia Vilaça'},
+        {value: '2', label: 'Júlio Vargas'},
+    ]
+
+    const UPDATE_HISTORY = [
+        {action: 'Pesquisa Inativada', name: 'Flávia Vilaça', date: '05/03/23 - 19:09'},
+        {action: 'Remoção de Destinatário da Pesquisa: “Flávia Vilaça”', name: 'Júlio Vargas', date: '01/03/23 - 12:39'},
+        {action: 'Inclusão de Abrangência da Busca: “SP”', name: 'Flávia Vilaça', date: '15/02/23 - 11:07'},
+        {action: 'Remoção de Abrangência da Busca: “RS”, “SC”, “MG”', name: 'Flávia Vilaça', date: '15/02/23 - 11:07'},
+        {action: 'Criação da Pesquisa', name: 'Flávia Vilaça', date: '14/02/23 - 10:30'},
+    ]
 
     useEffect(() =>{
         dispatch(getSearchTermList())
@@ -105,37 +123,55 @@ const useCall = () => {
         reset()
     }
 
-    var defaultValues = useMemo(() =>(
-        {
-          name: callToEdit?.name || '',
-          processOrCase : callToEdit?.processOrCase || '',
-          description: callToEdit?.description || '',
-          type: callToEdit?.type || 'call',
-          responsible: callToEdit?.responsible || [],
-          tags: callToEdit?.tags || [],
-          status: callToEdit?.status || 'toDo',
-          date: callToEdit?.date || moment().format('YYYY-MM-DD'),
-          hour: callToEdit?.hour || '',
-          visibility: callToEdit?.visibility || 'public',
-          date_str : callToEdit?((callToEdit.hour && callToEdit.date) ? moment(callToEdit.date).format('DD/MM/YY') + ' • ' + callToEdit.hour : callToEdit.date ? moment(callToEdit.date).format('DD/MM/YYYY') : ''):''
-        }
-      ),[callToEdit]) 
-  
-    const NewCallSchema = Yup.object().shape({
-        name: Yup.string().required('Campo obrigatório!'),
-        description: Yup.string().required('Campo obrigatório!'),
-        type: Yup.string(),
-        responsible: Yup.array().min(1,'Campo obrigatório!'),
-        tags: Yup.array(),
-        date: Yup.string(),
-        hour: Yup.string(),
-        visibility: Yup.string()
+    const defaultValues = useMemo(() => ({
+        type: 'physical',
+        clientName: '',
+        OABNumber: '',
+        sectional: '',
+        CPF: '',
+        matter: [],
+        searchScope: [],
+        recipient: [],
+
+        coperateName: '',
+        CNPJ: '',
+
+    }),[]);
+
+    const NewCaseSchema = Yup.object().shape({
+        clientName: Yup.string(), // .required('Campo obrigatório!'),
+        OABNumber: Yup.string(), // .required('Campo obrigatório!'),
+        sectional: Yup.string(), // .required('Campo obrigatório!'),
+        CPF: Yup.string(), // .required('Campo obrigatório!'),
+        matter: Yup.array(),
+        searchScope: Yup.array(),
+        recipient: Yup.array(),
+
+        coperateName: Yup.string(), // .required('Campo obrigatório!'),
+        CNPJ: Yup.string(), // .required('Campo obrigatório!'),
     });
-  
-    const methods = useForm<callSchema>({
-        resolver: yupResolver(NewCallSchema),
+
+    const methods = useForm<newSearchTermTypeSchema>({
+        resolver: yupResolver(NewCaseSchema),
         defaultValues,
     });
+
+
+    const onSubmit = async (data: newSearchTermTypeSchema) => {
+        try{
+            data.type = 'searchTerm'
+            
+            setCurrentPage('list');
+            enqueueSnackbar('Caso cadastrado com sucesso')
+            reset();
+        }catch(e){
+            console.log(e)
+        }
+    };
+
+    const onCancel = () => {
+        setCurrentPage('list');
+    }
 
     const onDragEnd = (result: DropResult) => {
         const { destination, source, draggableId } = result;
@@ -182,6 +218,9 @@ const useCall = () => {
         STATUS_OPTIONS,
         TAGS_OPTIONS,
         VISIBILITY_OPTIONS,
+        SEARCHSCOPE_OPTIONS,
+        RECIPIENT_OPTIONS,
+        UPDATE_HISTORY,
         onSelectAllRows,
         onSelectRow,
         onClose,
@@ -191,7 +230,9 @@ const useCall = () => {
         handleSubmit,
         isSubmitting,
         onClickCall,
-        onDragEnd
+        onDragEnd,
+        onSubmit,
+        onCancel
     }
 
     return{

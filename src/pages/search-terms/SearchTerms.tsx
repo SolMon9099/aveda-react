@@ -12,13 +12,15 @@ export default function SearchTerms(){
     return(
         <Page title="Movimentações">
             <Container maxWidth='lg' sx={{ mt: 3, marginBottom: '20px' }}>
-                {searchTermHook.currentPage === 'list' && (
-                    <SearchTermList searchTermHook={searchTermHook} />
-                )}
+                <Stack>
+                    {searchTermHook.currentPage === 'list' && (
+                        <SearchTermList searchTermHook={searchTermHook} />
+                    )}
 
-                {/* {searchTermHook.currentPage === 'handle' && (
-                    
-                )} */}
+                    {searchTermHook.currentPage === 'handle' && (
+                        <SearchTermHandle searchTermHook={searchTermHook} />
+                    )}
+                </Stack>
             </Container>
         </Page>
     )

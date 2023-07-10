@@ -29,7 +29,7 @@ export default function SearchTermList({searchTermHook}: any){
                         </Stack>
                         <Stack>
                             <Button
-                                onClick={() => navigate(PATH_ERP.callHandle)}
+                                onClick={() => searchTermHook.setCurrentPage('handle')}
                                 variant='contained'
                             >
                                 Nova Pesquisa

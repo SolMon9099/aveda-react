@@ -237,7 +237,7 @@ export type newCaseType = {
     callGrouped: any
 }
 
-export type newPhysicalPersonTypeSchema = {
+export type newSearchTermTypeSchema = {
     _id: string,
     type: string,
     clientName: string,
