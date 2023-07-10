@@ -11,6 +11,7 @@ import { useSnackbar } from 'notistack';
 
 const useCaseHandle = () => {
     const [ currentTab, setCurrentTab ] = useState(1);
+    const [ openModal, setOpenModal ] = useState(false);
     const { enqueueSnackbar } = useSnackbar()
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -135,8 +136,9 @@ const useCaseHandle = () => {
                 enqueueSnackbar('Caso atualizado com sucesso')
             }else{
                 // await dispatch(createOrUpdateCase(data))
-                navigate(PATH_ERP.movimentatiosn)
-                enqueueSnackbar('Caso cadastrado com sucesso')
+                // navigate(PATH_ERP.movimentatiosn)
+                // enqueueSnackbar('Caso cadastrado com sucesso')
+                setOpenModal(true);
             }
             reset();
         }catch(e){
@@ -148,8 +150,14 @@ const useCaseHandle = () => {
         navigate(PATH_ERP.movimentatiosn)
     }
 
+    const onClose = () => {
+        setOpenModal(false)
+        navigate(PATH_ERP.movimentatiosn)
+    }
+
     const searchHandleHook: any = {
         currentTab,
+        openModal,
         isEdit: !!caseManualId,
         caseManualId,
         methods,
@@ -162,9 +170,11 @@ const useCaseHandle = () => {
         RESPONSIBLE_OPTIONS,
         TAGS_OPTIONS,
         setCurrentTab,
+        setOpenModal,
         onSubmit,
         onCancel,
-        handleSubmit
+        handleSubmit,
+        onClose,
     }
 
     return{

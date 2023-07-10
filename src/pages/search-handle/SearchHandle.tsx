@@ -8,6 +8,7 @@ import { PATH_ERP } from "src/routes/paths";
 import SearchHandleTabs from "./components/SearchHandleTabs";
 import PhysicalPersonForm from "./components/PhysicalPersonForm";
 import LegalPersonForm from "./components/LegalPersonForm";
+import SuccessModal from "./components/SuccessModal";
 import useSearchHandle from "./hooks/SearchHandle.hook";
 
 
@@ -40,10 +41,10 @@ export default function ProcessHandle(){
                         {searchHandleHook.currentTab === 2 && (
                             <LegalPersonForm searchHandleHook={searchHandleHook} />
                         )}
-                        
                     </Stack>
                 }
             </Container>
+            <SuccessModal searchHandleHook={searchHandleHook} />
         </Page>
     )
 }
