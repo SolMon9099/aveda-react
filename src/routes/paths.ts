@@ -55,4 +55,5 @@ export const PATH_ERP = {
   HandleCallProcess: path(ROOTS_ERP, '/processos/atendimento/manual'),
   documents: path(ROOTS_ERP, '/documentos'),
   movimentatiosn: path(ROOTS_ERP, '/movimentacoes'),
+  handleMoviSearch: path(ROOTS_ERP, '/movimentacoes/search/manual'),
 };

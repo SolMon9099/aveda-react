@@ -6,7 +6,7 @@ const useMovimentation = () => {
     const [ currentTab, setCurrentTab ] = useState(1)
     const [ currentPage, setCurrentPage ] = useState<string>('')
     const POPOVER_OPTIONS = [
-        {label: 'Nova Pesquisa', to: PATH_ERP.handleCase},
+        {label: 'Nova Pesquisa', to: PATH_ERP.handleMoviSearch},
         {label: 'Termos Buscados', to: PATH_ERP.handleProcess},
     ]
     const TABS = [

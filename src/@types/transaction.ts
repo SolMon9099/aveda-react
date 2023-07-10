@@ -144,6 +144,13 @@ export type tags = {
     title: string
 }
 
+export type matter = {
+    label: string, 
+    value: string, 
+    color: string, 
+    title: string
+}
+
 export type newCallImportType = {
     oabNumber: string,
     sectional: string,
@@ -231,15 +238,25 @@ export type newCaseType = {
     callGrouped: any
 }
 
-export type newCaseTypeSchema = {
+export type newPhysicalPersonTypeSchema = {
     _id: string,
     type: string,
     clientName: string,
+    OABNumber: string,
+    sectional: string,
+    CPF: string,
+    matter: tags[],
+    searchScope: tags[],
+    recipient: tags[],
+
+    // legal
+    coperateName: string,
+    CNPJ: string,
+
     title: string,
     folder: string,
     number: string,
     tags: tags[],
-    matter: string,
     observations: string,
     responsible: string,
     activities: processActivity[],

@@ -78,6 +78,7 @@ export default function Router() {
         { path: 'processos/atendimento/manual', element: <CallProcessHandle/> },
         { path: 'documentos', element: <WIP/> },
         { path: 'movimentacoes', element: <Movimentations/> },
+        { path: 'movimentacoes/search/manual', element: <SearchHandle/> },
       ],
     },
     {
@@ -129,6 +130,7 @@ const CaseDetail = Loadable(lazy(() => import('../pages/case-detail/CaseDetail')
 
 // Movimentation
 const Movimentations = Loadable(lazy(() => import('../pages/movimentations/Movimentations')));
+const SearchHandle = Loadable(lazy(() => import('../pages/search-handle/SearchHandle')));
 
 //tasks
 
