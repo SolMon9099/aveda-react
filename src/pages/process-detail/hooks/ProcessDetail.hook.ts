@@ -13,8 +13,8 @@ const useProcessDetail = () => {
         {label: 'Resumo', value: 1},
         {label: 'Atendimentos', value: 2},
         {label: 'Atividades', value: 3},
-        {label: 'Movimentações', value: 4},
-        // {label: 'Publicações', value: 6},
+        {label: 'Publicações', value: 4},
+        {label: 'Andamento Processual', value: 6},
         {label: 'Documentos', value: 5}
     ]
 

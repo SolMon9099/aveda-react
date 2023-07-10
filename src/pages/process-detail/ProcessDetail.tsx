@@ -108,6 +108,23 @@ export default function ProcessImportDetail(){
                             </Grid>
                         </Box>
                         :
+                        processDetailHook.currentTab === 6 ?
+                        <Box flexGrow={1}>
+                            <Grid container spacing={3}>
+                                <Grid item md={8} xs={12}>
+                                    <MovimentationList processDetailHook={processDetailHook}/>
+                                </Grid>
+                                {isDesktop &&
+                                    <Grid item md={4} xs={0}>
+                                        <Stack spacing={3}>
+                                            <LinkedActivitiesCard type='movimentation' activitiesListHook={activitiesListHook} processDetailHook={processDetailHook}/>
+                                            <DocumentsCard processDetailHook={processDetailHook}/>
+                                        </Stack>
+                                    </Grid>
+                                }
+                            </Grid>
+                        </Box>
+                        :
                         <DocumentList/>
                     }
                 </Stack>

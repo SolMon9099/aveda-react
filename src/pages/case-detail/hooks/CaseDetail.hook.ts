@@ -13,6 +13,8 @@ const useCaseDetail = () => {
         {label: 'Resumo', value: 1},
         {label: 'Atendimentos', value: 2},
         {label: 'Atividades', value: 3},
+        {label: 'Movimentações', value: 5},
+        {label: 'Publicações', value: 6},
         {label: 'Documentos', value: 4}
     ]
 

@@ -11,23 +11,21 @@ import MovimentationItem from "./MovimentationItem";
 import { useEffect, useState } from "react";
 
 
-export default function MovimentationList({processDetailHook}: any){
+export default function MovimentationList({caseDetailHook}: any){
     const [ filter, setFilter ] = useState('')
     const [ filtered, setFiltered ] = useState<any>({})
-    const { process } = useSelector((state) => state.processDetail)
+    const { process } = useSelector((state) => state.caseDetail)
     const navigate = useNavigate()
 
     useEffect(() =>{
         var lowerCaseFilter = filter.toLowerCase()
         var filteredAux: any = {}
-        Object.keys(process?.movimentationGrouped).forEach((k) =>{
+        Object.keys(process?.serviceGrouped).forEach((k) =>{
             var arrayAux: any[] = [];
-            process?.movimentationGrouped[k].forEach((m: any) =>{
+            process?.serviceGrouped[k].forEach((m: any) =>{
                 if(
                     m.type?.toLowerCase().includes(lowerCaseFilter) ||
-                    m.tags.find((t: any) => t.title.toLowerCase().includes(lowerCaseFilter)) ||
-                    m.description?.toLowerCase().includes(lowerCaseFilter) ||
-                    m.status?.toLowerCase().includes(lowerCaseFilter)
+                    m.description?.toLowerCase().includes(lowerCaseFilter)
                 ){
                     arrayAux.push(m)
                 }
@@ -43,14 +41,11 @@ export default function MovimentationList({processDetailHook}: any){
         <Card>
             <CardContent>
                 <Stack spacing={3}>
-                    <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                    <Stack direction='row' spacing={2} alignItems='center' justifyContent='space-between'>
                         <Stack direction='row' spacing={1} alignItems='center'>
                             <Typography variant='h6'>
-                                {processDetailHook.currentTab === 4 ? 'Publicações' : 'Andamento Processual'}
+                                {caseDetailHook.currentTab === 6 ? 'Publicações' : 'Movimentações'}
                             </Typography>
-                            {/* {process?.imported &&
-                                <Iconify width={18} height={18} color='grey.400' icon='material-symbols:rss-feed'/>
-                            } */}
                         </Stack>
                         <Stack direction="row">
                             <IconButton
@@ -99,7 +94,7 @@ export default function MovimentationList({processDetailHook}: any){
                         >
                             <Stack spacing={2} direction='row'>
                                 <Typography variant="subtitle1" fontWeight={500} color='warning.darker'>
-                                    {process?.movimentationsPendindgToday}
+                                    {/* {process?.movimentationsPendindgToday} */}
                                 </Typography>
                                 <Typography variant="body2" color='warning.darker'>
                                     Pendentes (hoje)
@@ -117,7 +112,7 @@ export default function MovimentationList({processDetailHook}: any){
                         >
                             <Stack spacing={2} direction='row'>
                                 <Typography variant="subtitle1" fontWeight={500} color='error.darker'>
-                                    {process?.movimentationsPendindgAll}
+                                    {/* {process?.movimentationsPendindgAll} */}
                                 </Typography>
                                 <Typography variant="body2" color='error.darker'>
                                     Pendentes (todo período)
@@ -161,9 +156,10 @@ export default function MovimentationList({processDetailHook}: any){
                             </Grid>
                         </Grid>
                     </Stack>
+                    
                     {/* @ts-ignore */}
                     <Timeline>
-                        {Object.keys(filtered).map((key: any) =>
+                        {filtered && Object.keys(filtered).map((key: any) =>
                             <div key={key}>
                                 <TimelineItem sx={{ minHeight: 45, '&:before':{ display: 'none'} }}>
                                     <TimelineSeparator>
@@ -184,8 +180,8 @@ export default function MovimentationList({processDetailHook}: any){
                                         </Stack>
                                     </TimelineContent>
                                 </TimelineItem>
-                                {filtered[key].map((mov: any, idx: number) =>
-                                    <MovimentationItem mov={mov} idx={idx} processDetailHook={processDetailHook}/>
+                                {filtered && filtered[key] && filtered[key].map((mov: any, idx: number) =>
+                                    <MovimentationItem mov={mov} idx={idx} caseDetailHook={caseDetailHook}/>
                                 )}
                             </div>
                         )}

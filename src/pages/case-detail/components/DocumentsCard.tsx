@@ -4,7 +4,7 @@ import Iconify from "src/components/Iconify";
 import TextMaxLine from "src/components/TextMaxLine";
 import { useSelector } from "src/redux/store";
 
-export default function DocumentsCard({processDetailHook} : any){
+export default function DocumentsCard({castDetailHook} : any){
     const { process } = useSelector((state) => state.processDetail)
 
     return(
@@ -47,7 +47,7 @@ export default function DocumentsCard({processDetailHook} : any){
                     )}
                     <Stack direction='row'>
                         <Button
-                            onClick={() => processDetailHook.setCurrentTab(4)}
+                            onClick={() => castDetailHook.setCurrentTab(4)}
                         >
                             VER TODOS
                         </Button>

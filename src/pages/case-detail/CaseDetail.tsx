@@ -18,8 +18,8 @@ import ServiceList from "./components/ServiceList";
 import LinkedActivitiesCard from "./components/LinkedActivitiesCard";
 import ActivityModal from "./components/ActivityModal";
 // import DocumentList from "./components/DocumentList";
-// import DocumentsCard from "./components/DocumentsCard";
-// import MovimentationList from "./components/MovimentationsList";
+import DocumentsCard from "./components/DocumentsCard";
+import MovimentationList from "./components/MovimentationsList";
 
 
 export default function CaseDetail(){
@@ -96,6 +96,40 @@ export default function CaseDetail(){
                         :
                         caseDetailHook.currentTab === 3 ?
                         <ActivitiesList activitiesListHook={activitiesListHook}/>
+                        :
+                        caseDetailHook.currentTab === 5 ?
+                        <Box flexGrow={1}>
+                            <Grid container spacing={3}>
+                                <Grid item md={8} xs={12}>
+                                    <MovimentationList caseDetailHook={caseDetailHook}/>
+                                </Grid>
+                                {isDesktop &&
+                                    <Grid item md={4} xs={0}>
+                                        <Stack spacing={3}>
+                                            <LinkedActivitiesCard type='movimentation' activitiesListHook={activitiesListHook} caseDetailHook={caseDetailHook}/>
+                                            <DocumentsCard caseDetailHook={caseDetailHook}/>
+                                        </Stack>
+                                    </Grid>
+                                }
+                            </Grid>
+                        </Box>
+                        :
+                        caseDetailHook.currentTab === 6 ?
+                        <Box flexGrow={1}>
+                            <Grid container spacing={3}>
+                                <Grid item md={8} xs={12}>
+                                    <MovimentationList caseDetailHook={caseDetailHook}/>
+                                </Grid>
+                                {isDesktop &&
+                                    <Grid item md={4} xs={0}>
+                                        <Stack spacing={3}>
+                                            <LinkedActivitiesCard type='movimentation' activitiesListHook={activitiesListHook} caseDetailHook={caseDetailHook}/>
+                                            <DocumentsCard caseDetailHook={caseDetailHook}/>
+                                        </Stack>
+                                    </Grid>
+                                }
+                            </Grid>
+                        </Box>
                         :
                         <DocumentList/>
                     }
