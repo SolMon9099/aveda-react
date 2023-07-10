@@ -76,7 +76,7 @@ export default function TransactionList({movimentationHook}: any){
                         selectedUnit='Publicações Selecionadas'
                         // labelCount="Atendimentos"
                         onClickKey="_id"
-                        onClickFunction={(id) => {movimentationHook.onClickTransaction(id)}}
+                        onClickFunction={(id) => {movimentationHook.onClickTransaction(id, transactionList)}}
                         titleActions={(
                             <FilterButtons transactionHook={transactionHook} />
                         )}
