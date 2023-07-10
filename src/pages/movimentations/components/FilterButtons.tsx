@@ -2,7 +2,7 @@ import { Card, CardContent, Grid, Stack, Typography } from "@mui/material";
 import Label from "src/components/Label";
 
 export default function FilterButtons({ transactionHook }: any){
-    let buttons = transactionHook.FILTER_BUTTONS;
+    let buttons = transactionHook?.FILTER_BUTTONS;
     return(
         <Grid container md={12} >
             {buttons?.length > 0 && buttons.map((button: any) => {

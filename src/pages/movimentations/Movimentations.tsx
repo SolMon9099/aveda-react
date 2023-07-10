@@ -6,6 +6,7 @@ import Page from "src/components/Page";
 import MovimentationsTabs from "./components/MovimentationsTabs";
 import Description from "./components/Description";
 import TransactionLit from "./components/TransactionList";
+import ProceduralList from "./components/ProceduralList";
 import useMovimentation from "./hooks/Movimentations.hook";
 
 export default function Movimentations(){
@@ -34,7 +35,7 @@ export default function Movimentations(){
                         <TransactionLit movimentationHook={movimentationHook} />
                     )}
                     {movimentationHook.currentTab === 2 && (
-                        <></>
+                        <ProceduralList movimentationHook={movimentationHook} />
                     )}
                 </Stack>
             </Container>

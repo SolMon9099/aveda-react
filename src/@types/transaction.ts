@@ -10,6 +10,19 @@ export type transactionType = {
     futuredValues: string,
 }
 
+export type proceduralType = {
+    _id: string,
+    date: string,
+    title: string,
+    process: string,
+    client: string,
+    folder: string,
+    action: string,
+    venue: string,
+    status: string,
+    futuredValues: string,
+}
+
 export type newCallType = {
     _id: string,
     imported: boolean,
