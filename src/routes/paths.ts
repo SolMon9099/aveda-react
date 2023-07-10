@@ -56,4 +56,5 @@ export const PATH_ERP = {
   documents: path(ROOTS_ERP, '/documentos'),
   movimentatiosn: path(ROOTS_ERP, '/movimentacoes'),
   handleMoviSearch: path(ROOTS_ERP, '/movimentacoes/search/manual'),
+  moviSearchTerms: path(ROOTS_ERP, '/movimentacoes/search/terms'),
 };

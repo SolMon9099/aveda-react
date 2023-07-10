@@ -7,7 +7,7 @@ const useMovimentation = () => {
     const [ currentPage, setCurrentPage ] = useState<string>('')
     const POPOVER_OPTIONS = [
         {label: 'Nova Pesquisa', to: PATH_ERP.handleMoviSearch},
-        {label: 'Termos Buscados', to: PATH_ERP.handleProcess},
+        {label: 'Termos Buscados', to: PATH_ERP.moviSearchTerms},
     ]
     const TABS = [
         {label: 'Publicações', value: 1, amount: 35, icon: 35},
