@@ -110,7 +110,7 @@ export default function useTableRox(props?: Props) {
     props?.tableData.forEach((data: any) =>{
         var push = false;
         props?.header.forEach((h) =>{
-            var headIdArray = h.id.split('.')
+            var headIdArray = h.id?.split('.') ?? [];
             var dataRow = data;
             headIdArray.forEach((id) =>{
                 dataRow = dataRow[id] ? dataRow[id] : '-'
