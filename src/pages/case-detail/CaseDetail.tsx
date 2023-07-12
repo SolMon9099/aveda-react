@@ -83,14 +83,9 @@ export default function CaseDetail(){
                         caseDetailHook.currentTab === 2 ?
                         <Box flexGrow={1}>
                             <Grid container spacing={3}>
-                                <Grid item md={8} xs={12}>
-                                    <ServiceList/>
+                                <Grid item md={12} xs={12}>
+                                    <ServiceList activitiesListHook={activitiesListHook} caseDetailHook={caseDetailHook}/>
                                 </Grid>
-                                {isDesktop &&
-                                    <Grid item md={4} xs={0}>
-                                        <LinkedActivitiesCard caseDetailHook={caseDetailHook} activitiesListHook={activitiesListHook}/>
-                                    </Grid>
-                                }
                             </Grid>
                         </Box>
                         :

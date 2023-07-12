@@ -21,7 +21,7 @@ const useContactDetail = () => {
     ]
     const POPOVER_OPTIONS = [
         {label: 'Editar Atendimento', to: PATH_ERP.handleCase},
-        {label: 'Transformar em Caso', to: PATH_ERP.handleProcess},
+        {label: 'Transformar em Caso', to: PATH_ERP.handleCase},
         {label: 'Transformar em Processo', to: PATH_ERP.HandleCallProcess},
         {label: 'Encerrar Atendimento', to: PATH_ERP.importListProcess},
         {label: 'Excluir Atendimento', to: PATH_ERP.importListProcess},

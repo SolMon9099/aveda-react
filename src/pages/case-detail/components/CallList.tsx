@@ -4,11 +4,9 @@ import moment from "moment";
 import { FormProvider, RHFSelect, RHFTextField } from "src/components/hook-form";
 import Markdown from "src/components/Markdown";
 import { useSelector } from "src/redux/store";
-import AdevaLoading from "src/components/AdevaLoading";
 import TableRox from "src/components/table-rox/TableRox";
 import useCall from "../hooks/Calls.hook";
 import { useNavigate } from "react-router-dom";
-import { PATH_ERP } from "src/routes/paths";
 
 
 export default function CallList({serviceListHook}: any){
@@ -18,11 +16,6 @@ export default function CallList({serviceListHook}: any){
 
     return(
         <>
-        {isLoadingCallList ?
-            <Box flexGrow={1} display='flex' justifyContent='center' sx={{mt: 40}}>
-                <AdevaLoading/>
-            </Box>
-            :
             <TableRox
                 data={callList}
                 header={callHook.PROCESSTABLEHEADER}
@@ -35,13 +28,12 @@ export default function CallList({serviceListHook}: any){
                 titleActions={
                     <Button
                         variant='contained'
-                        onClick={() => navigate(PATH_ERP.callHandle)}
+                        onClick={() => {serviceListHook.onClickNewCall()}}
                     >
                         Novo Atendimento
                     </Button>
                 }
             />
-        }
         </>
     )
 }
