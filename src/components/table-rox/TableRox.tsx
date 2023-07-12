@@ -1,4 +1,4 @@
-import {TableContainer, Table, TableBody, Card, TextField, InputAdornment, Typography, Box, TablePagination } from "@mui/material"
+import {TableContainer, Table, TableBody, Card, TextField, InputAdornment, Typography, Box, TablePagination, IconButton, Button } from "@mui/material"
 import FilterListIcon from '@mui/icons-material/FilterList';
 import FileDownloadOutlined from '@mui/icons-material/FileDownloadOutlined';
 // import TableEdit from '@mul/icons-material/TableEdit';
@@ -152,16 +152,33 @@ export default function TableRox({
                                     onChange={(e) => onFilterName(e.target.value)}
                                 />
                                 {hasFilter && (
-                                    <Label 
+                                    // <Label 
+                                    //     sx={{
+                                    //         height: 40
+                                    //     }}
+                                    //     variant="filled"
+                                    //     color='default'
+                                    //     endIcon = {<FilterListIcon/>}
+                                    // >
+                                    //     Filtrar
+                                    // </Label>
+                                    <IconButton
                                         sx={{
-                                            height: 40
+                                            height: 40,
+                                            fontSize: 14,
+                                            borderRadius: 1,
+                                            backgroundColor: (theme) => theme.palette.grey[300],
+                                            color: (theme) => theme.palette.grey[800],
+                                            '&:hover':{
+                                                backgroundColor: (theme) => theme.palette.grey[400],
+                                            }
                                         }}
-                                        variant="filled"
-                                        color='default'
-                                        endIcon = {<FilterListIcon/>}
                                     >
-                                        Filtrar
-                                    </Label>
+                                        <Typography>
+                                            Filtrar
+                                        </Typography>
+                                        <FilterListIcon sx={{ width: 20, height: 20 }}/>
+                                    </IconButton>
                                 )}
                                 {hasDownloadExcel && (
                                     <Label 
