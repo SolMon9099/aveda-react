@@ -13,6 +13,8 @@ import useServiceList from "../hooks/ServiceList.hook";
 import LinkedActivitiesCard from "../components/LinkedActivitiesCard";
 import useResponsive from "src/hooks/useResponsive";
 import { useEffect, useState } from "react";
+import ServiceTimeLineItem from "./ServiceTimeLineItem";
+import SubTimeLineItem from "./SubTimeLineItem";
 
 
 export default function ServiceList({processDetailHook, activitiesListHook} : any){
@@ -203,48 +205,9 @@ export default function ServiceList({processDetailHook, activitiesListHook} : an
                                     <Timeline>
                                         {Object.keys(process?.serviceGrouped).map((key) =>
                                             <div key={key}>
-                                                <TimelineItem sx={{ minHeight: 45, '&:before':{ display: 'none'} }}>
-                                                    <TimelineSeparator>
-                                                        <TimelineDot color='primary'/>
-                                                        <TimelineConnector />
-                                                    </TimelineSeparator>
-                                                    <TimelineContent>
-                                                        <Stack direction='row' spacing={1} alignItems='center'>
-                                                            <Typography variant="subtitle2" fontWeight='500'>
-                                                                {key}
-                                                            </Typography>
-                                                            <Typography variant="subtitle1" color='text.secondary'>
-                                                                •
-                                                            </Typography>
-                                                            <Typography variant="body2" color='text.secondary'>
-                                                                {moment(key, 'DD/MM/YYYY').fromNow()}
-                                                            </Typography>
-                                                        </Stack>
-                                                    </TimelineContent>
-                                                </TimelineItem>
+                                                <ServiceTimeLineItem key={key} />
                                                 {process?.serviceGrouped[key].map((srvc: any, idx: number) =>
-                                                    <TimelineItem key={'SRVCITEM_'+srvc._id+idx} sx={{ minHeight: 45, '&:before': { display: 'none' } }}>
-                                                        <TimelineSeparator>
-                                                            <TimelineDot variant='outlined' color='grey'/>
-                                                            <TimelineConnector />
-                                                        </TimelineSeparator>
-                                                        <TimelineContent>
-                                                            <Stack spacing={1}>
-                                                                <Stack direction='row' spacing={1} alignItems='center'>
-                                                                    <Typography variant="subtitle1" fontWeight='500'>
-                                                                        {srvc.type}
-                                                                    </Typography>
-                                                                    <Typography variant="subtitle1" color='text.secondary'>
-                                                                        •
-                                                                    </Typography>
-                                                                    <Typography variant="caption" color='text.secondary'>
-                                                                        {srvc.responsible?.name}
-                                                                    </Typography>
-                                                                </Stack>
-                                                                <Markdown children={srvc.description} />
-                                                            </Stack>
-                                                        </TimelineContent>
-                                                    </TimelineItem>
+                                                    <SubTimeLineItem srvc={srvc} idx={idx} />
                                                 )}
                                             </div>
                                         )}
