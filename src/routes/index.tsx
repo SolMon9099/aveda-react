@@ -57,7 +57,7 @@ export default function Router() {
         { element: <Navigate to="/erp/processos" replace />, index: true },
         { path: 'pessoas', element: <Contacts/> },
         { path: 'pessoas/:contactId', element: <ContactDetail/> },
-        { path: 'agendas', element: <WIP/> },
+        { path: 'calendario', element: <Calendar/> },
         { path: 'tarefas', element: <Tasks/> },
         { path: 'processos', element: <Process/> },
         { path: 'processos/:processId', element: <ProcessDetail/> },
@@ -145,3 +145,6 @@ const ContactDetail = Loadable(lazy(() => import('../pages/contacts/ContactDetai
 const Calls = Loadable(lazy(() => import('../pages/calls/Calls')));
 const CallHandle = Loadable(lazy(() => import('../pages/call-handle/CallHandle')));
 const CallProcessHandle = Loadable(lazy(() => import('../pages/call-process-handle/CallHandle')));
+
+// Calendar
+const Calendar = Loadable(lazy(() => import('../pages/calendar/Calendar')));
