@@ -1,4 +1,4 @@
-import { Card, CardContent, Grid, Stack, Typography, IconButton, Divider } from "@mui/material";
+import { Card, CardContent, Grid, Stack, Typography, IconButton, Divider, Button } from "@mui/material";
 import Iconify from "src/components/Iconify";
 import Label from "src/components/Label";
 import ProcessCard from "./ProcessCard";
@@ -31,17 +31,14 @@ export default function PublicationDetail({ movimentationHook }: any){
                     </Stack>
                 </Grid>
                 <Grid direction={'row'}>
-                    <Label
+                    <Button
+                        variant='contained'
                         sx={{
-                            height: 36,
-                            fontSize: 14,
-                            fontWeight: 600,
                             marginRight: 2
                         }}
-                        variant="filled"
-                        color={'primary'}>
+                    >
                         Marcar como Revisado
-                    </Label>
+                    </Button>
                     <IconButton
                         sx={{
                             width: 36,
