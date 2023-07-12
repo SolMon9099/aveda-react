@@ -1,5 +1,6 @@
 import { Box, Button, Card, CardContent, Grid, IconButton, Stack, Typography } from "@mui/material";
 import RemoveIcon from '@mui/icons-material/Remove';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { useSelector } from "src/redux/store";
 import AdevaLoading from "src/components/AdevaLoading";
 import TableRox from "src/components/table-rox/TableRox";
@@ -48,7 +49,7 @@ export default function TransactionList({movimentationHook}: any){
                                         }}
                                         variant="filled"
                                         color={transactionHook.selectedFilterInfo.color}
-                                        endIcon={<RemoveIcon />}>
+                                        endIcon={<HighlightOffIcon />}>
                                         {transactionHook.selectedFilterInfo.label}
                                     </Label>
                                 </Stack>
@@ -65,7 +66,7 @@ export default function TransactionList({movimentationHook}: any){
                                         }}
                                         variant="filled"
                                         color={'grey_500'}
-                                        endIcon={<RemoveIcon />}>
+                                        endIcon={<HighlightOffIcon />}>
                                         {transactionHook.selectedFilterInfo.date}
                                     </Label>
                                 </Stack>
