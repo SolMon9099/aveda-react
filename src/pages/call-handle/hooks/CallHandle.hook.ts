@@ -111,7 +111,7 @@ const useCallHandle = () => {
     }),[callToEdit]);
 
     const NewCallSchema = Yup.object().shape({
-        processOrCase: Yup.string().required('Campo obrigatório!'),
+        processOrCase: Yup.array().required('Campo obrigatório!'),
         client: Yup.string().required('Campo obrigatório!'),
         title: Yup.string().required('Campo obrigatório!'),
         tags: Yup.array(),

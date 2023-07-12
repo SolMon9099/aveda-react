@@ -165,7 +165,6 @@ export default function TableRox({
                                     <IconButton
                                         sx={{
                                             height: 40,
-                                            fontSize: 14,
                                             borderRadius: 1,
                                             backgroundColor: (theme) => theme.palette.grey[300],
                                             color: (theme) => theme.palette.grey[800],
@@ -174,40 +173,54 @@ export default function TableRox({
                                             }
                                         }}
                                     >
-                                        <Typography>
+                                        <Typography
+                                            sx={{ 
+                                                fontSize: 14,
+                                                fontWeight: 600,
+                                                mr: 1,
+                                            }}
+                                        >
                                             Filtrar
                                         </Typography>
                                         <FilterListIcon sx={{ width: 20, height: 20 }}/>
                                     </IconButton>
                                 )}
                                 {hasDownloadExcel && (
-                                    <Label 
+                                    <IconButton
                                         sx={{
-                                            height: 40,
                                             width: 40,
+                                            height: 40,
                                             mr: 3,
                                             float: "right",
+                                            borderRadius: 1,
+                                            backgroundColor: (theme) => theme.palette.grey[300],
+                                            color: (theme) => theme.palette.grey[800],
+                                            '&:hover':{
+                                                backgroundColor: (theme) => theme.palette.grey[400],
+                                            }
                                         }}
-                                        variant="filled"
-                                        color='default'
                                     >
                                         <Iconify sx={{ height: 24, width: 24 }} icon="mdi:table-edit"/>
-                                    </Label>
+                                    </IconButton>
                                 )}
                                 
                                 {hasDownloadPdf && (
-                                    <Label 
+                                    <IconButton
                                         sx={{
-                                            height: 40,
                                             width: 40,
+                                            height: 40,
                                             mr: 3,
-                                            float: "right"
+                                            float: "right",
+                                            borderRadius: 1,
+                                            backgroundColor: (theme) => theme.palette.grey[300],
+                                            color: (theme) => theme.palette.grey[800],
+                                            '&:hover':{
+                                                backgroundColor: (theme) => theme.palette.grey[400],
+                                            }
                                         }}
-                                        variant="filled"
-                                        color='default'
                                     >
                                         <Iconify sx={{ height: 24, width: 24 }} icon="mdi:file-download-outline"/>
-                                    </Label>
+                                    </IconButton>
                                 )}
                                 
                             </div>

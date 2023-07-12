@@ -9,10 +9,11 @@ interface IProps {
   name: string;
   options: {value: string, label: string}[];
   multiple: boolean;
-  renderTags?: any
+  renderTags?: any,
+  freeSolo?: boolean,
 }
 
-export default function RHFAutoComplete({ name, options, multiple, renderTags, ...other }: IProps & TextFieldProps) {
+export default function RHFAutoComplete({ name, options, multiple, renderTags, freeSolo, ...other }: IProps & TextFieldProps) {
   const { control } = useFormContext();
 
   return (
@@ -23,6 +24,7 @@ export default function RHFAutoComplete({ name, options, multiple, renderTags, .
         <Autocomplete
             onChange={(_, data) => field.onChange(data)}
             // defaultValue={field.value}
+            freeSolo={freeSolo}
             value={field.value}
             onBlur={() => field.onBlur()}
             multiple={multiple}

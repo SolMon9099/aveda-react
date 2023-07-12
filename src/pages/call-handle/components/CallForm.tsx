@@ -17,16 +17,25 @@ export default function CallForm({ callHandleHook }: Props){
                     <Box flexGrow={1}>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={12}>
-                                <RHFTextField
-                                    InputProps={{
-                                        endAdornment:(
-                                            <InputAdornment position="end">
-                                                <Iconify icon='ri:search-line' width={24} height={24}/>
-                                            </InputAdornment>
-                                        )
-                                    }}
+                                <RHFAutoComplete
                                     name="processOrCase"
                                     label='Processo / Caso'
+                                    multiple
+                                    freeSolo
+                                    options={[
+                                        {value: '2021-32550', label: '2021-32550'},
+                                        {value: '00076-49.2021.8.16.0169', label: '00076-49.2021.8.16.0169'},
+                                    ]}
+                                    renderTags={(value: any, getTagProps: any) =>
+                                        value.map((option: any, index: any) => (
+                                            <Chip
+                                                color={option.color}
+                                                variant="contained"
+                                                label={option.label}
+                                                {...getTagProps({ index })}
+                                            />
+                                        ))
+                                    }
                                 />
                             </Grid>
                             <Grid item xs={12} sm={12}>
