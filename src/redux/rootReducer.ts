@@ -28,6 +28,7 @@ import caseDetailReducer from './slices/caseDetail';
 import transactionReducer from './slices/transaction';
 import proceduralReducer from './slices/procedural';
 import searchTermReducer from './slices/searchTerms';
+import calendarReducer from './slices/calendar';
 
 // ----------------------------------------------------------------------
 
@@ -65,6 +66,7 @@ const rootReducer = combineReducers({
   transaction: transactionReducer,
   procedural: proceduralReducer,
   searchTerm: searchTermReducer,
+  calendar: calendarReducer
 });
 
 export { rootPersistConfig, rootReducer };

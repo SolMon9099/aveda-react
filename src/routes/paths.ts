@@ -38,7 +38,7 @@ export const PATH_FORUM = {
 export const PATH_ERP = {
   root: '/erp',
   people: path(ROOTS_ERP, '/pessoas'),
-  scheduler: path(ROOTS_ERP, '/agendas'),
+  scheduler: path(ROOTS_ERP, '/calendario'),
   tasks: path(ROOTS_ERP, '/tarefas'),
   process: path(ROOTS_ERP, '/processos'),
   case: path(ROOTS_ERP, '/caso'),

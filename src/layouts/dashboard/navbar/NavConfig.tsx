@@ -47,7 +47,7 @@ export const navConfigERP = [
   {
     items: [
       { title: 'Contatos', path: '/erp/pessoas', icon: ICONS.people },
-      { title: 'Calendário', path: '/erp/agendas', icon: ICONS.scheduler },
+      { title: 'Calendário', path: '/erp/calendario', icon: ICONS.scheduler },
       { title: 'Atividades', path: '/erp/tarefas', icon: ICONS.tasks },
       { title: 'Atendimentos', path: '/erp/atendimentos', icon: ICONS.calls },
       { title: 'Processos e Casos', path: '/erp/processos', activeOn: '/erp/caso', icon: ICONS.process },
