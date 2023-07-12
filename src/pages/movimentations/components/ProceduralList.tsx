@@ -77,7 +77,7 @@ export default function ProceduralList({movimentationHook}: any){
                         selectedUnit='Publicações Selecionadas'
                         // labelCount="Atendimentos"
                         onClickKey="_id"
-                        onClickFunction={(id) => {movimentationHook.onClickProcedural(id)}}
+                        onClickFunction={(id) => {movimentationHook.onClickProcedural(id, proceduralList)}}
                         titleActions={(
                             <FilterButtons transactionHook={proceduralHook} />
                         )}

@@ -7,6 +7,7 @@ const useMovimentation = () => {
     const [ currentTab, setCurrentTab ] = useState(1)
     const [ currentPage, setCurrentPage ] = useState<string>('list')
     const [ publicationToShow, setPublicationToShow ] = useState<any>(null)
+    const [ proceduralToShow, setProceduralToShow ] = useState<any>(null)
     const POPOVER_OPTIONS = [
         {label: 'Nova Pesquisa', to: PATH_ERP.handleMoviSearch},
         {label: 'Termos Buscados', to: PATH_ERP.moviSearchTerms},
@@ -27,9 +28,9 @@ const useMovimentation = () => {
         setCurrentPage('publicationDetail')
     }
 
-    const onClickProcedural = (id: any, transactionList: any[]) => {
-        // setPublicationToShow(transactionList?.find((act) => act._id === id))
-        // setCurrentPage('publicationDetail')
+    const onClickProcedural = (id: any, proceduralList: any[]) => {
+        setProceduralToShow(proceduralList?.find((act) => act._id === id))
+        setCurrentPage('proceduralDetail')
     }
 
     const movimentationHook: any = {
@@ -38,6 +39,7 @@ const useMovimentation = () => {
         currentPage,
         openDetailPopover,
         publicationToShow,
+        proceduralToShow,
         POPOVER_OPTIONS,
         DETAIL_POPOVER_OPTIONS,
         TABS,

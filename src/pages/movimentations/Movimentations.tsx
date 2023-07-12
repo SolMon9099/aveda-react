@@ -4,6 +4,7 @@ import Iconify from "src/components/Iconify";
 import MenuPopover from "src/components/MenuPopover";
 import Page from "src/components/Page";
 import PublicationDetail from "./components/PublicationDetail";
+import ProceduralDetail from "./components/ProceduralDetail"
 import MovimentationsTabs from "./components/MovimentationsTabs";
 import TransactionLit from "./components/TransactionList";
 import ProceduralList from "./components/ProceduralList";
@@ -41,6 +42,9 @@ export default function Movimentations(){
                 )}
                 {movimentationHook.currentPage === 'publicationDetail' && (
                     <PublicationDetail movimentationHook={movimentationHook} />
+                )}
+                {movimentationHook.currentPage === 'proceduralDetail' && (
+                    <ProceduralDetail movimentationHook={movimentationHook} />
                 )}
             </Container>
             <MenuPopover
