@@ -29,7 +29,7 @@ export default function SearchTermList({searchTermHook}: any){
                         </Stack>
                         <Stack>
                             <Button
-                                onClick={() => searchTermHook.setCurrentPage('handle')}
+                                onClick={() => navigate((PATH_ERP.handleMoviSearch))}
                                 variant='contained'
                             >
                                 Nova Pesquisa
@@ -40,6 +40,8 @@ export default function SearchTermList({searchTermHook}: any){
                         <TableRox
                             data={searchTermList}
                             header={searchTermHook.TABLEHEADER}
+                            onClickKey="_id"
+                            onClickFunction={(id) => {searchTermHook.onClickItem(id, searchTermList)}}
                             defaultOrderBy='name'
                         />
                     </Stack>

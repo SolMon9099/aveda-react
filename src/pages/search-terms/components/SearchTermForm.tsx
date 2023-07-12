@@ -8,6 +8,7 @@ type Props = {
 }
 
 export default function SearchTermForm({ searchTermHook }: Props){
+    console.log("slskdoijlsdksdf===", searchTermHook.itemToEdit)
     return(
         <Card>
             <CardContent>
@@ -24,12 +25,14 @@ export default function SearchTermForm({ searchTermHook }: Props){
                                 <RHFTextField
                                     name="coperateName"
                                     label='Razão Social'
+                                    value={searchTermHook.itemToEdit?.name}
                                 />
                             </Grid>
                             <Grid item xs={6}>
                                 <RHFTextField
                                     name="CNPJ"
                                     label='CNPJ'
+                                    value={searchTermHook.itemToEdit?.CPFOrCNPJ}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -37,6 +40,7 @@ export default function SearchTermForm({ searchTermHook }: Props){
                                     name="searchScope"
                                     label='Abrangência da Busca'
                                     multiple
+                                    value={searchTermHook?.SEARCHSCOPE_OPTIONS}
                                     options={searchTermHook?.SEARCHSCOPE_OPTIONS}
                                     renderTags={(value: any, getTagProps: any) =>
                                         value?.map((option: any, index: any) => (

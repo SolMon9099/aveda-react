@@ -54,6 +54,22 @@ export default function ProcessCard({searchTermHook} : any){
                         <Typography variant="h6">
                             Atividades Vinculadas
                         </Typography>
+                        <IconButton
+                            sx={{
+                                width: 24,
+                                height: 24,
+                                p: 0.5,
+                                borderRadius: 1,
+                                backgroundColor: (theme) => theme.palette.grey[300],
+                                color: (theme) => theme.palette.common.black,
+                                '&:hover':{
+                                    backgroundColor: (theme) => theme.palette.grey[500],
+                                }
+                            }}
+                            onClick={() => {activitiesListHook.setOpenModal(true)}}
+                        >
+                            <Iconify width={18} height={18} icon='ic:baseline-plus'/>
+                        </IconButton>
                     </Stack>
                 </Stack>
             </Card>

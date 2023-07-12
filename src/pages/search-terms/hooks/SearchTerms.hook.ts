@@ -19,7 +19,7 @@ const useCall = () => {
     const [ currentTab, setCurrentTab ] = useState(1)
     const { searchTermList, origin_searchTermList} = useSelector((state) => state.searchTerm)
     const [ selectedIds, setSelectedIds ] = useState<string[]>([])
-    const [ callToEdit, setCallToEdit] = useState<any>(null);
+    const [ itemToEdit, setItemToEdit] = useState<any>(null);
 
     const { enqueueSnackbar } = useSnackbar()
 
@@ -89,8 +89,9 @@ const useCall = () => {
         dispatch(getSearchTermList())
     },[dispatch])
 
-    const onClickCall = (id: string) => {
-        setCallToEdit(origin_searchTermList.find((act): any => act._id === id))
+    const onClickItem = (id: string, itemList: any[]) => {
+        setItemToEdit(itemList.find((item): any => item._id === id))
+        setCurrentPage('handle')
     }
 
     const onSelectRow = (id: string) => {    
@@ -119,7 +120,7 @@ const useCall = () => {
     };
 
     const onClose = () =>{
-        setCallToEdit(null)
+        setItemToEdit(null)
         reset()
     }
 
@@ -197,17 +198,18 @@ const useCall = () => {
     const values = watch()
 
     useEffect(() =>{
-        if(callToEdit && defaultValues){
+        if(itemToEdit && defaultValues){
           reset(defaultValues)
         }else if(defaultValues){
           reset(defaultValues)
         }
-      },[callToEdit, defaultValues, reset])
+      },[itemToEdit, defaultValues, reset])
 
     const searchTermHook: any = {
         currentPage,
         openPopover,
         currentTab,
+        itemToEdit,
         // POPOVER_OPTIONS,
         // TABS,
         setCurrentPage,
@@ -229,7 +231,7 @@ const useCall = () => {
         setValue,
         handleSubmit,
         isSubmitting,
-        onClickCall,
+        onClickItem,
         onDragEnd,
         onSubmit,
         onCancel
