@@ -66,7 +66,6 @@ export default function ProcessCard({searchTermHook} : any){
                                     backgroundColor: (theme) => theme.palette.grey[500],
                                 }
                             }}
-                            onClick={() => {activitiesListHook.setOpenModal(true)}}
                         >
                             <Iconify width={18} height={18} icon='ic:baseline-plus'/>
                         </IconButton>
