@@ -34,6 +34,7 @@ export default function ProceduralList({movimentationHook}: any){
                         hasFilter
                         hasDownloadExcel
                         hasDownloadPdf
+                        statusFilter={proceduralHook.selectedFilterInfo ? proceduralHook.selectedFilterInfo.status : ''}
                         subDescription={proceduralHook.selectedFilter !== '' && proceduralHook.selectedFilterInfo && (
                             <Stack direction={'row'} >
                                 <Stack direction={'row'} ml={3}>

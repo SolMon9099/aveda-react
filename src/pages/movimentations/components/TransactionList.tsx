@@ -9,6 +9,7 @@ import FilterButtons from "./FilterButtons";
 import useTransactionList from "../hooks/TransactionList.hook";
 import { useNavigate } from "react-router-dom";
 import Label from "src/components/Label";
+import { useEffect, useState } from "react";
 
 
 export default function TransactionList({movimentationHook}: any){
@@ -35,6 +36,7 @@ export default function TransactionList({movimentationHook}: any){
                         hasFilter
                         hasDownloadExcel
                         hasDownloadPdf
+                        statusFilter={transactionHook.selectedFilterInfo ? transactionHook.selectedFilterInfo.status : ''}
                         subDescription={transactionHook.selectedFilter !== '' && transactionHook.selectedFilterInfo && (
                             <Stack direction={'row'} >
                                 <Stack direction={'row'} ml={3}>

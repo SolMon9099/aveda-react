@@ -83,10 +83,10 @@ const useTransaction = () => {
     ]
 
     const FILTER_TYPES = [
-        {value: 'received', label: 'Recebidas', date: 'hoje', color: 'info'},
-        {value: 'revised', label: 'Revisadas', date: 'hoje', color: 'success'},
-        {value: 'pending', label: 'Pendentes', date: 'hoje', color: 'warning'},
-        {value: 'pending_all', label: 'Pendentes', date: 'todo período', color: 'warning'},
+        {value: 'received', status: 'received', label: 'Recebidas', date: 'hoje', color: 'info'},
+        {value: 'revised', status: 'revised', label: 'Revisadas', date: 'hoje', color: 'success'},
+        {value: 'pending', status: 'pending', label: 'Pendentes', date: 'hoje', color: 'warning'},
+        {value: 'pending_all', status: 'pending', label: 'Pendentes', date: 'todo período', color: 'warning'},
     ]
     
     useEffect(() =>{

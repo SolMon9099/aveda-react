@@ -26,6 +26,7 @@ type Props = {
     hasFilter?: boolean,
     hasDownloadPdf?: boolean,
     hasDownloadExcel?: boolean,
+    statusFilter?: string,
     subDescription?: React.ReactNode,
     hasRecord?:boolean,
     hasRecordMark?:boolean,
@@ -58,6 +59,7 @@ export default function TableRox({
         hasFilter=false,
         hasDownloadPdf=false,
         hasDownloadExcel=false,
+        statusFilter='',
         subDescription,
         hasRecord=false,
         hasRecordMark=false,
@@ -92,6 +94,7 @@ export default function TableRox({
         onSort,
         onChangePage,
         onChangeRowsPerPage,
+        setFilteredData,
     } = useTableRox({
         defaultOrderBy: defaultOrderBy,
         tableData: data,
@@ -101,10 +104,25 @@ export default function TableRox({
         defaultSelected: defaultSelected
     });
     
-    const dataFiltered: any[] = applySortFilter({
+    let dataFiltered: any[] = applySortFilter({
         tableData: filteredData,
         comparator: getComparator(order, orderBy),
     });
+
+    if (statusFilter !== '') {
+        dataFiltered = dataFiltered.slice().filter((item: any) => {
+            let matched: boolean = false
+            if (item?.status && item.status.length > 0) {
+                item.status.map((s: any) => {
+                    console.log("s === ", s)
+                    if (statusFilter === s.value) {
+                        matched = true
+                    }
+                })
+            }
+            return matched
+        })
+    }
 
     return(
         <Card>

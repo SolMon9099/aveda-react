@@ -151,6 +151,7 @@ export default function useTableRox(props?: Props) {
     onSort,
     onChangePage,
     onChangeRowsPerPage,
+    setFilteredData,
   };
 }
 
