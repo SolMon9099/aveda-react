@@ -66,6 +66,7 @@ export default function MovimentationList({processDetailHook}: any){
                                         backgroundColor: (theme) => theme.palette.grey[500],
                                     }
                                 }}
+                                onClick={() => navigate(PATH_ERP.processMovimentation + '/' + process?._id + '/' + 'doc')}
                             >
                                 <Iconify width={18} height={18} icon='mdi:file-download-outline'/>
                             </IconButton>

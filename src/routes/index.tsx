@@ -65,12 +65,13 @@ export default function Router() {
         { path: 'caso/manual', element: <CaseHandle/> },
         { path: 'caso/manual/:caseManualId', element: <CaseHandle/> },
         { path: 'caso/documento/:caseDocumentId', element: <ProcessDocument/> },
+        { path: 'caso/movimentacao/:caseMovimentationId/:type?', element: <CaseMovimentation/> },
         { path: 'processos/manual', element: <ProcessHandle/> },
         { path: 'processos/manual/:processManualId', element: <ProcessHandle/> },
         { path: 'processos/importar', element: <ProcessImport/> },
         { path: 'processos/importar/:listId', element: <ProcessImportDetail/> },
         { path: 'processos/documento/:processDocumentId', element: <ProcessDocument/> },
-        { path: 'processos/movimentacao/:processMovimentationId', element: <ProcessMovimentation/> },
+        { path: 'processos/movimentacao/:processMovimentationId/:type?', element: <ProcessMovimentation/> },
         { path: 'processos/lista-importacao', element: <ProcessImportList/> },
         { path: 'financeiro', element: <WIP/> },
         { path: 'atendimentos', element: <Calls/> },
@@ -128,6 +129,7 @@ const ProcessDocument = Loadable(lazy(() => import('../pages/process-document/Pr
 const ProcessMovimentation = Loadable(lazy(() => import('../pages/process-movimentation/ProcessMovimentation')));
 const CaseHandle = Loadable(lazy(() => import('../pages/case-handle/CaseHandle')));
 const CaseDetail = Loadable(lazy(() => import('../pages/case-detail/CaseDetail')));
+const CaseMovimentation = Loadable(lazy(() => import('../pages/case-movimentation/CaseMovimentation')));
 
 // Movimentation
 const Movimentations = Loadable(lazy(() => import('../pages/movimentations/Movimentations')));

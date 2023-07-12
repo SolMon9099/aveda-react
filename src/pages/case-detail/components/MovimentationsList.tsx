@@ -61,6 +61,7 @@ export default function MovimentationList({caseDetailHook}: any){
                                         backgroundColor: (theme) => theme.palette.grey[500],
                                     }
                                 }}
+                                onClick={() => navigate(PATH_ERP.caseMovimentation + '/' + process?._id + '/' + 'doc')}
                             >
                                 <Iconify width={18} height={18} icon='mdi:file-download-outline'/>
                             </IconButton>
@@ -76,7 +77,7 @@ export default function MovimentationList({caseDetailHook}: any){
                                         backgroundColor: (theme) => theme.palette.grey[500],
                                     }
                                 }}
-                                onClick={() => navigate(PATH_ERP.processMovimentation + '/' + process?._id)}
+                                onClick={() => navigate(PATH_ERP.caseMovimentation + '/' + process?._id)}
                             >
                                 <Iconify width={18} height={18} icon='ic:baseline-plus'/>
                             </IconButton>

@@ -49,6 +49,7 @@ export const PATH_ERP = {
   processDocument: path(ROOTS_ERP, '/processos/documento'),
   caseDocument: path(ROOTS_ERP, '/caso/documento'),
   processMovimentation: path(ROOTS_ERP, '/processos/movimentacao'),
+  caseMovimentation: path(ROOTS_ERP, '/caso/movimentacao'),
   finance: path(ROOTS_ERP, '/financeiro'),
   calls: path(ROOTS_ERP, '/atendimentos'),
   callHandle: path(ROOTS_ERP, '/atendimentos/manual'),
