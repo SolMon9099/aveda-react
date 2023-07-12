@@ -5,7 +5,7 @@ import { randomInArray, randomItemsInArray, randomNumberRange } from "./funcs";
 import { futuredValues } from "./sentence";
 
 const status = [
-    { title: 'Activo', value: 'active', color: 'success' },
+    { title: 'Activo', value: 'active', color: 'opening' },
     { title: 'Inactivo', value: 'inactive', color: 'error' },
 ]
 
