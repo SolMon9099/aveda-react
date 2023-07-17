@@ -1,4 +1,4 @@
-import { Avatar, Box, Checkbox, Stack, TableBody, TableCell, TableRow, Typography } from "@mui/material";
+import { Avatar, Box, Checkbox, Stack, TableCell, TableRow, Typography } from "@mui/material";
 import { capitalize } from "lodash";
 import Iconify from "../Iconify";
 import Label from "../Label";
@@ -86,6 +86,14 @@ export default function TableRowRox({
                                     )}
                                 </Stack>
                             }
+                            {(head.type && head.type === 'coloredTag') &&
+                                <Stack spacing={1} direction='row'>
+                                    <Label variant="filled" sx={{ borderRadius: 10 }} color={dataRow.color}>
+                                        {dataRow.title}
+                                    </Label>
+                                    <Box flexGrow={1}/>
+                                </Stack>
+                            }
                             {(head.type && head.type === 'label') && (
                                 <Label
                                     variant="filled"
@@ -94,7 +102,7 @@ export default function TableRowRox({
                                     {dataRow}
                                 </Label>
                             )}
-                            {(!head.type || (head.type !== 'label' && head.type !== 'coloredLabel')) && (
+                            {(!head.type || (head.type !== 'label' && head.type !== 'coloredLabel' && head.type !== 'coloredTag')) && (
                                 <Stack direction='row' spacing={1}>
                                     {(newInfoKey && row[newInfoKey] && idx === 0) &&
                                         <Box

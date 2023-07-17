@@ -1,10 +1,9 @@
-import { Box, Container, Grid, IconButton, Stack, Typography, MenuItem } from "@mui/material";
+import { Box, Container, IconButton, Stack, Typography, MenuItem } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import AdevaLoading from "src/components/AdevaLoading";
 import Iconify from "src/components/Iconify";
 import Page from "src/components/Page";
 import MenuPopover from "src/components/MenuPopover";
-import useResponsive from "src/hooks/useResponsive";
 import { useSelector } from "src/redux/store";
 import { PATH_ERP } from "src/routes/paths";
 import ContactDetailTabs from "./components/ContactDetailTabs";
@@ -20,20 +19,20 @@ import Label from "src/components/Label";
 // import ServiceList from "src/pages/process-detail/components/ServiceList";
 // import LinkedActivitiesCard from "src/pages/process-detail/components/LinkedActivitiesCard";
 import ActivityModal from "src/pages/case-detail/components/ActivityModal";
+import { CLASSIFICATION_OPTIONS } from "../contacts-handle/hooks/ContactsHandle.hook";
+import RegistrationDataCard from "./components/RegistrationDataCard";
 
 
 export default function ProcessImportDetail(){
     const navigate = useNavigate()
-    const { process, isLoadingProcessDetail } = useSelector((state) => state.processDetail)
-    const { processDetailHook } = useContactDetail()
+    const { contact, isLoadingContactById } = useSelector((state) => state.contact)
+    const { contactDetailHook } = useContactDetail()
     const { activitiesListHook } = useActivitiesList()
-
-    const isDesktop = useResponsive('up', 'md');
     
     return(
         <Page title='Detalhe do Processo'>
             <Container maxWidth='lg' sx={{ mt: 3 }}>
-            {isLoadingProcessDetail ?
+            {isLoadingContactById ?
                 <Box flexGrow={1} display='flex' justifyContent='center' sx={{mt: 40}}>
                     <AdevaLoading/>
                 </Box>
@@ -46,14 +45,17 @@ export default function ProcessImportDetail(){
                             </IconButton>
                             <Stack>
                                 <Typography variant='h5'>
-                                    {process?.title}
+                                    {contact?.name}
+                                </Typography>
+                                <Typography variant='body2'>
+                                    {contact?.companyName}
                                 </Typography>
                                 <Stack direction='row' spacing={1}>
                                     <Label
-                                        color={'default'}
+                                        sx={{backgroundColor: CLASSIFICATION_OPTIONS.find((opt: any) => opt.value === contact?.classification)?.color, borderRadius: 10}}
                                         variant="filled"
                                     >
-                                        {'Cliente'}
+                                        {CLASSIFICATION_OPTIONS.find((opt: any) => opt.value === contact?.classification)?.label}
                                     </Label>
                                 </Stack>
                             </Stack>
@@ -73,32 +75,19 @@ export default function ProcessImportDetail(){
                             <Iconify icon='ic:outline-more-vert'/>
                         </IconButton>             
                     </Stack>
-                    <ContactDetailTabs processDetailHook={processDetailHook}/>
-                    {processDetailHook.currentTab === 1 ?
+                    <ContactDetailTabs contactDetailHook={contactDetailHook}/>
+                    {contactDetailHook.currentTab === 1 ?
+                        <RegistrationDataCard/>
+                        :
+                        contactDetailHook.currentTab === 2 ?
                         <></>
                         :
-                        processDetailHook.currentTab === 2 ?
-                        <></>
-                        // <Box flexGrow={1}>
-                        //     <Grid container spacing={3}>
-                        //         <Grid item md={8} xs={12}>
-                        //             <ServiceList/>
-                        //         </Grid>
-                        //         {isDesktop &&
-                        //             <Grid item md={4} xs={0}>
-                        //                 <LinkedActivitiesCard type='service' activitiesListHook={activitiesListHook} processDetailHook={processDetailHook}/>
-                        //             </Grid>
-                        //         }
-                        //     </Grid>
-                        // </Box>
-                        :
-                        processDetailHook.currentTab === 3 ?
+                        contactDetailHook.currentTab === 3 ?
                         <ActivitiesList activitiesListHook={activitiesListHook}/>
                         :
-                        processDetailHook.currentTab === 4 ?
-                        <ServiceList processDetailHook={processDetailHook} activitiesListHook={activitiesListHook} />
+                        contactDetailHook.currentTab === 4 ?
+                        <ServiceList contactDetailHook={contactDetailHook} activitiesListHook={activitiesListHook} />
                         :
-                        // <DocumentList/>
                         <></>
                     }
                 </Stack>
@@ -106,9 +95,9 @@ export default function ProcessImportDetail(){
             <ActivityModal activitiesListHook={activitiesListHook}/>
             </Container>
             <MenuPopover
-                open={Boolean(processDetailHook.openPopover)}
-                anchorEl={processDetailHook.openPopover}
-                onClose={() => processDetailHook.setOpenPopover(null)}
+                open={Boolean(contactDetailHook.openPopover)}
+                anchorEl={contactDetailHook.openPopover}
+                onClose={() => contactDetailHook.setOpenPopover(null)}
                 sx={{
                 '& .MuiMenuItem-root': {
                     px: 1,
@@ -118,7 +107,7 @@ export default function ProcessImportDetail(){
                 }}
                 disabledArrow
             >
-                {processDetailHook.POPOVER_OPTIONS?.map((opt: {to: string, label: string}) =>
+                {contactDetailHook.POPOVER_OPTIONS?.map((opt: {to: string, label: string}) =>
                     <MenuItem
                         key={'OPT_'+opt.to}
                         onClick={() => navigate(opt.to)}

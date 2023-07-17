@@ -17,7 +17,7 @@ import ServiceTimeLineItem from "./ServiceTimeLineItem";
 import SubTimeLineItem from "./SubTimeLineItem";
 
 
-export default function ServiceList({processDetailHook, activitiesListHook} : any){
+export default function ServiceList({contactDetailHook, activitiesListHook} : any){
     const { process } = useSelector((state) => state.processDetail)
     const { callList } = useSelector((state) => state.call)
     const { serviceListHook } = useServiceList()
@@ -84,7 +84,7 @@ export default function ServiceList({processDetailHook, activitiesListHook} : an
                                                     backgroundColor: (theme) => theme.palette.grey[500],
                                                 }
                                             }}
-                                            onClick={(e) => processDetailHook?.setOpenPopover(e.currentTarget)}
+                                            onClick={(e) => contactDetailHook?.setOpenPopover(e.currentTarget)}
                                         >
                                             <Iconify icon='ic:outline-more-vert'/>
                                         </IconButton>
@@ -217,7 +217,7 @@ export default function ServiceList({processDetailHook, activitiesListHook} : an
                         </Grid>
                         {isDesktop &&
                             <Grid item md={4} xs={0}>
-                                <LinkedActivitiesCard type='service' activitiesListHook={activitiesListHook} processDetailHook={processDetailHook}/>
+                                <LinkedActivitiesCard type='service' activitiesListHook={activitiesListHook} processDetailHook={contactDetailHook}/>
                             </Grid>
                         }
                     </Stack>

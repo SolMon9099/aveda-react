@@ -1,18 +1,18 @@
-import { Box, Button, Container, IconButton, MenuItem, Stack, Tooltip, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Box, Button, Card, Container, IconButton, Stack, Tooltip, Typography } from "@mui/material";
 import AdevaLoading from "src/components/AdevaLoading";
 import Iconify from "src/components/Iconify";
-import MenuPopover from "src/components/MenuPopover";
 import Page from "src/components/Page";
 import TableRox from "src/components/table-rox/TableRox";
 import { useSelector } from "src/redux/store";
 import useProcess from "./hooks/Contacts.hook";
+import { useNavigate } from "react-router-dom";
+import { PATH_ERP } from "src/routes/paths";
 
 
 export default function Contacts(){
-    const { contactHook } = useProcess()
     const navigate = useNavigate()
-    const { conactList, isLoadingContactList } = useSelector((state) => state.contact)
+    const { contactHook } = useProcess()
+    const { contactList, isLoadingContactList } = useSelector((state) => state.contact)
     
     return(
         <Page title="Contatos">
@@ -28,61 +28,45 @@ export default function Contacts(){
                                 Contatos
                             </Typography>
                             <Button
-                                // onClick={(e) => contactHook.setOpenPopover(e.currentTarget)}
                                 variant='contained'
-                                // endIcon={<Iconify icon='ic:round-expand-more'/>}
+                                onClick={() => navigate(PATH_ERP.peopleHandle)}
                             >
-                                Novo
+                                Novo Contato
                             </Button>
                         </Stack>
-                        <TableRox 
-                            data={conactList} 
-                            header={contactHook.TABLEHEADER} 
-                            defaultOrderBy='title' 
-                            hasCount 
-                            hasSearch 
-                            labelCount="Contatos"
-                            selectKey="_id"
-                            selectType="all"
-                            onSelectAllRowFunction={contactHook.onSelectAllRows}
-                            onSelectRowFunction={contactHook.onSelectRow}
-                            onClickKey='_id'
-                            newInfoKey="hasAtualization"
-                            onClickFunction={(id) => contactHook.onClickProcess(id)}
-                            selectActions={
-                                <Tooltip title="Deletar">
-                                    <IconButton color="primary" onClick={() => contactHook.handleDeleteProcess()}>
-                                        <Iconify icon={'eva:trash-2-outline'} />
-                                    </IconButton>
-                                </Tooltip>
-                            }
-                        />
+                        {contactList.length > 0 ?
+                            <TableRox 
+                                data={contactList} 
+                                header={contactHook.TABLEHEADER} 
+                                defaultOrderBy='name' 
+                                hasCount 
+                                hasSearch 
+                                labelCount="Contatos"
+                                selectKey="_id"
+                                selectType="all"
+                                onSelectAllRowFunction={contactHook.onSelectAllRows}
+                                onSelectRowFunction={contactHook.onSelectRow}
+                                onClickKey='_id'
+                                newInfoKey="hasAtualization"
+                                onClickFunction={(id) => contactHook.onClickContact(id)}
+                                selectActions={
+                                    <Tooltip title="Inativar">
+                                        <IconButton color="primary" onClick={() => contactHook.handleInactiveContact()}>
+                                            <Iconify icon={'fluent-mdl2:block-contact'} />
+                                        </IconButton>
+                                    </Tooltip>
+                                }
+                            />
+                            :
+                            <Card sx={{height: '360px', alignItems: 'center', justifyContent:'center', display: 'flex'}}>
+                                <Typography variant="subtitle1" fontWeight={700}>
+                                    Não existem contatos cadastrados.
+                                </Typography>
+                            </Card>
+                        }
                     </Stack>
                 }
             </Container>
-
-            <MenuPopover
-                open={Boolean(contactHook.openPopover)}
-                anchorEl={contactHook.openPopover}
-                onClose={() => contactHook.setOpenPopover(null)}
-                sx={{
-                  '& .MuiMenuItem-root': {
-                    px: 1,
-                    typography: 'body2',
-                    borderRadius: 0.75,
-                  },
-                }}
-                disabledArrow
-            >
-                {contactHook.POPOVER_OPTIONS.map((opt: {to: string, label: string}) =>
-                    <MenuItem
-                        key={'OPT_'+opt.to}
-                        onClick={() => navigate(opt.to)}
-                    >
-                        {opt.label}
-                    </MenuItem>
-                )}
-            </MenuPopover>
         </Page>
     )
 }

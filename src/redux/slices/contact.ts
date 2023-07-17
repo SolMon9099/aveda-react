@@ -1,22 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit';
-import moment from 'moment';
-import { processListType } from 'src/@types/process';
-import { _contactList } from 'src/_mock/_contacts';
+import { _contactList, _contactListFull } from 'src/_mock/_contacts';
 import { dispatch } from '../store';
 import { put } from './api';
+import { contactListType, newContactSchema } from 'src/@types/contact';
 
 type SavedState = {
   isLoading: boolean,
   isLoadingContactList: boolean,
+  isLoadingContactById: boolean,
   error: any | null,
-  conactList: processListType[]
+  contactList: contactListType[]
+  contact: newContactSchema | null;
 }
 
 const initialState: SavedState = {
   isLoading: false,
   isLoadingContactList: false,
+  isLoadingContactById: false,
   error: null,
-  conactList: []
+  contactList: [],
+  contact: null,
 };
 
 const slice = createSlice({
@@ -27,8 +30,12 @@ const slice = createSlice({
       state.isLoading = true;
     },
 
-    startLoadingProcessList(state) {
+    startLoadingContactList(state) {
       state.isLoadingContactList = true;
+    },
+
+    startLoadingContactById(state) {
+      state.isLoadingContactById = true;
     },
 
     hasError(state, action) {
@@ -36,34 +43,52 @@ const slice = createSlice({
       state.error = action.payload;
     },
 
-    getProcessListSuccess(state, action) {
-      state.conactList = action.payload;
+    getContactListSuccess(state, action) {
+      state.contactList = action.payload;
       state.isLoadingContactList = false;
     },
+
+    getContactByIdSuccess(state, action){
+      state.contact = action.payload;
+      state.isLoadingContactById = false;
+    }
   },
 });
 
 // Reducer
 export default slice.reducer;
 
-export function getProcessList() {
+export function getContactById(id: string) {
   return async () => {
-    dispatch(slice.actions.startLoadingProcessList());
+    dispatch(slice.actions.startLoadingContactById());
     try {
-      // var response = await get('/process/all')
+      // var response = await get('/contact/all')
       await new Promise((resolve) => setTimeout(resolve, 500));
-      var auxProcess = _contactList.map((p) => ({ ...p, lastChange: moment(p.lastChange).format('DD/MM/YYYY'), subtitle: `Processo Ativo • ${p.number}` }))
-      dispatch(slice.actions.getProcessListSuccess([...auxProcess]))
+      const contact = _contactListFull.find((c) => c._id === id)
+      dispatch(slice.actions.getContactByIdSuccess(contact))
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }
   };
 }
 
-export function inactiveProcess(ids: string[]) {
+export function getContactList() {
+  return async () => {
+    dispatch(slice.actions.startLoadingContactList());
+    try {
+      // var response = await get('/contact/all')
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      dispatch(slice.actions.getContactListSuccess(_contactList))
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
+export function inactiveContact(ids: string[]) {
   return async () => {
     try {
-      await put('/process/inactive', { ids })
+      await put('/contact/inactive', { ids })
       await new Promise((resolve) => setTimeout(resolve, 500));
     } catch (error) {
       dispatch(slice.actions.hasError(error));

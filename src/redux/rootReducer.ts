@@ -29,6 +29,7 @@ import transactionReducer from './slices/transaction';
 import proceduralReducer from './slices/procedural';
 import searchTermReducer from './slices/searchTerms';
 import calendarReducer from './slices/calendar';
+import contactsHandleReducer from './slices/contactsHandle';
 
 // ----------------------------------------------------------------------
 
@@ -55,7 +56,7 @@ const rootReducer = combineReducers({
   call:callReducer,
   callHandle:callHandleReducer,
   callDetail: callDetailReducer,
-  contact:contactReducer,
+  contact: contactReducer,
   processImport: processImportReducer,
   processImportList: processImportListReducer,
   processDetail: processDetailReducer,
@@ -66,7 +67,8 @@ const rootReducer = combineReducers({
   transaction: transactionReducer,
   procedural: proceduralReducer,
   searchTerm: searchTermReducer,
-  calendar: calendarReducer
+  calendar: calendarReducer,
+  contactsHandle: contactsHandleReducer
 });
 
 export { rootPersistConfig, rootReducer };

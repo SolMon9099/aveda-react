@@ -57,6 +57,8 @@ export default function Router() {
         { element: <Navigate to="/erp/processos" replace />, index: true },
         { path: 'pessoas', element: <Contacts/> },
         { path: 'pessoas/:contactId', element: <ContactDetail/> },
+        { path: 'pessoas/manual', element: <ContactsHandle/> },
+        { path: 'pessoas/manual/:contactId', element: <ContactsHandle/> },
         { path: 'calendario', element: <Calendar/> },
         { path: 'tarefas', element: <Tasks/> },
         { path: 'processos', element: <Process/> },
@@ -136,14 +138,15 @@ const Movimentations = Loadable(lazy(() => import('../pages/movimentations/Movim
 const SearchHandle = Loadable(lazy(() => import('../pages/search-handle/SearchHandle')));
 const SearchTerms = Loadable(lazy(() => import('../pages/search-terms/SearchTerms')));
 
-//tasks
-
+// Tasks
 const Tasks = Loadable(lazy(() => import('../pages/tasks/Tasks')));
 
+// Contacts
 const Contacts = Loadable(lazy(() => import('../pages/contacts/Contacts')));
 const ContactDetail = Loadable(lazy(() => import('../pages/contacts/ContactDetail')));
+const ContactsHandle = Loadable(lazy(() => import('../pages/contacts-handle/ContactsHandle')));
 
-// calls(attendimentos)
+// Calls
 const Calls = Loadable(lazy(() => import('../pages/calls/Calls')));
 const CallHandle = Loadable(lazy(() => import('../pages/call-handle/CallHandle')));
 const CallProcessHandle = Loadable(lazy(() => import('../pages/call-process-handle/CallHandle')));

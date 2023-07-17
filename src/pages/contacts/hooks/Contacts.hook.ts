@@ -1,38 +1,29 @@
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getProcessList, inactiveProcess } from "src/redux/slices/contact";
-import { useDispatch, useSelector } from "src/redux/store";
+import { getContactList, inactiveContact } from "src/redux/slices/contact";
+import { useDispatch } from "src/redux/store";
 import { PATH_ERP } from "src/routes/paths";
 
 const useProcess = () => {
     const { enqueueSnackbar } = useSnackbar()
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const { conactList } = useSelector((state) => state.contact)
-    const [ openPopover, setOpenPopover ] = useState(null)
     const [ selectedIds, setSelectedIds ] = useState<string[]>([])
-    const POPOVER_OPTIONS = [
-        {label: 'Caso', to: PATH_ERP.handleCase},
-        {label: 'Processo', to: PATH_ERP.handleProcess},
-        {label: 'Importar Processos', to: PATH_ERP.importProcess},
-        {label: 'Lista de Importações', to: PATH_ERP.importListProcess},
-    ]
     const TABLEHEADER = [
-        {id: 'title', subId: 'subtitle', tagsId: 'tags', label: 'Título'},
-        {id: 'clientName', subId: 'folder', label: 'Cliente/Pasta'},
-        {id: 'action', subId: 'foro', label: 'Ação/Foro'},
-        {id: 'lastChange', label: 'Ult. Mov.', align: 'left'},
+        {id: 'name', subId: 'subName', label: 'Nome'},
+        {id: 'classification', label: 'Classificação', type: 'coloredTag' },
+        {id: 'status', label: 'Status', type: 'coloredTag'},
     ]
 
     useEffect(() =>{
-        dispatch(getProcessList())
+        dispatch(getContactList())
     },[dispatch])
 
-    const handleDeleteProcess = async () => {
-      await dispatch(inactiveProcess(selectedIds))
-      enqueueSnackbar('Processos/Casos deletados com sucesso')
-      dispatch(getProcessList())
+    const handleInactiveContact = async () => {
+      await dispatch(inactiveContact(selectedIds))
+      enqueueSnackbar('Contatos inativados com sucesso!')
+      dispatch(getContactList())
     }
 
     const onSelectRow = (id: string) => {    
@@ -59,21 +50,16 @@ const useProcess = () => {
         setSelectedIds(newSelecteds)
     };
 
-    const onClickProcess = (id: string) => {
-      // var process = conactList.find((p) => p._id === id)
+    const onClickContact = (id: string) => {
       navigate(`${PATH_ERP.people}/${id}` )
-      
     }
 
     const contactHook: any = {
-        openPopover,
-        POPOVER_OPTIONS,
         TABLEHEADER,
-        setOpenPopover,
-        handleDeleteProcess,
+        handleInactiveContact,
         onSelectRow,
         onSelectAllRows,
-        onClickProcess
+        onClickContact
     }
 
     return{

@@ -1,11 +1,11 @@
 import { Tab, Tabs } from "@mui/material";
 import Label from "src/components/Label";
 
-export default function ContactDetailTabs({ contactDetailHook }: any){
+export default function FormTabs({ contactsHandleHook }: any){
     return(
         <Tabs
-            value={contactDetailHook.currentTab}
-            onChange={(_,value) => contactDetailHook.setCurrentTab(value)}
+            value={contactsHandleHook.formTab}
+            onChange={(_,value) => contactsHandleHook.setFormTab(value)}
             allowScrollButtonsMobile
             variant="scrollable"
             scrollButtons="auto"
@@ -14,13 +14,13 @@ export default function ContactDetailTabs({ contactDetailHook }: any){
                 borderBottomColor: (theme) => theme.palette.divider
             }}
         >
-            {contactDetailHook.TABS.map((tab: any) =>
+            {contactsHandleHook.FORM_TABS.map((tab: any) =>
                 <Tab
                     disableRipple
                     key={'TAB_'+tab.value+tab.label}
                     value={tab.value}
                     label={tab.label}
-                    iconPosition='start'
+                    iconPosition='end'
                     icon={tab.icon &&
                         <Label
                             variant="filled"

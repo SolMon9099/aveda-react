@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useLocation, useParams } from "react-router-dom"
-import { getProcessDetail } from "src/redux/slices/processDetail"
+import { getProcessDetail } from "src/redux/slices/processDetail";
+import { getContactById } from "src/redux/slices/contact";
 import { useDispatch } from "src/redux/store"
 import { PATH_ERP } from "src/routes/paths";
 
@@ -30,11 +31,12 @@ const useContactDetail = () => {
     useEffect(() =>{
         if(contactId){
             dispatch(getProcessDetail(contactId))
+            dispatch(getContactById(contactId))
         }
     },[dispatch, contactId, pathname])
 
 
-    const processDetailHook: any = {
+    const contactDetailHook: any = {
         TABS,
         POPOVER_OPTIONS,
         currentTab,
@@ -44,7 +46,7 @@ const useContactDetail = () => {
     }
 
     return{
-        processDetailHook
+        contactDetailHook
     }
 }
 
